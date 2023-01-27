@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "818952798158",
+    "project_id": "lawyaar-70c52",
+    "storage_bucket": "lawyaar-70c52.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818952798158:android:513086ecf9919a6916b59f",
+        "android_client_info": {
+          "package_name": "com.lawyaar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "818952798158-39eauv7lstnmk7q7piruge7253k5p3n4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lawyaar",
+            "certificate_hash": "00bcd7dd417c6c9e832242796ad0ed9880044a13"
+          }
+        },
+        {
+          "client_id": "818952798158-a7vl19ceg08vimt5i5krpkh6u3rk6hos.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOvjgD3bY_9BLYLfscYTLvqOZvMG_kFRw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "818952798158-a7vl19ceg08vimt5i5krpkh6u3rk6hos.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
