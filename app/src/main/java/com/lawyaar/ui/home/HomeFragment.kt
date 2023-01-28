@@ -4,39 +4,64 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.lawyaar.databinding.FragmentHomeBinding
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.lawyaar.R
+import com.lawyaar.adapters.LawyaarAdapter
+import com.lawyaar.retrofit.LawyaarApi
+import com.lawyaar.retrofit.MainRepostry
+import com.lawyaar.retrofit.RetrofitHelperObj
+import com.lawyaar.testlist.QuoteList
 
 class HomeFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private  var layoutManager : RecyclerView.LayoutManager? =null
+    private lateinit var adapter : LawyaarAdapter
+    lateinit var homeViewModel: HomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        val lawyaarApi = RetrofitHelperObj.getInstance().create(LawyaarApi::class.java)
+        val repostry = MainRepostry(lawyaarApi)
+        homeViewModel  = ViewModelProvider(this,HomeViewModelFactory(repostry)).get(HomeViewModel::class.java)
+        //var data = ArrayList<com.lawyaar.testlist.Result>
+        val veiw= inflater.inflate(R.layout.fragment_home,container,false)
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-        return root
+        var recycle_veiw = veiw.findViewById<RecyclerView>(R.id.recycle_veiw)
+
+        recycle_veiw.layoutManager = LinearLayoutManager(activity)
+        adapter = LawyaarAdapter()
+        recycle_veiw.adapter = adapter
+
+
+
+        homeViewModel.quotes.observe(this, Observer<QuoteList> {
+            if (it != null)
+            {
+
+                adapter.setUpdateData(it.results)
+
+            }
+        })
+
+
+        return veiw
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+
+    }
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 }

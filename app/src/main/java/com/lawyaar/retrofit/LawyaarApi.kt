@@ -7,8 +7,8 @@ import retrofit2.http.GET
 interface LawyaarApi
 {
 
-    @GET("/quotes")
-    suspend fun getQuotes() : Response<QuoteList>
+    @GET("/quotes?page=1")
+   suspend  fun getQuotes() : Response<QuoteList>
 
 
 }

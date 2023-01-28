@@ -10,4 +10,7 @@
     <string name="menu_home">lawyaar</string>
     <string name="menu_gallery">Appoitment</string>
     <string name="menu_slideshow">Logout</string>
+    <string name="veiw_details"><u>Veiw details</u></string>
+
+
 </resources>
