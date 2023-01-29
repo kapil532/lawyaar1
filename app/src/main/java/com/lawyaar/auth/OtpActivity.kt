@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
+import com.google.firebase.internal.InternalTokenResult
 import com.lawyaar.MainActivity
 import com.lawyaar.R
 import java.util.concurrent.TimeUnit
@@ -151,6 +152,7 @@ class OTPActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Toast.makeText(this, "Authenticate Successfully", Toast.LENGTH_SHORT).show()
 
+                    //initforAuth()
                     sendToMain()
                 } else {
                     // Sign in failed, display a message and update the UI
@@ -163,6 +165,8 @@ class OTPActivity : AppCompatActivity() {
                 progressBar.visibility = View.VISIBLE
             }
     }
+
+
 
     private fun sendToMain() {
         startActivity(Intent(this, MainActivity::class.java))

@@ -2,6 +2,7 @@ package com.lawyaar
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -13,6 +14,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.internal.InternalTokenResult
 import com.lawyaar.auth.PhoneActivity
 import com.lawyaar.databinding.ActivityMainBinding
 
@@ -57,6 +59,20 @@ class MainActivity : AppCompatActivity() {
     {
 
         auth = FirebaseAuth.getInstance()
+        //auth.set
+        auth.getAccessToken(true)
+        auth.addIdTokenListener { it: InternalTokenResult ->
+            Log.d("TAG", "addIdTokenListener: called--> "+it.token ?: "notoken")
+
+        }
+
+    }
+    fun initforAuth()
+    {
+        FirebaseAuth.getInstance().addIdTokenListener { it: InternalTokenResult ->
+            Log.d("TAG", "addIdTokenListener: called--> "+it.token ?: "notoken")
+
+        }
     }
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)

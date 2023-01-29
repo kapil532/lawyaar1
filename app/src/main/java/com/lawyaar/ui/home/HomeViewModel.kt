@@ -16,18 +16,17 @@ import javax.security.auth.callback.Callback
 //jab kabhi parameter waala veiw model banate hai
 // tab humko veiwmodel factory bhi banana hota hai
 
-class HomeViewModel constructor(private val repostry: MainRepostry): ViewModel() {
-
-    init {
+class HomeViewModel constructor(private val repostry: MainRepostry): ViewModel()
+  {
+    init
+    {
         viewModelScope.launch(Dispatchers.IO) {
             repostry.getAllquotes()
         }
-
-
-
     }
         val quotes : LiveData<QuoteList>
         get() = repostry.quotes
+  }
 
 
-}
+
