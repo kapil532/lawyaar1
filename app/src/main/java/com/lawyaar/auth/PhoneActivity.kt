@@ -120,6 +120,7 @@ class PhoneActivity : AppCompatActivity() {
             // by combining the code with a verification ID.
             // Save verification ID and resending token so we can use them later
             val intent = Intent(this@PhoneActivity , OTPActivity::class.java)
+            Log.d("token","--.  "+token)
             intent.putExtra("OTP" , verificationId)
             intent.putExtra("resendToken" , token)
             intent.putExtra("phoneNumber" , number)

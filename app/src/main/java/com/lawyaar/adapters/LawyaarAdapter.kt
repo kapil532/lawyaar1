@@ -1,13 +1,16 @@
 package com.lawyaar.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.lawyaar.MainActivity
 import com.lawyaar.R
 import com.lawyaar.testlist.QuoteList
+import com.lawyaar.utils.CellClickListener
 
 class LawyaarAdapter() : RecyclerView.Adapter<LawyaarAdapter.MyVeiwHolder>() {
 
@@ -18,6 +21,7 @@ class LawyaarAdapter() : RecyclerView.Adapter<LawyaarAdapter.MyVeiwHolder>() {
    {
 
        val lawyaaricon : ImageView = itemVeiw.findViewById(R.id.lawaar_icon)
+
        val lawyaarname : TextView = itemVeiw.findViewById(R.id.lawyaar_name)
 
    }
@@ -31,6 +35,14 @@ class LawyaarAdapter() : RecyclerView.Adapter<LawyaarAdapter.MyVeiwHolder>() {
     }
 
 
+    private lateinit var cellClickListener: CellClickListener
+
+    fun setUplistner(cellClickListener: CellClickListener)
+    {
+        this.cellClickListener= cellClickListener
+
+    }
+
 
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): MyVeiwHolder {
@@ -43,6 +55,11 @@ class LawyaarAdapter() : RecyclerView.Adapter<LawyaarAdapter.MyVeiwHolder>() {
     override fun onBindViewHolder(viewHolder: MyVeiwHolder, i: Int) {
         val currentitem = list.get(i)
         viewHolder.lawyaarname.text = currentitem.author
+
+        viewHolder.lawyaarname.setOnClickListener({
+            //startActivity(Intent(this, MainActivity::class.java))
+            cellClickListener.onCellClickListener()
+        })
 //        viewHolder.itemKategori.text = kategori[i]
 //        viewHolder.itemIsi.t ext = isi[i]
 

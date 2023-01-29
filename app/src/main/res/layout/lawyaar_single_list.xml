@@ -31,6 +31,7 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:fontFamily="@font/proximanovaregular"
         android:layout_marginLeft="16dp"
         android:text="Sujit kumar"
         />
@@ -46,6 +47,7 @@
             android:textSize="18sp"
             android:layout_marginTop="8dp"
             android:textStyle="normal"
+            android:fontFamily="@font/proximanovaregular"
             android:layout_marginLeft="16dp"
             android:text="Faimily law expert"
             />
@@ -61,6 +63,7 @@
             android:layout_marginTop="8dp"
             android:textSize="16sp"
             android:textStyle="normal"
+            android:fontFamily="@font/proximanovaregular"
             android:layout_marginLeft="16dp"
             android:text="5 years exxperience"
             />
@@ -75,6 +78,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/proximanovaregular"
             android:textStyle="normal"
             android:layout_marginLeft="16dp"
             android:text="English/Hindi/Marathi"
@@ -92,6 +96,7 @@
             android:textSize="15sp"
             android:layout_marginTop="10dp"
             android:textStyle="bold"
+            android:fontFamily="@font/proximanovaregular"
             android:layout_marginLeft="16dp"
             android:text="Rs 10 /min"
             />
@@ -103,6 +108,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="14sp"
+            android:fontFamily="@font/proximanovaregular"
             android:layout_marginTop="24dp"
             android:textStyle="bold"
             android:layout_marginLeft="16dp"
@@ -126,6 +132,7 @@
             android:paddingTop="12dp"
             android:paddingRight="20dp"
             android:layout_marginLeft="16dp"
+            android:fontFamily="@font/proximanovaregular"
             android:gravity="center"
             android:text="Talk"
             />

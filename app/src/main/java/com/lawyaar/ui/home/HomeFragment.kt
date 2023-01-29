@@ -1,5 +1,6 @@
 package com.lawyaar.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,14 +10,17 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.lawyaar.MainActivity
 import com.lawyaar.R
 import com.lawyaar.adapters.LawyaarAdapter
 import com.lawyaar.retrofit.LawyaarApi
 import com.lawyaar.retrofit.MainRepostry
 import com.lawyaar.retrofit.RetrofitHelperObj
 import com.lawyaar.testlist.QuoteList
+import com.lawyaar.ui.lawyaardetails.LawyaarDetailsActivity
+import com.lawyaar.utils.CellClickListener
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(),CellClickListener {
 
     private  var layoutManager : RecyclerView.LayoutManager? =null
     private lateinit var adapter : LawyaarAdapter
@@ -45,23 +49,26 @@ class HomeFragment : Fragment() {
         homeViewModel.quotes.observe(this, Observer<QuoteList> {
             if (it != null)
             {
-
                 adapter.setUpdateData(it.results)
-
             }
         })
 
+        adapter.setUplistner(this)
+
+//        adapter.onI
 
         return veiw
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-
     }
     override fun onDestroyView() {
         super.onDestroyView()
+    }
+
+    override fun onCellClickListener()
+    {
+        startActivity(Intent(context , LawyaarDetailsActivity::class.java))
     }
 }
