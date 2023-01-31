@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lawyaar.MainActivity
 import com.lawyaar.R
 import com.lawyaar.adapters.LawyaarAdapter
+import com.lawyaar.payment_screen.PaymentActivity
 import com.lawyaar.retrofit.LawyaarApi
 import com.lawyaar.retrofit.MainRepostry
 import com.lawyaar.retrofit.RetrofitHelperObj
@@ -26,7 +27,7 @@ import com.razorpay.PaymentResultListener
 import org.json.JSONException
 import org.json.JSONObject
 
-class HomeFragment : Fragment(),CellClickListener ,TalkListner,PaymentResultListener {
+class HomeFragment : Fragment(),CellClickListener ,TalkListner {
 
     private  var layoutManager : RecyclerView.LayoutManager? =null
     private lateinit var adapter : LawyaarAdapter
@@ -79,41 +80,9 @@ class HomeFragment : Fragment(),CellClickListener ,TalkListner,PaymentResultList
     }
 
     override fun onTalkClickListner() {
-        initPayment(""+10)
+       // initPayment(""+10)
+        startActivity(Intent(activity , PaymentActivity::class.java))
 
     }
 
-    fun initPayment(amount : String)
-    {
-        val amt =amount
-        // rounding off the amount.
-        val amount = Math.round(amt.toFloat() * 100).toInt()
-        val checkout = Checkout()
-        // on the below line we have to see our id.
-        checkout.setKeyID("rzp_test_GJV9Uoi7YR7m2S")
-        // set image
-        checkout.setImage(R.drawable.lawyaar_icon)
-        val obj = JSONObject()
-        try {
-            obj.put("name", "Lawyaar.co")
-            obj.put("description", "Test payment")
-            obj.put("theme.color", "")
-            obj.put("currency", "INR")
-            obj.put("amount", amount)
-            obj.put("prefill.contact", "8095128426")
-            obj.put("prefill.email", "lawyaar@lawyaar.co")
-            checkout.open(activity, obj)
-        } catch (e: JSONException) {
-            e.printStackTrace()
-        }
-    }
-
-    override fun onPaymentSuccess(p0: String?)
-    {
-        Toast.makeText(context, ""+p0, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onPaymentError(p0: Int, p1: String?)
-    {
-    }
 }
