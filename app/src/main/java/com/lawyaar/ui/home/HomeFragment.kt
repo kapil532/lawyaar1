@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,8 +20,13 @@ import com.lawyaar.retrofit.RetrofitHelperObj
 import com.lawyaar.testlist.QuoteList
 import com.lawyaar.ui.lawyaardetails.LawyaarDetailsActivity
 import com.lawyaar.utils.CellClickListener
+import com.lawyaar.utils.TalkListner
+import com.razorpay.Checkout
+import com.razorpay.PaymentResultListener
+import org.json.JSONException
+import org.json.JSONObject
 
-class HomeFragment : Fragment(),CellClickListener {
+class HomeFragment : Fragment(),CellClickListener ,TalkListner,PaymentResultListener {
 
     private  var layoutManager : RecyclerView.LayoutManager? =null
     private lateinit var adapter : LawyaarAdapter
@@ -53,7 +59,7 @@ class HomeFragment : Fragment(),CellClickListener {
             }
         })
 
-        adapter.setUplistner(this)
+        adapter.setUplistner(this,this)
 
 //        adapter.onI
 
@@ -70,5 +76,44 @@ class HomeFragment : Fragment(),CellClickListener {
     override fun onCellClickListener()
     {
         startActivity(Intent(context , LawyaarDetailsActivity::class.java))
+    }
+
+    override fun onTalkClickListner() {
+        initPayment(""+10)
+
+    }
+
+    fun initPayment(amount : String)
+    {
+        val amt =amount
+        // rounding off the amount.
+        val amount = Math.round(amt.toFloat() * 100).toInt()
+        val checkout = Checkout()
+        // on the below line we have to see our id.
+        checkout.setKeyID("rzp_test_GJV9Uoi7YR7m2S")
+        // set image
+        checkout.setImage(R.drawable.lawyaar_icon)
+        val obj = JSONObject()
+        try {
+            obj.put("name", "Lawyaar.co")
+            obj.put("description", "Test payment")
+            obj.put("theme.color", "")
+            obj.put("currency", "INR")
+            obj.put("amount", amount)
+            obj.put("prefill.contact", "8095128426")
+            obj.put("prefill.email", "lawyaar@lawyaar.co")
+            checkout.open(activity, obj)
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+    }
+
+    override fun onPaymentSuccess(p0: String?)
+    {
+        Toast.makeText(context, ""+p0, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onPaymentError(p0: Int, p1: String?)
+    {
     }
 }
