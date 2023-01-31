@@ -9,20 +9,18 @@ import com.razorpay.PaymentResultListener
 import org.json.JSONException
 import org.json.JSONObject
 
-class PaymentActivity : AppCompatActivity() , PaymentResultListener
-{
+class PaymentActivity : AppCompatActivity(), PaymentResultListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-          setContentView(R.layout.payment_screen)
-              initPayment("10")
+        setContentView(R.layout.payment_screen)
+        initPayment("10")
 
     }
 
 
-    fun initPayment(amount : String)
-    {
-        val amt =amount
+    fun initPayment(amount: String) {
+        val amt = amount
         // rounding off the amount.
         val amount = Math.round(amt.toFloat() * 100).toInt()
         val checkout = Checkout()
@@ -44,16 +42,16 @@ class PaymentActivity : AppCompatActivity() , PaymentResultListener
             e.printStackTrace()
         }
     }
+
     override fun onPaymentSuccess(p0: String?) {
         Toast.makeText(applicationContext, "Thanks For Payment!", Toast.LENGTH_SHORT).show()
-       finish()
+        finish()
     }
 
-    override fun onPaymentError(p0: Int, p1: String?)
-    {
+    override fun onPaymentError(p0: Int, p1: String?) {
 
         Toast.makeText(applicationContext, "Please try again!", Toast.LENGTH_SHORT).show()
-
+        finish()
     }
 
 

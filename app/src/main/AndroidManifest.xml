@@ -44,6 +44,14 @@
             android:name=".payment_screen.PaymentActivity"
             android:theme="@style/Theme.Lawyaar.NoActionBar"></activity>
 
+<activity
+            android:name=".ui.wallet.WalletActivity"
+            android:theme="@style/Theme.Lawyaar.NoActionBar"></activity>
+
+<activity
+            android:name=".ui.book_slots.BookingSlotActivity"
+            android:theme="@style/Theme.Lawyaar.NoActionBar"></activity>
+
 
     </application>
 

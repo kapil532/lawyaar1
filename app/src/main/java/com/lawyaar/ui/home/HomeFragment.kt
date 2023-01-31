@@ -19,6 +19,7 @@ import com.lawyaar.retrofit.LawyaarApi
 import com.lawyaar.retrofit.MainRepostry
 import com.lawyaar.retrofit.RetrofitHelperObj
 import com.lawyaar.testlist.QuoteList
+import com.lawyaar.ui.book_slots.BookingSlotActivity
 import com.lawyaar.ui.lawyaardetails.LawyaarDetailsActivity
 import com.lawyaar.utils.CellClickListener
 import com.lawyaar.utils.TalkListner
@@ -81,7 +82,7 @@ class HomeFragment : Fragment(),CellClickListener ,TalkListner {
 
     override fun onTalkClickListner() {
        // initPayment(""+10)
-        startActivity(Intent(activity , PaymentActivity::class.java))
+        startActivity(Intent(activity , BookingSlotActivity::class.java))
 
     }
 
