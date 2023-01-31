@@ -1,6 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <TextView
+        android:id="@+id/header_text"
+        android:layout_width="match_parent"
+        android:fontFamily="@font/proximanovaregular"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+       android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:textStyle="bold"
+        android:text="Slots for talking to your Consulor"
+        android:layout_height="wrap_content"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/date_slots"
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:layout_below="@+id/header_text"
+        android:layout_height="wrap_content"
+        />
+
+    <TextView
+        android:id="@+id/slot_date"
+        android:layout_width="wrap_content"
+        android:fontFamily="@font/proximanovaregular"
+        android:textSize="18sp"
+        android:layout_below="@+id/date_slots"
+        android:textColor="@color/black"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="16dp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:text="Tomorrow 30 Jan"
+        android:layout_height="wrap_content"/>
+
+<View
+    android:id="@+id/view_space"
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_marginTop="8dp"
+    android:layout_below="@+id/slot_date"
+    android:background="@color/black"
+    android:backgroundTint="@color/black"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/time_slots"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_space"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp" />
+</RelativeLayout>
