@@ -123,7 +123,7 @@
             android:textColor="@color/white"
             android:textSize="14sp"
             android:background="@drawable/rounded_button"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="@color/blue"
             android:layout_alignParentRight="true"
             android:layout_marginEnd="16dp"
             android:layout_marginTop="16dp"

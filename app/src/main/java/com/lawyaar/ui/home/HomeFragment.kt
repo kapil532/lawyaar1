@@ -1,5 +1,6 @@
 package com.lawyaar.ui.home
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -34,6 +35,7 @@ class HomeFragment : Fragment(),CellClickListener ,TalkListner {
     private lateinit var adapter : LawyaarAdapter
     lateinit var homeViewModel: HomeViewModel
 
+    @SuppressLint("FragmentLiveDataObserve")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

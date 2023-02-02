@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
-    android:layout_margin="4dp"
     android:layout_height="wrap_content">
 
-    <RelativeLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_rectangle"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-
+        android:layout_centerHorizontal="true"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="2dp"
+        app:cardMaxElevation="2dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
 
         >
 
@@ -22,8 +23,12 @@
             android:id="@+id/date_slots_text"
             android:fontFamily="@font/proximanovaregular"
             android:textSize="14sp"
-            android:textColor="@color/wallet_holo_blue_light"
-            android:text="4 :30"
+            android:textColor="#a0a0a2"
+            android:text="4 :30 PM"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
             android:textStyle="normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,12 +39,13 @@
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:text="PM"
+            android:visibility="gone"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/date_slots_text"
             android:fontFamily="@font/proximanovaregular"
-            android:textColor="@color/wallet_holo_blue_light"
+            android:textColor="#a0a0a2"
             />
 
-    </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

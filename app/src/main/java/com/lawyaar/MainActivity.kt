@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.widget.FrameLayout
 import android.widget.ImageView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -15,11 +16,26 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.internal.InternalTokenResult
+import com.lawyaar.adapters.LocationAdaptor
 import com.lawyaar.auth.PhoneActivity
 import com.lawyaar.databinding.ActivityMainBinding
+import com.lawyaar.retrofit.LawyaarApi
+import com.lawyaar.retrofit.MainRepostry
+import com.lawyaar.retrofit.RetrofitHelperObj
+import com.lawyaar.testlist.QuoteList
+import com.lawyaar.ui.fragments.LocationFragment
+import com.lawyaar.ui.fragments.LocationModel
+import com.lawyaar.ui.fragments.LocationModelFactory
 
 class MainActivity : AppCompatActivity() {
 
@@ -90,11 +106,35 @@ class MainActivity : AppCompatActivity() {
         val dialog = BottomSheetDialog(this)
         val view = layoutInflater.inflate(R.layout.filter_screen_layout, null)
         val  filter_close_icon = view.findViewById<ImageView>(R.id.filter_close_icon)
-       filter_close_icon.setOnClickListener {
+        val filter_recyle =view.findViewById<RecyclerView>(R.id.filter_recyle)
+
+//        filter_recyle.layoutManager = GridLayoutManager(this, 5)
+        filter_recyle.layoutManager= StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.VERTICAL)
+        locationAdaptor = LocationAdaptor()
+        filter_close_icon.setOnClickListener {
            dialog.dismiss()
        }
         dialog.setCancelable(true)
         dialog.setContentView(view)
         dialog.show()
+        filter_recyle.adapter=locationAdaptor
+        initNetwork()
+    }
+    lateinit var locationModel: LocationModel
+    lateinit var locationAdaptor: LocationAdaptor
+
+    @SuppressLint("FragmentLiveDataObserve")
+    fun initNetwork() {
+        val lawyaarApi = RetrofitHelperObj.getInstance().create(LawyaarApi::class.java)
+        val repostry = MainRepostry(lawyaarApi)
+        locationModel = ViewModelProvider(
+            this,
+            LocationModelFactory(repostry)
+        ).get(LocationModel::class.java)
+        locationModel.quotes.observe(this, Observer<QuoteList> {
+            if (it != null) {
+                locationAdaptor.setUpdateData(it.results)
+            }
+        })
     }
 }
