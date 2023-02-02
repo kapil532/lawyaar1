@@ -15,6 +15,7 @@
     <color name="goodgrey">#535353</color>
     <color name="blue">#3E52B5</color>
     <color name="lightgrey">#EEEEEE</color>
+    <color name="backgorund_col">#f2f1ff</color>
 
     <color name="btn_color">#7E7B7B</color>
     <color name="edit_text_color">#FFD6CF</color>

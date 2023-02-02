@@ -17,11 +17,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp">
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/lawaar_icon"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/person"/>
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent"
+        android:src="@drawable/pp"/>
 
     <TextView
         android:id="@+id/lawyaar_name"
