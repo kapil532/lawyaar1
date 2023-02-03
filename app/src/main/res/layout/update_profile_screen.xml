@@ -49,7 +49,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_below="@+id/header_profile"
-       android:padding="16dp"
+       android:padding="32dp"
         android:orientation="vertical"
         android:layout_height="wrap_content">
 
@@ -65,6 +65,7 @@
                 android:layout_width="match_parent"
                 android:drawableLeft="@drawable/id_card"
                 android:drawablePadding="10dp"
+                android:backgroundTint="@color/white"
                 android:fontFamily="@font/proximanovaregular"
                 android:text="Shambhu Kumar"
                 android:layout_height="wrap_content"/>
@@ -84,6 +85,7 @@
                      android:id="@+id/user_email"
                      android:layout_width="match_parent"
                      android:drawableLeft="@drawable/ic_email_24dp"
+                     android:backgroundTint="@color/white"
                      android:drawablePadding="10dp"
                      android:fontFamily="@font/proximanovaregular"
                      android:text="Shambu.kumar@lawyaar.co"
@@ -105,6 +107,7 @@
                 android:id="@+id/user_mobileno"
                 android:fontFamily="@font/proximanovaregular"
                 android:layout_width="match_parent"
+                android:backgroundTint="@color/white"
                 android:drawableLeft="@drawable/smartphone"
                 android:drawablePadding="10dp"
                 android:text="+91 8080808080"
