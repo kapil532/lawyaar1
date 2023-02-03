@@ -1,6 +1,7 @@
 package com.lawyaar
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
         init()
         setSupportActionBar(binding.appBarMain.toolbar)
-
+        binding.appBarMain.fab.setColorFilter(Color.WHITE);
         binding.appBarMain.fab.setOnClickListener { view ->
 
             initBottomSheet()
