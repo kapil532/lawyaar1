@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lawyaar.MainActivity
 import com.lawyaar.R
 import com.lawyaar.adapters.LawyaarAdapter
+import com.lawyaar.application.LawyaarApplication
 import com.lawyaar.payment_screen.PaymentActivity
 import com.lawyaar.retrofit.LawyaarApi
 import com.lawyaar.retrofit.MainRepostry
@@ -28,12 +29,17 @@ import com.razorpay.Checkout
 import com.razorpay.PaymentResultListener
 import org.json.JSONException
 import org.json.JSONObject
+import javax.inject.Inject
 
-class HomeFragment : Fragment(),CellClickListener ,TalkListner {
+class HomeFragment : Fragment(), CellClickListener, TalkListner {
 
-    private  var layoutManager : RecyclerView.LayoutManager? =null
-    private lateinit var adapter : LawyaarAdapter
+    private var layoutManager: RecyclerView.LayoutManager? = null
+    private lateinit var adapter: LawyaarAdapter
+
     lateinit var homeViewModel: HomeViewModel
+
+    @Inject
+    lateinit var homeViewModelFactory: HomeViewModelFactory
 
     @SuppressLint("FragmentLiveDataObserve")
     override fun onCreateView(
@@ -42,19 +48,21 @@ class HomeFragment : Fragment(),CellClickListener ,TalkListner {
         savedInstanceState: Bundle?
     ): View {
 
-        val lawyaarApi = RetrofitHelperObj.getInstance().create(LawyaarApi::class.java)
-        val repostry = MainRepostry(lawyaarApi)
-        homeViewModel  = ViewModelProvider(this,HomeViewModelFactory(repostry)).get(HomeViewModel::class.java)
-        //var data = ArrayList<com.lawyaar.testlist.Result>
-        val veiw= inflater.inflate(R.layout.fragment_home,container,false)
-
+      val veiw = inflater.inflate(R.layout.fragment_home, container, false)
         var recycle_veiw = veiw.findViewById<RecyclerView>(R.id.recycle_veiw)
-
         recycle_veiw.layoutManager = LinearLayoutManager(activity)
         adapter = LawyaarAdapter()
         recycle_veiw.adapter = adapter
+        initNetwork()
+        adapter.setUplistner(this, this)
+        return veiw
+    }
 
-
+    @SuppressLint("FragmentLiveDataObserve")
+    fun initNetwork()
+    {
+        (activity?.application as LawyaarApplication).applicationComponent.inject(homeFragment = this)
+        homeViewModel = ViewModelProvider(this,homeViewModelFactory).get(HomeViewModel::class.java)
 
         homeViewModel.quotes.observe(this, Observer<QuoteList> {
             if (it != null)
@@ -63,28 +71,22 @@ class HomeFragment : Fragment(),CellClickListener ,TalkListner {
             }
         })
 
-        adapter.setUplistner(this,this)
-
-//        adapter.onI
-
-        return veiw
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
     }
 
-    override fun onCellClickListener()
-    {
-        startActivity(Intent(context , LawyaarDetailsActivity::class.java))
+    override fun onCellClickListener() {
+        startActivity(Intent(context, LawyaarDetailsActivity::class.java))
     }
 
     override fun onTalkClickListner() {
-       // initPayment(""+10)
-        startActivity(Intent(activity , BookingSlotActivity::class.java))
+        // initPayment(""+10)
+        startActivity(Intent(activity, BookingSlotActivity::class.java))
 
     }
 

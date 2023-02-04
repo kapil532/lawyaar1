@@ -21,6 +21,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.internal.InternalTokenResult
 import com.lawyaar.adapters.LocationAdaptor
+import com.lawyaar.application.LawyaarApplication
 import com.lawyaar.databinding.ActivityMainBinding
 import com.lawyaar.retrofit.LawyaarApi
 import com.lawyaar.retrofit.MainRepostry
@@ -28,12 +29,19 @@ import com.lawyaar.retrofit.RetrofitHelperObj
 import com.lawyaar.testlist.QuoteList
 import com.lawyaar.ui.fragments.LocationModel
 import com.lawyaar.ui.fragments.LocationModelFactory
+import com.lawyaar.ui.home.HomeViewModel
+import com.lawyaar.ui.home.HomeViewModelFactory
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
+    lateinit var homeViewModel: HomeViewModel
+
+    @Inject
+    lateinit var homeViewModelFactory: HomeViewModelFactory
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -117,16 +125,26 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("FragmentLiveDataObserve")
     fun initNetwork() {
-        val lawyaarApi = RetrofitHelperObj.getInstance().create(LawyaarApi::class.java)
-        val repostry = MainRepostry(lawyaarApi)
-        locationModel = ViewModelProvider(
-            this,
-            LocationModelFactory(repostry)
-        ).get(LocationModel::class.java)
-        locationModel.quotes.observe(this, Observer<QuoteList> {
-            if (it != null) {
+
+        (application as LawyaarApplication).applicationComponent.inject(this)
+        homeViewModel = ViewModelProvider(this,homeViewModelFactory).get(HomeViewModel::class.java)
+
+        homeViewModel.quotes.observe(this, Observer<QuoteList> {
+            if (it != null)
+            {
                 locationAdaptor.setUpdateData(it.results)
             }
         })
+//        val lawyaarApi = RetrofitHelperObj.getInstance().create(LawyaarApi::class.java)
+//        val repostry = MainRepostry(lawyaarApi)
+//        locationModel = ViewModelProvider(
+//            this,
+//            LocationModelFactory(repostry)
+//        ).get(LocationModel::class.java)
+//        locationModel.quotes.observe(this, Observer<QuoteList> {
+//            if (it != null) {
+//                locationAdaptor.setUpdateData(it.results)
+//            }
+//        })
     }
 }

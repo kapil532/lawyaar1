@@ -43,16 +43,16 @@ class LocationFragment : Fragment() {
 
     @SuppressLint("FragmentLiveDataObserve")
     fun initNetwork() {
-        val lawyaarApi = RetrofitHelperObj.getInstance().create(LawyaarApi::class.java)
-        val repostry = MainRepostry(lawyaarApi)
-        locationModel = ViewModelProvider(
-            this,
-            LocationModelFactory(repostry)
-        ).get(LocationModel::class.java)
-        locationModel.quotes.observe(this, Observer<QuoteList> {
-            if (it != null) {
-                locationAdaptor.setUpdateData(it.results)
-            }
-        })
+//        val lawyaarApi = RetrofitHelperObj.getInstance().create(LawyaarApi::class.java)
+//       // val repostry = MainRepostry(lawyaarApi)
+//        locationModel = ViewModelProvider(
+//            this,
+//            LocationModelFactory(repostry)
+//        ).get(LocationModel::class.java)
+//        locationModel.quotes.observe(this, Observer<QuoteList> {
+//            if (it != null) {
+//                locationAdaptor.setUpdateData(it.results)
+//            }
+//        })
     }
 }

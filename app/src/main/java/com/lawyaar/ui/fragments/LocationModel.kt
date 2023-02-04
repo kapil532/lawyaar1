@@ -11,13 +11,13 @@ import kotlinx.coroutines.launch
 class LocationModel  constructor(private val repostry: MainRepostry) : ViewModel()
 {
 
-    init {
-        viewModelScope.launch (Dispatchers.IO){
-            repostry.getAllquotes()
-
-        }
-    }
-    val quotes : LiveData<QuoteList>
-        get() = repostry.quotes
+//    init {
+//        viewModelScope.launch (Dispatchers.IO){
+//            repostry.getAllquotes()
+//
+//        }
+//    }
+//        val quotes : LiveData<QuoteList>
+//        get() = repostry.quotes
 
 }

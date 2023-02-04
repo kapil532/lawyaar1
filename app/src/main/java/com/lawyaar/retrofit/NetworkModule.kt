@@ -2,27 +2,32 @@ package com.lawyaar.retrofit
 
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
+import kotlin.contracts.Returns
 
-
-
-object RetrofitHelperObj {
-
+@InstallIn(SingletonComponent::class)
+@Module
+class NetworkModule {
     val baseUrl = "https://quotable.io/"
 
 
-
-    fun getInstance(): Retrofit {
+    @Singleton
+    @Provides
+    fun provideRetrofit(): Retrofit {
         return Retrofit.Builder().baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
-
-    fun provideQuotaionAPI(retrofit: Retrofit) :LawyaarApi
-    {
+    @Singleton
+    @Provides
+    fun provideQuotaionAPI(retrofit: Retrofit): LawyaarApi {
         return retrofit.create(LawyaarApi::class.java)
     }
+
+
 }
