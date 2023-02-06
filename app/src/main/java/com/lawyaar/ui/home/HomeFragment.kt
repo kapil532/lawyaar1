@@ -70,6 +70,7 @@ class HomeFragment : Fragment(), CellClickListener, TalkListner {
 
         homeViewModel.quotes.observe(this, Observer<QuoteList> {
             if (it != null) {
+                shimmer_view_container.hideShimmer()
                 shimmer_view_container.visibility = View.GONE
                 adapter.setUpdateData(it.results)
             }
