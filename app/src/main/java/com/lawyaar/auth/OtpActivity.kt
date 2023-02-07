@@ -172,6 +172,11 @@ class OTPActivity : AppCompatActivity() {
         startActivity(Intent(this, MainActivity::class.java))
     }
 
+
+
+
+
+
     private fun addTextChangeListener() {
         inputOTP1.addTextChangedListener(EditTextWatcher(inputOTP1))
         inputOTP2.addTextChangedListener(EditTextWatcher(inputOTP2))
