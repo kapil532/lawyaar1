@@ -249,25 +249,33 @@ class OTPActivity : AppCompatActivity() {
 
     }
 
+
+    //below is for the token to take from header so that no one  can access the details
     companion object {
         var authToken = "Auth"
     }
+
+
     lateinit var authModel: AuthModel
     fun initNetwork()
     {
 
         (application as LawyaarApplication).applicationComponent.inject(this)
         authModel = ViewModelProvider(this ,authModelFactory ).get(AuthModel::class.java)
-        authModel.authUser("Bearer "+token_ ,"+918095128426")
+        authModel.authUser("Bearer "+token_ ,""+phoneNumber)
         authModel.authSuccess.observe(this, Observer<AuthSuccess> {
             if (it != null)
             {
 
                 Log.d("TAGSS","-fffffff->  "+it.userId);
-                val sharedPreferences: SharedPreferences = this.getSharedPreferences("token_auth",Context.MODE_PRIVATE)
+                val sharedPreferences: SharedPreferences = application.getSharedPreferences("token_auth",Context.MODE_PRIVATE)
                 val editor:SharedPreferences.Editor =  sharedPreferences.edit()
                 editor.putString("token_val", authToken)
-                // locationAdaptor.setUpdateData(it.results)
+                editor.apply()
+                editor.commit()
+            }
+            else{
+                Log.d("Tags","--> Exception <-- ")
             }
         })
     }
@@ -275,7 +283,6 @@ class OTPActivity : AppCompatActivity() {
     lateinit var token_ : String
     private fun initA()
     {
-
         auth = FirebaseAuth.getInstance()
         //auth.set
         auth.getAccessToken(true)
@@ -284,6 +291,5 @@ class OTPActivity : AppCompatActivity() {
             token_ =it.token ?: "notoken"
             initNetwork()
         }
-
     }
 }

@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity() {
         auth.addIdTokenListener { it: InternalTokenResult ->
             Log.d("TAG", "addIdTokenListener: called--> "+it.token ?: "notoken")
             token_ =it.token ?: "notoken"
-            initNetworkAA()
+         //   initNetworkAA()
         }
 
     }
