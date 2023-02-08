@@ -26,11 +26,12 @@ import com.lawyaar.databinding.ActivityMainBinding
 import com.lawyaar.models.authentication.AuthSuccess
 import com.lawyaar.models.authentication.auth_model.AuthModel
 import com.lawyaar.models.authentication.auth_model.AuthModelFactory
+import com.lawyaar.models.location.LocationModel
+import com.lawyaar.models.location.view_factory_model.LocationViewModel
 import com.lawyaar.retrofit.LawyaarApi
 import com.lawyaar.retrofit.MainRepostry
 import com.lawyaar.retrofit.RetrofitHelperObj
 import com.lawyaar.testlist.QuoteList
-import com.lawyaar.ui.fragments.LocationModel
 import com.lawyaar.ui.fragments.LocationModelFactory
 import com.lawyaar.ui.home.HomeViewModel
 import com.lawyaar.ui.home.HomeViewModelFactory
@@ -41,10 +42,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
-    lateinit var homeViewModel: HomeViewModel
+    lateinit var locationViewModel: LocationViewModel
 
     @Inject
-    lateinit var homeViewModelFactory: HomeViewModelFactory
+    lateinit var locationViewModelFactory: HomeViewModelFactory
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -126,46 +127,21 @@ class MainActivity : AppCompatActivity() {
         filter_recyle.adapter=locationAdaptor
         initNetwork()
     }
-    lateinit var locationModel: LocationModel
     lateinit var locationAdaptor: LocationAdaptor
 
     @SuppressLint("FragmentLiveDataObserve")
     fun initNetwork() {
 
         (application as LawyaarApplication).applicationComponent.inject(this)
-        homeViewModel = ViewModelProvider(this,homeViewModelFactory).get(HomeViewModel::class.java)
+        locationViewModel = ViewModelProvider(this,locationViewModelFactory).get(LocationViewModel::class.java)
 
-        homeViewModel.quotes.observe(this, Observer<QuoteList> {
-            if (it != null)
+      locationViewModel.location.observe(this, Observer<LocationModel> {
+          if (it != null)
             {
-                locationAdaptor.setUpdateData(it.results)
+                locationAdaptor.setUpdateData(it)
             }
-        })
+      })
+
 
     }
-    @Inject
-    lateinit var authModelFactory : AuthModelFactory
-    lateinit var authModel: AuthModel
-
-
-
-    fun initNetworkAA()
-    {
-
-        (application as LawyaarApplication).applicationComponent.inject(this)
-        authModel = ViewModelProvider(this ,authModelFactory ).get(AuthModel::class.java)
-        authModel.authUser("Bearer "+token_ ,"+918095128426")
-        authModel.authSuccess.observe(this, Observer<AuthSuccess> {
-            if (it != null)
-            {
-
-                Log.d("TAGSS","-fffffff->  "+it.userId +"---   ");
-
-                // locationAdaptor.setUpdateData(it.results)
-            }
-        })
-    }
-
-
-
 }

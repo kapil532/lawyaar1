@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.lawyaar.R
+import com.lawyaar.models.location.LocationModel
+import com.lawyaar.models.location.LocationModelItem
 import com.lawyaar.ui.book_slots.adaptors.BookingDateAdaptar
 
 class LocationAdaptor (): RecyclerView.Adapter<LocationAdaptor.ViewHolder>()
@@ -21,9 +23,9 @@ class LocationAdaptor (): RecyclerView.Adapter<LocationAdaptor.ViewHolder>()
 
     }
 
-    var list = ArrayList<com.lawyaar.testlist.Result>()
+    var list = ArrayList<LocationModelItem>()
 
-    fun setUpdateData(quoteList: ArrayList<com.lawyaar.testlist.Result>)
+    fun setUpdateData(quoteList: ArrayList<LocationModelItem>)
     {
         this.list =  quoteList
         notifyDataSetChanged()
@@ -39,7 +41,7 @@ class LocationAdaptor (): RecyclerView.Adapter<LocationAdaptor.ViewHolder>()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.single_loc_lan_title.text = list.get(position).tags.get(0)
+        holder.single_loc_lan_title.text = list.get(position).city
     }
 
 

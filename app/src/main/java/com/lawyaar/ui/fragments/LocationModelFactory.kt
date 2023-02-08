@@ -4,8 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.lawyaar.retrofit.MainRepostry
 import com.lawyaar.ui.home.HomeViewModel
+import javax.inject.Inject
 
-class LocationModelFactory(private  val repostry: MainRepostry): ViewModelProvider.Factory
+class LocationModelFactory @Inject constructor(private  val repostry: MainRepostry): ViewModelProvider.Factory
 {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return LocationModel(repostry ) as T
