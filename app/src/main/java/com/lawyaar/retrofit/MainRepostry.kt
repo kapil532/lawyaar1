@@ -1,19 +1,15 @@
 package com.lawyaar.retrofit
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.lawyaar.MainActivity
-import com.lawyaar.application.LawyaarApplication
 import com.lawyaar.auth.OTPActivity
 import com.lawyaar.models.authentication.AuthSuccess
 import com.lawyaar.models.case_category.CaseCategory
 import com.lawyaar.models.category.CategoryModel
 import com.lawyaar.models.language.LanguageModel
+import com.lawyaar.models.location.LocationModel
 import com.lawyaar.testlist.QuoteList
-import com.lawyaar.ui.fragments.LocationModel
-import dagger.hilt.android.internal.Contexts.getApplication
 import javax.inject.Inject
 
 
