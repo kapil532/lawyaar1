@@ -29,15 +29,15 @@ class SplashScreen : AppCompatActivity()
 
     private fun checkvalidity()
     {
-        if (auth.currentUser != null){
-            startActivity(Intent(this , MainActivity::class.java))
-            finish()
-        }
-        else{
+//        if (auth.currentUser != null){
+//            startActivity(Intent(this , MainActivity::class.java))
+//            finish()
+//        }
+//        else{
             val intent = Intent(this, PhoneActivity::class.java)
             startActivity(intent)
             finish()
-        }
+//       }
 
 
     }

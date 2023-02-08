@@ -10,13 +10,24 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
 import com.google.firebase.internal.InternalTokenResult
 import com.lawyaar.MainActivity
 import com.lawyaar.R
+import com.lawyaar.application.LawyaarApplication
+import com.lawyaar.models.authentication.AuthSuccess
+import com.lawyaar.models.authentication.auth_model.AuthModel
+import com.lawyaar.models.authentication.auth_model.AuthModelFactory
+import com.lawyaar.retrofit.LawyaarApi
+import com.lawyaar.retrofit.MainRepostry
+import com.lawyaar.testlist.QuoteList
+import com.lawyaar.ui.home.HomeViewModel
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 class OTPActivity : AppCompatActivity() {
 
@@ -34,6 +45,15 @@ class OTPActivity : AppCompatActivity() {
     private lateinit var OTP: String
     private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var phoneNumber: String
+
+
+    @Inject
+    lateinit var authModelFactory :AuthModelFactory
+
+
+
+    lateinit var mainRepostry: MainRepostry
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -154,6 +174,9 @@ class OTPActivity : AppCompatActivity() {
 
                     //initforAuth()
                     sendToMain()
+
+                    initA()
+
                 } else {
                     // Sign in failed, display a message and update the UI
                     Log.d("TAG", "signInWithPhoneAuthCredential: ${task.exception.toString()}")
@@ -221,6 +244,37 @@ class OTPActivity : AppCompatActivity() {
                 R.id.otpEditText6 -> if (text.isEmpty()) inputOTP5.requestFocus()
 
             }
+        }
+
+    }
+    lateinit var authModel: AuthModel
+    fun initNetwork()
+    {
+
+        (application as LawyaarApplication).applicationComponent.inject(this)
+        authModel = ViewModelProvider(this ,authModelFactory ).get(AuthModel::class.java)
+        authModel.authUser("Bearer "+token_ ,"+918095128426")
+        authModel.authSuccess.observe(this, Observer<AuthSuccess> {
+            if (it != null)
+            {
+
+                Log.d("TAGSS","-fffffff->  "+it.userId);
+               // locationAdaptor.setUpdateData(it.results)
+            }
+        })
+    }
+
+    lateinit var token_ : String
+    private fun initA()
+    {
+
+        auth = FirebaseAuth.getInstance()
+        //auth.set
+        auth.getAccessToken(true)
+        auth.addIdTokenListener { it: InternalTokenResult ->
+            Log.d("TAG", "addIdTokenListener: called--> "+it.token ?: "notoken")
+            token_ =it.token ?: "notoken"
+            initNetwork()
         }
 
     }

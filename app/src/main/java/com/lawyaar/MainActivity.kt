@@ -23,6 +23,9 @@ import com.google.firebase.internal.InternalTokenResult
 import com.lawyaar.adapters.LocationAdaptor
 import com.lawyaar.application.LawyaarApplication
 import com.lawyaar.databinding.ActivityMainBinding
+import com.lawyaar.models.authentication.AuthSuccess
+import com.lawyaar.models.authentication.auth_model.AuthModel
+import com.lawyaar.models.authentication.auth_model.AuthModelFactory
 import com.lawyaar.retrofit.LawyaarApi
 import com.lawyaar.retrofit.MainRepostry
 import com.lawyaar.retrofit.RetrofitHelperObj
@@ -75,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
-
+    lateinit var token_ : String
     private fun init()
     {
 
@@ -84,15 +87,18 @@ class MainActivity : AppCompatActivity() {
         auth.getAccessToken(true)
         auth.addIdTokenListener { it: InternalTokenResult ->
             Log.d("TAG", "addIdTokenListener: called--> "+it.token ?: "notoken")
-
+            token_ =it.token ?: "notoken"
+            initNetworkAA()
         }
 
     }
+
+
     fun initforAuth()
     {
         FirebaseAuth.getInstance().addIdTokenListener { it: InternalTokenResult ->
             Log.d("TAG", "addIdTokenListener: called--> "+it.token ?: "notoken")
-
+            token_ =it.token ?: "notoken"
         }
     }
     override fun onSupportNavigateUp(): Boolean {
@@ -137,4 +143,26 @@ class MainActivity : AppCompatActivity() {
         })
 
     }
+    @Inject
+    lateinit var authModelFactory : AuthModelFactory
+    lateinit var authModel: AuthModel
+    fun initNetworkAA()
+    {
+
+        (application as LawyaarApplication).applicationComponent.inject(this)
+        authModel = ViewModelProvider(this ,authModelFactory ).get(AuthModel::class.java)
+        authModel.authUser("Bearer "+token_ ,"+918095128426")
+        authModel.authSuccess.observe(this, Observer<AuthSuccess> {
+            if (it != null)
+            {
+
+                Log.d("TAGSS","-fffffff->  "+it.userId + authModel.headData.value);
+
+                // locationAdaptor.setUpdateData(it.results)
+            }
+        })
+    }
+
+
+
 }

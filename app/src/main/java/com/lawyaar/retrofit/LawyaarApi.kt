@@ -9,6 +9,7 @@ import com.lawyaar.ui.fragments.LocationModel
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface LawyaarApi {
@@ -17,10 +18,10 @@ interface LawyaarApi {
     suspend fun getQuotes(): Response<QuoteList>
 
 
-    @GET("/firebase/validate/{mobileno}")
+    @GET("firebase/validate/{mobileno}")
     suspend fun getAuthFirebase(
         @Header("Authorization") token: String,
-        @Query("mobileno") mobileno: String
+        @Path("mobileno") mobileno: String
     ): Response<AuthSuccess>
 
 
