@@ -1,6 +1,8 @@
 package com.lawyaar.auth
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -41,7 +43,6 @@ class OTPActivity : AppCompatActivity() {
     private lateinit var inputOTP5: EditText
     private lateinit var inputOTP6: EditText
     private lateinit var progressBar: ProgressBar
-
     private lateinit var OTP: String
     private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var phoneNumber: String
@@ -247,6 +248,10 @@ class OTPActivity : AppCompatActivity() {
         }
 
     }
+
+    companion object {
+        var authToken = "Auth"
+    }
     lateinit var authModel: AuthModel
     fun initNetwork()
     {
@@ -259,7 +264,10 @@ class OTPActivity : AppCompatActivity() {
             {
 
                 Log.d("TAGSS","-fffffff->  "+it.userId);
-               // locationAdaptor.setUpdateData(it.results)
+                val sharedPreferences: SharedPreferences = this.getSharedPreferences("token_auth",Context.MODE_PRIVATE)
+                val editor:SharedPreferences.Editor =  sharedPreferences.edit()
+                editor.putString("token_val", authToken)
+                // locationAdaptor.setUpdateData(it.results)
             }
         })
     }

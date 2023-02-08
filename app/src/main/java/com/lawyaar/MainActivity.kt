@@ -146,6 +146,9 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var authModelFactory : AuthModelFactory
     lateinit var authModel: AuthModel
+
+
+
     fun initNetworkAA()
     {
 
@@ -156,7 +159,7 @@ class MainActivity : AppCompatActivity() {
             if (it != null)
             {
 
-                Log.d("TAGSS","-fffffff->  "+it.userId + authModel.headData.value);
+                Log.d("TAGSS","-fffffff->  "+it.userId +"---   ");
 
                 // locationAdaptor.setUpdateData(it.results)
             }
