@@ -10,7 +10,7 @@ import com.lawyaar.models.location.LocationModel
 import com.lawyaar.models.location.LocationModelItem
 import com.lawyaar.ui.book_slots.adaptors.BookingDateAdaptar
 
-class LocationAdaptor (): RecyclerView.Adapter<LocationAdaptor.ViewHolder>()
+class CaseCategoryAdaptor (): RecyclerView.Adapter<CaseCategoryAdaptor.ViewHolder>()
 {
     class ViewHolder(view :View) :RecyclerView.ViewHolder(view)
     {
@@ -33,7 +33,7 @@ class LocationAdaptor (): RecyclerView.Adapter<LocationAdaptor.ViewHolder>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =  LayoutInflater.from(parent.context).inflate(R.layout.single_row_time_booking_slot,parent,false)
-        return LocationAdaptor.ViewHolder(view)
+        return CaseCategoryAdaptor.ViewHolder(view)
     }
 
     override fun getItemCount(): Int {

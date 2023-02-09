@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
         val filter_recyle =view.findViewById<RecyclerView>(R.id.filter_recyle)
 
 //        filter_recyle.layoutManager = GridLayoutManager(this, 5)
-        filter_recyle.layoutManager= StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.VERTICAL)
+        filter_recyle.layoutManager= StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
         locationAdaptor = LocationAdaptor()
         filter_close_icon.setOnClickListener {
            dialog.dismiss()
@@ -120,14 +120,14 @@ class MainActivity : AppCompatActivity() {
         filter_recyle.adapter=locationAdaptor
         initNetwork()
     }
+
     lateinit var locationAdaptor: LocationAdaptor
 
     fun initNetwork() {
 
         (application as LawyaarApplication).applicationComponent.inject(this)
         locationViewModel = ViewModelProvider(this,locationViewModelFactory).get(LocationViewModel::class.java)
-
-      locationViewModel.location.observe(this, Observer<LocationModel> {
+         locationViewModel.location.observe(this, Observer<LocationModel> {
           if (it != null)
             {
               Log.d("T VALUE-- >","--> "+it.toString())

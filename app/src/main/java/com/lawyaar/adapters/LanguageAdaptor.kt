@@ -6,11 +6,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.lawyaar.R
+import com.lawyaar.models.language.LanguageModel
+import com.lawyaar.models.language.LanguageModelItem
 import com.lawyaar.models.location.LocationModel
 import com.lawyaar.models.location.LocationModelItem
 import com.lawyaar.ui.book_slots.adaptors.BookingDateAdaptar
 
-class LocationAdaptor (): RecyclerView.Adapter<LocationAdaptor.ViewHolder>()
+class LanguageAdaptor (): RecyclerView.Adapter<LanguageAdaptor.ViewHolder>()
 {
     class ViewHolder(view :View) :RecyclerView.ViewHolder(view)
     {
@@ -23,9 +25,9 @@ class LocationAdaptor (): RecyclerView.Adapter<LocationAdaptor.ViewHolder>()
 
     }
 
-    var list = ArrayList<LocationModelItem>()
+    var list = ArrayList<LanguageModelItem>()
 
-    fun setUpdateData(quoteList: ArrayList<LocationModelItem>)
+    fun setUpdateData(quoteList: ArrayList<LanguageModelItem>)
     {
         this.list =  quoteList
         notifyDataSetChanged()
@@ -33,7 +35,7 @@ class LocationAdaptor (): RecyclerView.Adapter<LocationAdaptor.ViewHolder>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =  LayoutInflater.from(parent.context).inflate(R.layout.single_row_time_booking_slot,parent,false)
-        return LocationAdaptor.ViewHolder(view)
+        return LanguageAdaptor.ViewHolder(view)
     }
 
     override fun getItemCount(): Int {
@@ -41,7 +43,7 @@ class LocationAdaptor (): RecyclerView.Adapter<LocationAdaptor.ViewHolder>()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.single_loc_lan_title.text = list.get(position).city
+        holder.single_loc_lan_title.text = list.get(position).name
     }
 
 
