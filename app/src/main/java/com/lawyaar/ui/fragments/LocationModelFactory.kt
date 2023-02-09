@@ -3,7 +3,6 @@ package com.lawyaar.ui.fragments
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.lawyaar.retrofit.MainRepostry
-import com.lawyaar.ui.home.HomeViewModel
 import javax.inject.Inject
 
 class LocationModelFactory @Inject constructor(private  val repostry: MainRepostry): ViewModelProvider.Factory

@@ -25,17 +25,17 @@ interface LawyaarApi {
     ): Response<AuthSuccess>
 
 
-    @GET("/common/location/all")
+    @GET("common/location/all")
     suspend fun getLocation(): Response<LocationModel>
 
-    @GET("/common/language/all")
+    @GET("common/language/all")
     suspend fun getLanguage(): Response<LanguageModel>
 
-    @GET("/common/lawyerCategory/all")
+    @GET("common/lawyerCategory/all")
     suspend fun getLaweyCategory(): Response<CategoryModel>
 
 
-    @GET("/common/caseCategory/all")
+    @GET("common/caseCategory/all")
     suspend fun getCaseCategory(): Response<CaseCategory>
 
 

@@ -38,10 +38,10 @@ class HomeFragment : Fragment(), CellClickListener, TalkListner {
 
     private var layoutManager: RecyclerView.LayoutManager? = null
     private lateinit var adapter: LawyaarAdapter
-    lateinit var homeViewModel: HomeViewModel
+   // lateinit var homeViewModel: HomeViewModel
 
-    @Inject
-    lateinit var homeViewModelFactory: HomeViewModelFactory
+   // @Inject
+   // lateinit var homeViewModelFactory: HomeViewModelFactory
     lateinit var shimmer_view_container: ShimmerFrameLayout
 
 
@@ -58,23 +58,23 @@ class HomeFragment : Fragment(), CellClickListener, TalkListner {
         recycle_veiw.layoutManager = LinearLayoutManager(activity)
         adapter = LawyaarAdapter()
         recycle_veiw.adapter = adapter
-        initNetwork()
+        //initNetwork()
         adapter.setUplistner(this, this)
         return veiw
     }
 
     @SuppressLint("FragmentLiveDataObserve")
     fun initNetwork() {
-        (activity?.application as LawyaarApplication).applicationComponent.inject(homeFragment = this)
-        homeViewModel = ViewModelProvider(this, homeViewModelFactory).get(HomeViewModel::class.java)
+     //   (activity?.application as LawyaarApplication).applicationComponent.inject(homeFragment = this)
+      //  homeViewModel = ViewModelProvider(this, homeViewModelFactory).get(HomeViewModel::class.java)
 
-        homeViewModel.quotes.observe(this, Observer<QuoteList> {
-            if (it != null) {
-                shimmer_view_container.hideShimmer()
-                shimmer_view_container.visibility = View.GONE
-                adapter.setUpdateData(it.results)
-            }
-        })
+       // homeViewModel.quotes.observe(this, Observer<QuoteList> {
+         //   if (it != null) {
+            //    shimmer_view_container.hideShimmer()
+            //    shimmer_view_container.visibility = View.GONE
+            //    adapter.setUpdateData(it.results)
+          //  }
+     //   })
 
     }
 

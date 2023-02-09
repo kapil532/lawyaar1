@@ -28,13 +28,12 @@ import com.lawyaar.models.authentication.auth_model.AuthModel
 import com.lawyaar.models.authentication.auth_model.AuthModelFactory
 import com.lawyaar.models.location.LocationModel
 import com.lawyaar.models.location.view_factory_model.LocationViewModel
+import com.lawyaar.models.location.view_factory_model.LocationViewModelFactory
 import com.lawyaar.retrofit.LawyaarApi
 import com.lawyaar.retrofit.MainRepostry
 import com.lawyaar.retrofit.RetrofitHelperObj
 import com.lawyaar.testlist.QuoteList
-import com.lawyaar.ui.fragments.LocationModelFactory
-import com.lawyaar.ui.home.HomeViewModel
-import com.lawyaar.ui.home.HomeViewModelFactory
+
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -45,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var locationViewModel: LocationViewModel
 
     @Inject
-    lateinit var locationViewModelFactory: HomeViewModelFactory
+    lateinit var locationViewModelFactory: LocationViewModelFactory
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -95,13 +94,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun initforAuth()
-    {
-        FirebaseAuth.getInstance().addIdTokenListener { it: InternalTokenResult ->
-            Log.d("TAG", "addIdTokenListener: called--> "+it.token ?: "notoken")
-            token_ =it.token ?: "notoken"
-        }
-    }
+
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
@@ -129,7 +122,6 @@ class MainActivity : AppCompatActivity() {
     }
     lateinit var locationAdaptor: LocationAdaptor
 
-    @SuppressLint("FragmentLiveDataObserve")
     fun initNetwork() {
 
         (application as LawyaarApplication).applicationComponent.inject(this)
@@ -138,8 +130,12 @@ class MainActivity : AppCompatActivity() {
       locationViewModel.location.observe(this, Observer<LocationModel> {
           if (it != null)
             {
+              Log.d("T VALUE-- >","--> "+it.toString())
                 locationAdaptor.setUpdateData(it)
             }
+          else{
+              Log.d("","--> NUL VALUE")
+          }
       })
 
 
