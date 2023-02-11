@@ -1,5 +1,6 @@
 package com.lawyaar
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -31,6 +32,7 @@ class SplashScreen : AppCompatActivity()
         auth = FirebaseAuth.getInstance()
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun checkvalidity()
     {
         val sharedPreferences: SharedPreferences = this.getSharedPreferences("token_auth", Context.MODE_PRIVATE)
