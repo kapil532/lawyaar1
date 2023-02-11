@@ -11,9 +11,9 @@ class SuccessActivity : BaseActivity()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.success_screen_layout)
+        setContentView(R.layout.single_row_lawyer_layout)
         Handler(Looper.getMainLooper()).postDelayed({
-            checkvalidity()
+           // checkvalidity()
         }, 3000)
     }
 
