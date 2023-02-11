@@ -9,8 +9,8 @@ import android.os.Looper
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.lawyaar.auth.OTPActivity
-import com.lawyaar.auth.PhoneActivity
+import com.lawyaar.ui.auth.OTPActivity
+import com.lawyaar.ui.auth.PhoneActivity
 
 class SplashScreen : AppCompatActivity()
 {

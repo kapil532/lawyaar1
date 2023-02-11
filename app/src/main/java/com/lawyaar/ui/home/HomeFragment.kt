@@ -19,7 +19,7 @@ import com.lawyaar.MainActivity
 import com.lawyaar.R
 import com.lawyaar.adapters.LawyaarAdapter
 import com.lawyaar.application.LawyaarApplication
-import com.lawyaar.payment_screen.PaymentActivity
+import com.lawyaar.ui.payment_screen.PaymentActivity
 import com.lawyaar.retrofit.LawyaarApi
 import com.lawyaar.retrofit.MainRepostry
 import com.lawyaar.retrofit.RetrofitHelperObj

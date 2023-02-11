@@ -1,4 +1,4 @@
-package com.lawyaar.auth
+package com.lawyaar.ui.auth
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +14,7 @@ import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
 import com.lawyaar.MainActivity
 import com.lawyaar.R
-import com.lawyaar.auth.OTPActivity
+import com.lawyaar.ui.auth.OTPActivity
 import java.util.concurrent.TimeUnit
 
 class PhoneActivity : AppCompatActivity() {

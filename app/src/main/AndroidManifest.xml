@@ -16,7 +16,7 @@
         android:theme="@style/Theme.Lawyaar"
         tools:targetApi="31">
         <activity
-            android:name=".SplashScreen"
+            android:name=".ui.lawyaardetails.LawyaarDetailsActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Lawyaar.NoActionBar">
@@ -28,7 +28,7 @@
         </activity>
 
         <activity
-            android:name=".auth.OTPActivity" android:exported="true"
+            android:name=".ui.auth.OTPActivity" android:exported="true"
             android:theme="@style/Theme.Lawyaar.NoActionBar"></activity>
 
         <activity
@@ -36,14 +36,14 @@
             android:theme="@style/Theme.Lawyaar.NoActionBar"></activity>
 
         <activity
-            android:name=".auth.PhoneActivity"
+            android:name=".ui.auth.PhoneActivity"
             android:theme="@style/Theme.Lawyaar.NoActionBar"></activity>
- <activity
-            android:name=".ui.lawyaardetails.LawyaarDetailsActivity"
-            android:theme="@style/Theme.Lawyaar.NoActionBar"></activity>
+<!-- <activity-->
+<!--            android:name=".ui.lawyaardetails.LawyaarDetailsActivity"-->
+<!--            android:theme="@style/Theme.Lawyaar.NoActionBar"></activity>-->
 
 <activity
-            android:name=".payment_screen.PaymentActivity"
+            android:name=".ui.payment_screen.PaymentActivity"
             android:theme="@style/Theme.Lawyaar.NoActionBar"></activity>
 
 <activity

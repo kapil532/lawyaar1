@@ -67,9 +67,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.appBarMain.toolbar)
         binding.appBarMain.fab.setColorFilter(Color.WHITE);
         binding.appBarMain.fab.setOnClickListener { view ->
-
             initBottomSheet()
-
         }
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView

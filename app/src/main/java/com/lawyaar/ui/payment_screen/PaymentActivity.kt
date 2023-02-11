@@ -1,4 +1,4 @@
-package com.lawyaar.payment_screen
+package com.lawyaar.ui.payment_screen
 
 import android.os.Bundle
 import android.widget.Toast

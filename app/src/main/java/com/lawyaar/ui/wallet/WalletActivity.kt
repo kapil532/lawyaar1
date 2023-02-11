@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.lawyaar.R
-import com.lawyaar.payment_screen.PaymentActivity
+import com.lawyaar.ui.payment_screen.PaymentActivity
 
 class WalletActivity : AppCompatActivity()
 {
