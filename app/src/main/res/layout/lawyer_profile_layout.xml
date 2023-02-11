@@ -337,7 +337,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/proximanovaregular"
-                android:text="We provide hands-on legal guidance on Internet and technology issues such as: online business disputes; general cyberlaw consulting; trademarks and trademark/service mark disputes; cybersquatting and typosquatting; domain name disputes; copyrights and copyright disputes; the Digital Millennium Copyright Act (DMCA); Internet torts and privacy; the Communications Decency Act"
+                android:text="We provide hands-on legal guidance on Internet and technology issues such as: online business disputes; general cyberlaw consulting; trademarks and trademark/service mark disputes; cybersquatting and typosquatting; domain n the Communications Decency Act"
                 android:textColor="@color/btn_color"
                 android:textSize="16sp"
                 android:textStyle="normal" />
@@ -497,7 +497,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_margin="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/blue_rounded_button"
             android:fontFamily="@font/proximanovaregular"
             android:text="Book An Appointment" />
