@@ -129,10 +129,6 @@ class MainActivity : AppCompatActivity() {
         initNetwork()
     }
 
-    fun spinnerAdaptor()
-    {
-      //  ArrayAdapter<>
-    }
 
     lateinit var locationAdaptor: LocationAdaptor
     lateinit var languageAdaptor: LanguageAdaptor

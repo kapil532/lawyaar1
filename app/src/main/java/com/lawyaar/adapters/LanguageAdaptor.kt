@@ -23,8 +23,6 @@ class LanguageAdaptor (): RecyclerView.Adapter<LanguageAdaptor.ViewHolder>()
     val selectedItems = SparseBooleanArray()
      class ViewHolder(view :View) :RecyclerView.ViewHolder(view)
     {
-
-
         val single_loc_lan_title :TextView
         val item_card_veiw :CardView
 
@@ -33,10 +31,6 @@ class LanguageAdaptor (): RecyclerView.Adapter<LanguageAdaptor.ViewHolder>()
                item_card_veiw   = view.findViewById(R.id.item_card_veiw)
 
            }
-
-
-
-
     }
 
     var list = ArrayList<LanguageModelItem>()
