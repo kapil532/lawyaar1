@@ -52,6 +52,7 @@ interface LawyaarApi {
     @POST("users/search")
     suspend fun getLawyersBySearch(
         @Header("Authorization") token: String,
+        @Header("children") children: String,
         @Body data: PostFilter
     ): Response<LawyerSearchModel>
 
