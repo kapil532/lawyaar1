@@ -21,6 +21,7 @@ class LanguageAdaptor (): RecyclerView.Adapter<LanguageAdaptor.ViewHolder>()
 
 
     val selectedItems = SparseBooleanArray()
+    val arrayList = ArrayList<String>()
      class ViewHolder(view :View) :RecyclerView.ViewHolder(view)
     {
         val single_loc_lan_title :TextView
@@ -71,4 +72,10 @@ class LanguageAdaptor (): RecyclerView.Adapter<LanguageAdaptor.ViewHolder>()
         notifyItemChanged(position)
     }
 
+
+    fun  getAllData()
+    {
+
+
+    }
 }
