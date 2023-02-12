@@ -1,6 +1,7 @@
 package com.lawyaar.models.user_details
 
 data class UserDetailsModel(
+    val caseCategories: List<CaseCategory>,
     val email: String,
     val emailVerified: Boolean,
     val languages: List<Language>,

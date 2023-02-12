@@ -1,7 +1,6 @@
 package com.lawyaar.retrofit
 
 import com.lawyaar.models.authentication.AuthSuccess
-import com.lawyaar.models.case_category.CaseCategory
 import com.lawyaar.models.category.CategoryModel
 import com.lawyaar.models.language.LanguageModel
 import com.lawyaar.models.lawyer_search.LawyerSearchModel
@@ -15,7 +14,6 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 interface LawyaarApi {
 
@@ -39,8 +37,11 @@ interface LawyaarApi {
     @GET("common/lawyerCategory/all")
     suspend fun getLaweyCategory(): Response<CategoryModel>
 
-    @GET("users/")
-    suspend fun getUserDetails(): Response<UserDetailsModel>
+    @GET("users/{userId}")
+    suspend fun getUserDetails(
+        @Header("Authorization") token: String,
+        @Path("userId") userId: String
+    ): Response<UserDetailsModel>
 
 
     @POST("users/search")
