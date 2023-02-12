@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.widget.ArrayAdapter
 import android.widget.ImageView
+import android.widget.Spinner
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -18,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.lawyaar.adapters.CustomDropDownAdapter
 import com.lawyaar.adapters.LanguageAdaptor
 import com.lawyaar.adapters.LaywerCategoryAdaptor
 import com.lawyaar.adapters.LocationAdaptor
@@ -97,6 +100,7 @@ class MainActivity : AppCompatActivity() {
         val filter_recyle =view.findViewById<RecyclerView>(R.id.filter_recyle)
         val filter_recyle_langauge =view.findViewById<RecyclerView>(R.id.filter_recyle_langauge)
         val filter_recyle_location =view.findViewById<RecyclerView>(R.id.filter_recyle_location)
+        val spinner04 =view.findViewById<Spinner>(R.id.spinner04)
 
         filter_recyle.layoutManager= StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         filter_recyle_langauge.layoutManager= StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
@@ -106,6 +110,8 @@ class MainActivity : AppCompatActivity() {
         locationAdaptor = LocationAdaptor()
         languageAdaptor = LanguageAdaptor()
         laywerCategory = LaywerCategoryAdaptor()
+        spinnerAdapter = CustomDropDownAdapter(this)
+
 
         filter_close_icon.setOnClickListener {
            dialog.dismiss()
@@ -115,6 +121,7 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
 
         filter_recyle.adapter=laywerCategory
+        spinner04.adapter = spinnerAdapter
         filter_recyle_langauge.adapter=languageAdaptor
         filter_recyle_location.adapter=locationAdaptor
 
@@ -122,9 +129,15 @@ class MainActivity : AppCompatActivity() {
         initNetwork()
     }
 
+    fun spinnerAdaptor()
+    {
+      //  ArrayAdapter<>
+    }
+
     lateinit var locationAdaptor: LocationAdaptor
     lateinit var languageAdaptor: LanguageAdaptor
     lateinit var laywerCategory: LaywerCategoryAdaptor
+    lateinit var spinnerAdapter: CustomDropDownAdapter
 
     fun initNetwork() {
 
@@ -157,7 +170,7 @@ class MainActivity : AppCompatActivity() {
         caseCategoryViewModel.category.observe(this, Observer<CaseCategory> {
           if (it != null)
             {
-                laywerCategory.setUpdateData(it)
+                spinnerAdapter.setUpdateData(it)
             }
           else{
               Log.d("","--> NUL VALUE")

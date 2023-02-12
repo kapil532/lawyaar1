@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="wrap_content">
 
 
@@ -43,11 +44,34 @@
                     android:textStyle="bold" />
 
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/item_card_veiw"
+                    android:layout_below="@+id/filter_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="4dp"
+                    app:cardElevation="2dp"
+                    app:cardMaxElevation="2dp"
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true">
+
+                >
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:layout_width="match_parent"
+                    android:layout_below="@+id/filter_title"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:tooltipText="Please select"
+                   android:autofillHints="Please select Case Category"
+                    android:id="@+id/spinner04"/>
+                </androidx.cardview.widget.CardView>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/filter_recyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/filter_title"
+                    android:layout_below="@+id/item_card_veiw"
                     android:layout_marginTop="8dp" />
 
 
