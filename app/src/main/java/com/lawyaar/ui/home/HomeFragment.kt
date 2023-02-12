@@ -1,7 +1,9 @@
 package com.lawyaar.ui.home
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,6 +21,10 @@ import com.lawyaar.MainActivity
 import com.lawyaar.R
 import com.lawyaar.adapters.LawyaarAdapter
 import com.lawyaar.application.LawyaarApplication
+import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModel
+import com.lawyaar.models.lawyer_search.post_details.PostFilter
+import com.lawyaar.models.lawyer_search.view_model.LawyerSearchFactoyModel
+import com.lawyaar.models.lawyer_search.view_model.LawyerSearchViewModel
 import com.lawyaar.ui.payment_screen.PaymentActivity
 import com.lawyaar.retrofit.LawyaarApi
 import com.lawyaar.retrofit.MainRepostry
@@ -38,10 +44,10 @@ class HomeFragment : Fragment(), CellClickListener, TalkListner {
 
     private var layoutManager: RecyclerView.LayoutManager? = null
     private lateinit var adapter: LawyaarAdapter
-   // lateinit var homeViewModel: HomeViewModel
+    lateinit var lawyerSearchViewModel: LawyerSearchViewModel
 
-   // @Inject
-   // lateinit var homeViewModelFactory: HomeViewModelFactory
+    @Inject
+    lateinit var lawyerSearchFactoyModel: LawyerSearchFactoyModel
     lateinit var shimmer_view_container: ShimmerFrameLayout
 
 
@@ -58,23 +64,51 @@ class HomeFragment : Fragment(), CellClickListener, TalkListner {
         recycle_veiw.layoutManager = LinearLayoutManager(activity)
         adapter = LawyaarAdapter()
         recycle_veiw.adapter = adapter
-        //initNetwork()
+        initNetwork()
         adapter.setUplistner(this, this)
         return veiw
     }
 
-    @SuppressLint("FragmentLiveDataObserve")
+    @SuppressLint("FragmentLiveDataObserve", "SuspiciousIndentation")
     fun initNetwork() {
-     //   (activity?.application as LawyaarApplication).applicationComponent.inject(homeFragment = this)
-      //  homeViewModel = ViewModelProvider(this, homeViewModelFactory).get(HomeViewModel::class.java)
 
-       // homeViewModel.quotes.observe(this, Observer<QuoteList> {
-         //   if (it != null) {
-            //    shimmer_view_container.hideShimmer()
-            //    shimmer_view_container.visibility = View.GONE
-            //    adapter.setUpdateData(it.results)
-          //  }
-     //   })
+
+        val sharedPreferences: SharedPreferences =
+            activity?.application!!.getSharedPreferences("token_auth", Context.MODE_PRIVATE)
+
+        val tokenValue = sharedPreferences.getString("token_val", " ")
+
+        (activity?.application as LawyaarApplication).applicationComponent.inject(homeFragment = this)
+        lawyerSearchViewModel =
+            ViewModelProvider(this, lawyerSearchFactoyModel).get(LawyerSearchViewModel::class.java)
+        val languages: MutableList<String> = ArrayList()
+        languages.add("7e566317-1984-48b8-be97-c77a41c43311")
+        var postFilter = PostFilter(languages)
+
+        if (tokenValue != null) {
+            lawyerSearchViewModel.lawyerSearchByFilter(
+                tokenValue,
+                "language,category,locations",
+                postFilter
+            )
+        }
+        lawyerSearchViewModel.searchLawyerLiveData.observe(this, Observer<LawyerSearchModel>
+        {
+            if (it != null) {
+                shimmer_view_container.hideShimmer()
+                shimmer_view_container.visibility = View.GONE
+                adapter.setUpdateData(it)
+            }
+        })
+
+
+        // homeViewModel.quotes.observe(this, Observer<QuoteList> {
+        //   if (it != null) {
+        //    shimmer_view_container.hideShimmer()
+        //    shimmer_view_container.visibility = View.GONE
+        //    adapter.setUpdateData(it.results)
+        //  }
+        //   })
 
     }
 

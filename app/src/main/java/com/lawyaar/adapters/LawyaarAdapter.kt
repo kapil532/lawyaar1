@@ -9,31 +9,30 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.lawyaar.MainActivity
 import com.lawyaar.R
+import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModelItem
 import com.lawyaar.testlist.QuoteList
 import com.lawyaar.utils.CellClickListener
 import com.lawyaar.utils.TalkListner
 
 class LawyaarAdapter() : RecyclerView.Adapter<LawyaarAdapter.MyVeiwHolder>() {
 
-//    var quoteList = QuoteList(0,0,0, ,0,0)
 
 
    class MyVeiwHolder(itemVeiw : View) :RecyclerView.ViewHolder(itemVeiw)
    {
-
-       val lawyaaricon : ImageView = itemVeiw.findViewById(R.id.lawaar_icon)
-
        val lawyaarname : TextView = itemVeiw.findViewById(R.id.lawyaar_name)
-       val lawyaar_more : TextView = itemVeiw.findViewById(R.id.lawyaar_more)
+       val lawyaar_exper : TextView = itemVeiw.findViewById(R.id.lawyaar_exper)
+       val lawyaaricon : ImageView = itemVeiw.findViewById(R.id.lawaar_icon)
+       val lawyaar_lang : TextView = itemVeiw.findViewById(R.id.lawyaar_lang)
        val book_button : TextView = itemVeiw.findViewById(R.id.book_button)
 
    }
 
-    var list = ArrayList<com.lawyaar.testlist.Result>()
+    var list = ArrayList<LawyerSearchModelItem>()
 
-    fun setUpdateData(quoteList: ArrayList<com.lawyaar.testlist.Result>)
+    fun setUpdateData(list: ArrayList<LawyerSearchModelItem>)
     {
-        this.list =  quoteList
+        this.list =  list
         notifyDataSetChanged()
     }
 
@@ -52,18 +51,28 @@ class LawyaarAdapter() : RecyclerView.Adapter<LawyaarAdapter.MyVeiwHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): MyVeiwHolder {
         val v = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.lawyaar_single_list, viewGroup, false)
+            .inflate(R.layout.single_row_lawyer_layout, viewGroup, false)
         return MyVeiwHolder(v)
     }
 
 
     override fun onBindViewHolder(viewHolder: MyVeiwHolder, i: Int) {
         val currentitem = list.get(i)
-        viewHolder.lawyaarname.text = currentitem.author
+        viewHolder.lawyaarname.text = currentitem.name
+        var  caseS =""
+               if(currentitem.caseCategories.size  >0) {
 
-        viewHolder.lawyaar_more.setOnClickListener({
-            cellClickListener.onCellClickListener()
-        })
+                   for ( case in currentitem.caseCategories )
+                   {
+                     caseS = ""+case.name
+                   }
+               }
+
+        viewHolder.lawyaar_exper.text = ""+caseS
+
+//        viewHolder.lawyaar_more.setOnClickListener({
+//            cellClickListener.onCellClickListener()
+//        })
 
         viewHolder.book_button.setOnClickListener({
             talkListner.onTalkClickListner()
