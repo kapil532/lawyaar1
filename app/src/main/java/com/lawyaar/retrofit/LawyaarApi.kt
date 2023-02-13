@@ -45,6 +45,7 @@ interface LawyaarApi {
     @GET("users/{userId}")
     suspend fun getUserDetails(
         @Header("Authorization") token: String,
+        @Header("children") children: String,
         @Path("userId") userId: String
     ): Response<UserDetailsModel>
 

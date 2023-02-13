@@ -1,6 +1,7 @@
 package com.lawyaar.ui.lawyaardetails
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
@@ -8,6 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.lawyaar.R
 import com.lawyaar.databinding.ActivityMainBinding
+import com.lawyaar.ui.book_slots.BookingSlotActivity
 
 class LawyaarDetailsActivity : AppCompatActivity()
 {
@@ -27,8 +29,8 @@ class LawyaarDetailsActivity : AppCompatActivity()
                  })
 
       val appoint_button = findViewById<Button>(R.id.appoint_button)
-                 back_icon.setOnClickListener({
-                      finish()
+      appoint_button.setOnClickListener({
+                     startActivity(Intent(this, BookingSlotActivity::class.java))
                  })
 
 

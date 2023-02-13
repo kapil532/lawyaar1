@@ -1,5 +1,6 @@
 package com.lawyaar.adapters
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -56,6 +57,7 @@ class LawyaarAdapter() : RecyclerView.Adapter<LawyaarAdapter.MyVeiwHolder>() {
     }
 
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onBindViewHolder(viewHolder: MyVeiwHolder, i: Int) {
         val currentitem = list.get(i)
         viewHolder.lawyaarname.text = currentitem.name
@@ -70,9 +72,9 @@ class LawyaarAdapter() : RecyclerView.Adapter<LawyaarAdapter.MyVeiwHolder>() {
 
         viewHolder.lawyaar_exper.text = ""+caseS
 
-//        viewHolder.lawyaar_more.setOnClickListener({
-//            cellClickListener.onCellClickListener()
-//        })
+        viewHolder.lawyaaricon.setOnClickListener({
+            cellClickListener.onCellClickListener()
+        })
 
         viewHolder.book_button.setOnClickListener({
             talkListner.onTalkClickListner()

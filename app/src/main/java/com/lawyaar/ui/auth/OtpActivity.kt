@@ -174,7 +174,7 @@ class OTPActivity : AppCompatActivity() {
                     Toast.makeText(this, "Authenticate Successfully", Toast.LENGTH_SHORT).show()
 
                     //initforAuth()
-                    sendToMain()
+
 
                     initA()
 
@@ -267,12 +267,17 @@ class OTPActivity : AppCompatActivity() {
             if (it != null)
             {
 
-                Log.d("TAGSS","-fffffff->  "+it.userId);
+                Log.d("TAGSS","-fffffff->  "+it.userId +"== "+it.username +"role --> "+it.roles);
                 val sharedPreferences: SharedPreferences = application.getSharedPreferences("token_auth",Context.MODE_PRIVATE)
                 val editor:SharedPreferences.Editor =  sharedPreferences.edit()
                 editor.putString("token_val", authToken)
+                editor.putString("user_id",""+it.userId)
+                editor.putString("roles",""+it.roles)
+                editor.putString("username",""+it.username)
                 editor.apply()
                 editor.commit()
+
+                sendToMain()
             }
             else{
                 Log.d("Tags","--> Exception <-- ")
