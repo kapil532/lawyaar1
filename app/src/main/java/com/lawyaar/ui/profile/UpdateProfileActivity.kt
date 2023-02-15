@@ -1,6 +1,8 @@
 package com.lawyaar.ui.profile
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +14,7 @@ class UpdateProfileActivity : BaseActivity()
 {
 
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.update_profile_screen)
@@ -23,10 +26,9 @@ class UpdateProfileActivity : BaseActivity()
         })
 
 
-        val user_name =  findViewById<TextView>(R.id.user_name)
-        val update_user_name =  findViewById<TextInputEditText>(R.id.update_user_name)
-        val user_mobileno =  findViewById<TextInputEditText>(R.id.user_mobileno)
-        val user_email =  findViewById<TextInputEditText>(R.id.user_email)
+        val update_user_name =  findViewById<EditText>(R.id.update_user_name)
+        val user_mobileno =  findViewById<EditText>(R.id.user_mobileno)
+        val user_email =  findViewById<EditText>(R.id.user_email)
     }
 
 

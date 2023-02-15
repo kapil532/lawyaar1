@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-
-
-
+    android:background="@color/backgorund_col">
 
 
     <RelativeLayout
         android:id="@+id/header_profile"
         android:layout_width="match_parent"
-        android:padding="20dp"
-        android:background="@color/wallet_holo_blue_light"
-        android:layout_height="250dp">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/backgorund_col">
 
         <ImageView
             android:id="@+id/back_icon"
@@ -22,102 +19,90 @@
             android:layout_height="50dp"
             android:padding="10dp"
             android:src="@drawable/ic_arrow_back_24dp"
-            />
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/profile_icon"
-            android:layout_width="70dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/profile"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
-            android:layout_height="70dp"/>
+            android:tint="@color/black"
+            tools:ignore="UseAppTint" />
 
-           <TextView
-               android:id="@+id/user_name"
-               android:textColor="@color/white"
-               android:textSize="20sp"
-               android:layout_centerVertical="true"
-               android:layout_marginLeft="8dp"
-               android:layout_toRightOf="@+id/profile_icon"
-               android:text="Shambhu Kumar"
-               android:textStyle="bold"
-               android:fontFamily="@font/proximanovaregular"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"/>
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:fontFamily="@font/proximanovaregular"
+            android:text="Update Profile"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
-    
-    <LinearLayout
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_below="@+id/header_profile"
-       android:padding="32dp"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="12dp">
 
-        <com.google.android.material.textfield.TextInputLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:hint="Name"
-            android:fontFamily="@font/proximanovaregular"
-            android:layout_marginBottom="10dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/header_profile"
+            android:orientation="vertical"
+            android:padding="32dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/update_user_name"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/parent"
+                android:layout_marginTop="19dp">
+
+                <EditText
+                    android:id="@+id/update_user_name"
+                    style="@style/modifiedEditText"
+                    android:hint="Name"
+                    android:inputType="text"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/parent"
+                android:layout_marginTop="19dp">
+
+                <EditText
+                    android:id="@+id/user_email"
+                    style="@style/modifiedEditText"
+                    android:hint="Email"
+                    android:inputType="text"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/parent"
+                android:layout_marginTop="19dp">
+
+                <EditText
+                    android:id="@+id/user_mobileno"
+                    style="@style/modifiedEditText"
+                    android:editable="false"
+                    android:hint="Mobile No."
+                    android:inputType="number"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <include
+
+                layout="@layout/filter_view"
                 android:layout_width="match_parent"
-                android:drawableLeft="@drawable/id_card"
-                android:drawablePadding="10dp"
-                android:backgroundTint="@color/white"
-                android:fontFamily="@font/proximanovaregular"
-                android:text="Shambhu Kumar"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-           <com.google.android.material.textfield.TextInputLayout
-               android:layout_width="match_parent"
-               android:hint="Email"
-               android:layout_marginTop="10dp"
-               android:fontFamily="@font/proximanovaregular"
-               android:layout_marginBottom="10dp"
-               android:layout_height="wrap_content">
-
-                 <com.google.android.material.textfield.TextInputEditText
-                     android:id="@+id/user_email"
-                     android:layout_width="match_parent"
-                     android:drawableLeft="@drawable/ic_email_24dp"
-                     android:backgroundTint="@color/white"
-                     android:drawablePadding="10dp"
-                     android:fontFamily="@font/proximanovaregular"
-                     android:text="Shambu.kumar@lawyaar.co"
-                     android:layout_height="wrap_content"/>
-
-           </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:hint="Phone"
-            android:fontFamily="@font/proximanovaregular"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_height="wrap_content">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/user_mobileno"
-                android:fontFamily="@font/proximanovaregular"
-                android:layout_width="match_parent"
-                android:backgroundTint="@color/white"
-                android:drawableLeft="@drawable/smartphone"
-                android:drawablePadding="10dp"
-                android:text="+91 8080808080"
-                android:layout_height="wrap_content"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-    </LinearLayout>
-
+    </androidx.core.widget.NestedScrollView>
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
