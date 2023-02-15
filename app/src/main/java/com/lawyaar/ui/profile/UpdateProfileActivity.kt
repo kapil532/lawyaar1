@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -21,15 +22,30 @@ import com.lawyaar.adapters.LocationAdaptor
 import com.lawyaar.application.LawyaarApplication
 import com.lawyaar.models.case_category.CaseCategory
 import com.lawyaar.models.case_category.view_model_factory.CaseCategoryViewModel
+import com.lawyaar.models.case_category.view_model_factory.CaseCategoryViewModelFactory
 import com.lawyaar.models.language.LanguageModel
 import com.lawyaar.models.language.view_model_factory.LanguageViewModel
+import com.lawyaar.models.language.view_model_factory.LanguageViewModelFactory
 import com.lawyaar.models.location.LocationModel
 import com.lawyaar.models.location.view_factory_model.LocationViewModel
+import com.lawyaar.models.location.view_factory_model.LocationViewModelFactory
 import com.lawyaar.ui.base_screen.BaseActivity
+import javax.inject.Inject
 
 class UpdateProfileActivity : BaseActivity()
 {
+    lateinit var caseCategoryViewModel: CaseCategoryViewModel
+    lateinit var languageViewModel: LanguageViewModel
+    lateinit var locationViewModel: LocationViewModel
 
+
+
+    @Inject
+    lateinit var locationViewModelFactory: LocationViewModelFactory
+    @Inject
+    lateinit var languaViewModelFactory: LanguageViewModelFactory
+    @Inject
+    lateinit var caseCategoryViewModelFactory: CaseCategoryViewModelFactory
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
