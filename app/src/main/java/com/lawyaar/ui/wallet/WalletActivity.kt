@@ -15,7 +15,7 @@ class WalletActivity : AppCompatActivity()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_slideshow)
-        val payment_button = findViewById<Button>(R.id.payment_button)
+        val payment_button = findViewById<Button>(R.id.appoint_button)
         payment_button.setOnClickListener({
 
             startActivity(Intent(this@WalletActivity , PaymentActivity::class.java))
