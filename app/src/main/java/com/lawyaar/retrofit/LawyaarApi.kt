@@ -8,6 +8,7 @@ import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModel
 import com.lawyaar.models.lawyer_search.post_details.PostFilter
 import com.lawyaar.models.location.LocationModel
 import com.lawyaar.models.user_details.UserDetailsModel
+import com.lawyaar.models.wallets.WalletModel
 import com.lawyaar.testlist.QuoteList
 import retrofit2.Response
 import retrofit2.http.Body
@@ -57,5 +58,6 @@ interface LawyaarApi {
         @Body data: PostFilter
     ): Response<LawyerSearchModel>
 
-
+    @GET("wallet/list")
+    suspend fun getWalletsDetails(): Response<WalletModel>
 }

@@ -74,13 +74,7 @@
         android:layout_below="@+id/topbar">
 
 
-
-
-
-
     </RelativeLayout>
-
-
 
 
     <RelativeLayout
@@ -99,14 +93,7 @@
             android:orientation="horizontal">
 
 
-
-
         </LinearLayout>
-
-
-
-
-
 
 
         <Button
@@ -123,47 +110,38 @@
             android:text="Add POINTS" />
 
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:backgroundTint="@color/black"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_height="180dp"
+        android:layout_marginLeft="32dp"
         android:layout_marginTop="160dp"
-        android:layout_height="200dp">
-        <androidx.cardview.widget.CardView
+        android:layout_marginRight="32dp">
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:foreground="@drawable/listgrad"
+            android:background="@drawable/listgrad"
             app:cardCornerRadius="18dp"
             app:cardElevation="4dp"
             app:cardMaxElevation="10dp"
             app:contentPadding="25dp"
-            card_view:cardPreventCornerOverlap="true"
+            card_view:cardPreventCornerOverlap="true" >
 
-            >
-            <RelativeLayout
+
+
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/proximanovaregular"
+                android:text="Wallet Details"
+                android:textColor="@color/white"
+                android:layout_margin="16dp"
+                android:textSize="25sp"
+                android:textStyle="bold" />
 
 
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/proximanovaregular"
-                    android:text="Wallet Details"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-
-
-
-            </RelativeLayout>
-
-
-        </androidx.cardview.widget.CardView>
-
+        </RelativeLayout>
 
     </RelativeLayout>
 </RelativeLayout>
