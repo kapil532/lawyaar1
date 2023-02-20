@@ -58,6 +58,6 @@ interface LawyaarApi {
         @Body data: PostFilter
     ): Response<LawyerSearchModel>
 
-    @GET("wallet/list")
-    suspend fun getWalletsDetails(): Response<WalletModel>
+    @POST("wallet/list")
+    suspend fun getWalletsDetails( @Header("Authorization") token: String,): Response<WalletModel>
 }

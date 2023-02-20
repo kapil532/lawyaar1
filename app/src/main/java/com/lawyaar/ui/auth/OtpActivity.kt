@@ -36,6 +36,7 @@ class OTPActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var verifyBtn: Button
     private lateinit var resendTV: TextView
+    private lateinit var round_back: ImageView
     private lateinit var inputOTP1: EditText
     private lateinit var inputOTP2: EditText
     private lateinit var inputOTP3: EditText
@@ -213,6 +214,10 @@ class OTPActivity : AppCompatActivity() {
     private fun init() {
         auth = FirebaseAuth.getInstance()
         progressBar = findViewById(R.id.otpProgressBar)
+        round_back = findViewById(R.id.round_back)
+        round_back.setOnClickListener({
+            finish()
+        })
         verifyBtn = findViewById(R.id.verifyOTPBtn)
         resendTV = findViewById(R.id.resendTextView)
         inputOTP1 = findViewById(R.id.otpEditText1)
@@ -242,7 +247,7 @@ class OTPActivity : AppCompatActivity() {
                 R.id.otpEditText3 -> if (text.length == 1) inputOTP4.requestFocus() else if (text.isEmpty()) inputOTP2.requestFocus()
                 R.id.otpEditText4 -> if (text.length == 1) inputOTP5.requestFocus() else if (text.isEmpty()) inputOTP3.requestFocus()
                 R.id.otpEditText5 -> if (text.length == 1) inputOTP6.requestFocus() else if (text.isEmpty()) inputOTP4.requestFocus()
-                R.id.otpEditText6 -> if (text.isEmpty()) inputOTP5.requestFocus()
+                R.id.otpEditText6 -> if (text.isEmpty()) inputOTP1.requestFocus()
 
             }
         }

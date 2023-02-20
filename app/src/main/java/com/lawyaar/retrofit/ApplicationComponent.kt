@@ -6,6 +6,7 @@ import com.lawyaar.retrofit.NetworkModule
 import com.lawyaar.retrofit.RetrofitHelperObj
 import com.lawyaar.ui.home.HomeFragment
 import com.lawyaar.ui.profile.UpdateProfileActivity
+import com.lawyaar.ui.wallet.WalletActivity
 import dagger.Component
 import javax.inject.Singleton
 
@@ -19,5 +20,7 @@ interface ApplicationComponent
   fun inject(otpActivity : OTPActivity)
 
   fun inject(updateProfileActivity: UpdateProfileActivity)
+
+  fun inject(walletActivity: WalletActivity)
 
 }

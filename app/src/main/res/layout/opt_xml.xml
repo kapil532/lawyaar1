@@ -5,12 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/backgorund_col"
     tools:context=".ui.auth.OTPActivity">
 
 
-
-
+    <ImageView
+        android:id="@+id/round_back"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="16dp"
+        android:src="@drawable/back_round" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
         android:layout_width="wrap_content"
@@ -28,7 +32,8 @@
     <ImageView
         android:id="@+id/imageView2"
          android:layout_width="match_parent"
-        android:layout_height="122dp"
+        android:layout_height="60dp"
+        android:visibility="invisible"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="88dp"
         app:srcCompat="@drawable/lawyaar_icon" />
@@ -46,23 +51,38 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="111dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/otpProgressBar"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="6dp"
         android:fontFamily="@font/proximanovaregular"
-        android:text="Please Verify"
+        android:text="OTP Authentication"
+        android:textColor="@color/black"
+        android:textSize="26sp"
+        android:textStyle="bold"  />
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="26dp"
+        android:fontFamily="@font/proximanovaregular"
+        android:text="An authentication code has been sent to "
         android:textColor="@color/black"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="normal"  />
+
+
+
     <LinearLayout
         android:id="@+id/layout_edit_box"
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="28dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/textView9"
         android:gravity="center"
         android:layout_height="wrap_content">
 
@@ -75,8 +95,9 @@
             android:gravity="center"
             android:textColorHint="@color/white"
             android:inputType="number"
-            android:hint="0"
-            android:textColor="@color/white"
+            android:hint=""
+            android:maxLength="1"
+            android:textColor="@color/black"
            />
 
         <EditText
@@ -86,10 +107,11 @@
             android:background="@drawable/edit_text_bg"
             android:ems="10"
             android:gravity="center"
-            android:hint="0"
-            android:textColor="@color/white"
+            android:hint=""
+            android:textColor="@color/black"
             android:inputType="number"
-            android:textColorHint="@color/white"
+            android:maxLength="1"
+            android:textColorHint="@color/black"
             android:layout_marginLeft="10dp"/>
 
         <EditText
@@ -98,10 +120,11 @@
             android:layout_height="45dp"
             android:background="@drawable/edit_text_bg"
             android:ems="10"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:inputType="number"
             android:gravity="center"
-            android:hint="0"
+            android:hint=""
+            android:maxLength="1"
             android:textColorHint="@color/white"
             android:layout_marginLeft="10dp" />
 
@@ -111,11 +134,12 @@
             android:layout_height="45dp"
             android:background="@drawable/edit_text_bg"
             android:ems="10"
-            android:textColor="@color/white"
+            android:maxLength="1"
+            android:textColor="@color/black"
             android:inputType="number"
-            android:textColorHint="@color/white"
+            android:textColorHint="@color/black"
             android:gravity="center"
-            android:hint="0"
+            android:hint=""
             android:layout_marginLeft="10dp" />
 
 
@@ -125,10 +149,11 @@
             android:layout_height="45dp"
             android:background="@drawable/edit_text_bg"
             android:ems="10"
-            android:textColor="@color/white"
+            android:maxLength="1"
+            android:textColor="@color/black"
             android:inputType="number"
             android:gravity="center"
-            android:hint="0"
+            android:hint=""
             android:textColorHint="@color/white"
             android:layout_marginLeft="10dp" />
 
@@ -139,11 +164,12 @@
             android:layout_height="45dp"
             android:background="@drawable/edit_text_bg"
             android:ems="10"
+            android:maxLength="1"
             android:layout_marginLeft="10dp"
             android:inputType="number"
             android:gravity="center"
-            android:textColor="@color/white"
-            android:hint="0"
+            android:textColor="@color/black"
+            android:hint=""
             android:textColorHint="@color/white"
             />
 
@@ -159,9 +185,10 @@
         android:layout_below="@+id/layout_edit_box"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:layout_marginLeft="32dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="32dp"
         android:fontFamily="@font/proximanovaregular"
-        android:textColor="@color/black"
+        android:textColor="@color/blue"
          />
     <Button
         android:id="@+id/verifyOTPBtn"
