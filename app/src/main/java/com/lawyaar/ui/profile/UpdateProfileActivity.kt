@@ -1,6 +1,8 @@
 package com.lawyaar.ui.profile
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
@@ -29,6 +31,9 @@ import com.lawyaar.models.language.view_model_factory.LanguageViewModelFactory
 import com.lawyaar.models.location.LocationModel
 import com.lawyaar.models.location.view_factory_model.LocationViewModel
 import com.lawyaar.models.location.view_factory_model.LocationViewModelFactory
+import com.lawyaar.models.user_details.UserDetailsModel
+import com.lawyaar.models.user_details.user_details_view_model.UserDetailsFactoryModel
+import com.lawyaar.models.user_details.user_details_view_model.UserDetailsViewModel
 import com.lawyaar.ui.base_screen.BaseActivity
 import javax.inject.Inject
 
@@ -37,6 +42,8 @@ class UpdateProfileActivity : BaseActivity()
     lateinit var caseCategoryViewModel: CaseCategoryViewModel
     lateinit var languageViewModel: LanguageViewModel
     lateinit var locationViewModel: LocationViewModel
+    lateinit var userDetailsViewModel: UserDetailsViewModel
+
 
 
 
@@ -46,8 +53,15 @@ class UpdateProfileActivity : BaseActivity()
     lateinit var languaViewModelFactory: LanguageViewModelFactory
     @Inject
     lateinit var caseCategoryViewModelFactory: CaseCategoryViewModelFactory
+    @Inject
+    lateinit var userDetailsFactoryModel: UserDetailsFactoryModel
 
-    @SuppressLint("MissingInflatedId")
+    lateinit var  update_user_name :EditText
+    lateinit var  user_mobileno :EditText
+    lateinit var  user_email :EditText
+
+
+    @SuppressLint("MissingIflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.update_profile_screen)
@@ -59,9 +73,9 @@ class UpdateProfileActivity : BaseActivity()
         })
 
 
-        val update_user_name =  findViewById<EditText>(R.id.update_user_name)
-        val user_mobileno =  findViewById<EditText>(R.id.user_mobileno)
-        val user_email =  findViewById<EditText>(R.id.user_email)
+         update_user_name =  findViewById<EditText>(R.id.update_user_name)
+         user_mobileno =  findViewById<EditText>(R.id.user_mobileno)
+         user_email =  findViewById<EditText>(R.id.user_email)
 
         initBottomSheet()
     }
@@ -106,6 +120,8 @@ class UpdateProfileActivity : BaseActivity()
     fun initNetwork() {
 
         (application as LawyaarApplication).applicationComponent.inject(this)
+
+        userDetailsViewModel =ViewModelProvider(this,userDetailsFactoryModel).get(UserDetailsViewModel::class.java)
         locationViewModel = ViewModelProvider(this,locationViewModelFactory).get(LocationViewModel::class.java)
         languageViewModel = ViewModelProvider(this,languaViewModelFactory).get(LanguageViewModel::class.java)
         caseCategoryViewModel = ViewModelProvider(this,caseCategoryViewModelFactory).get(
@@ -142,8 +158,37 @@ class UpdateProfileActivity : BaseActivity()
             }
         })
 
+        getDetails()
 
     }
 
+    fun getDetails()
+    {
+        val sharedPreferences: SharedPreferences =application!!.getSharedPreferences("token_auth", Context.MODE_PRIVATE)
+        val tokenValue = sharedPreferences.getString("token_val", " ")
+        val user_id = sharedPreferences.getString("user_id", " ")
+
+        if (tokenValue != null && user_id != null) {
+            userDetailsViewModel.getUserDetails(tokenValue,"language,category,locations",user_id)
+        }
+        userDetailsViewModel.getUserLiveData.observe(this, Observer<UserDetailsModel> {
+            if (it != null)
+            {
+                Log.d("","--> NUL VALUE"+it.name)
+                updateDetails(it)
+            }
+            else{
+                Log.d("","--> NUL VALUE")
+            }
+        })
+    }
+
+    @SuppressLint("SetTextI18n")
+    fun updateDetails(userDetailsModel: UserDetailsModel)
+    {
+        user_mobileno.setText( userDetailsModel.mobile)
+        user_email.setText(userDetailsModel.email)
+        update_user_name.setText(userDetailsModel.name)
+    }
 
 }

@@ -75,7 +75,6 @@ class HomeFragment : Fragment(), CellClickListener, TalkListner {
 
         val sharedPreferences: SharedPreferences =
             activity?.application!!.getSharedPreferences("token_auth", Context.MODE_PRIVATE)
-
         val tokenValue = sharedPreferences.getString("token_val", " ")
 
         (activity?.application as LawyaarApplication).applicationComponent.inject(homeFragment = this)

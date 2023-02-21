@@ -11,6 +11,7 @@ import com.lawyaar.models.language.LanguageModel
 import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModel
 import com.lawyaar.models.lawyer_search.post_details.PostFilter
 import com.lawyaar.models.location.LocationModel
+import com.lawyaar.models.user_details.UserDetailsModel
 import com.lawyaar.models.wallets.WalletModel
 import com.lawyaar.testlist.QuoteList
 import javax.inject.Inject
@@ -110,7 +111,7 @@ class MainRepostry @Inject constructor(private val lawyaarApi: LawyaarApi) {
     }
 
 
- private val userWalletLiveData = MutableLiveData<WalletModel>()
+    private val userWalletLiveData = MutableLiveData<WalletModel>()
     val walletLive: LiveData<WalletModel>
         get() = userWalletLiveData
 
@@ -118,6 +119,20 @@ class MainRepostry @Inject constructor(private val lawyaarApi: LawyaarApi) {
         val result = lawyaarApi.getWalletsDetails(token)
         if (result?.body() != null) {
             userWalletLiveData.postValue(result.body())
+        }
+    }
+
+
+
+    //Get User details
+    private val userDetailsLiveData = MutableLiveData<UserDetailsModel>()
+    val userLiveData: LiveData<UserDetailsModel>
+        get() = userDetailsLiveData
+
+    suspend fun getUserDetails(token: String, children: String,userId: String) {
+        val result = lawyaarApi.getUserDetails(token,children,userId)
+        if (result?.body() != null) {
+            userDetailsLiveData.postValue(result.body())
         }
     }
 
