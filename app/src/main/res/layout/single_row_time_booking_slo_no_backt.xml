@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/item_card_veiw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        app:cardBackgroundColor="@color/white"
+       >
+
+
+
+
+        <TextView
+            android:id="@+id/date_slots_text"
+            android:fontFamily="@font/proximanovaregular"
+            android:textSize="14sp"
+            android:textColor="#a0a0a2"
+            android:text="4 :30 PM"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:textStyle="normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:id="@+id/slots_available_down_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="PM"
+            android:visibility="gone"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/date_slots_text"
+            android:fontFamily="@font/proximanovaregular"
+            android:textColor="#a0a0a2"
+            />
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

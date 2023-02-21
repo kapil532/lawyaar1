@@ -20,7 +20,7 @@ class CustomDropDownAdapter(val context: Context) : BaseAdapter() {
         val view: View
         val vh: ItemHolder
         if (convertView == null) {
-            view = inflater.inflate(R.layout.single_row_time_booking_slot, parent, false)
+            view = inflater.inflate(R.layout.single_row_time_booking_slo_no_backt, parent, false)
             vh = ItemHolder(view)
             view?.tag = vh
         } else {

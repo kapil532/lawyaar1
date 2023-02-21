@@ -70,7 +70,6 @@ class UpdateProfileActivity : BaseActivity()
     @SuppressLint("MissingInflatedId")
     fun initBottomSheet()
     {
-        val  filter_close_icon = findViewById<ImageView>(R.id.filter_close_icon)
         val filter_recyle =findViewById<RecyclerView>(R.id.filter_recyle)
         val filter_recyle_langauge =findViewById<RecyclerView>(R.id.filter_recyle_langauge)
         val filter_recyle_location =findViewById<RecyclerView>(R.id.filter_recyle_location)

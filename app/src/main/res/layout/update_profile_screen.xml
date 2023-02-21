@@ -43,13 +43,20 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="12dp">
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_below="@+id/header_profile">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/header_profile"
             android:orientation="vertical"
-            android:padding="16dp">
+           android:layout_marginLeft="32dp"
+           android:layout_marginRight="32dp"
+           android:layout_marginTop="20dp"
+
+            >
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/parent"
@@ -90,11 +97,14 @@
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
-
+        </LinearLayout>
             <include
 
                 layout="@layout/filter_view"
                 android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
