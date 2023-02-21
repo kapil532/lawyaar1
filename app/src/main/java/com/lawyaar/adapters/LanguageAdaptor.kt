@@ -20,7 +20,7 @@ class LanguageAdaptor (): RecyclerView.Adapter<LanguageAdaptor.ViewHolder>()
 {
 
 
-    val selectedItems = SparseBooleanArray()
+    var selectedItems = SparseBooleanArray()
     val arrayList = ArrayList<String>()
      class ViewHolder(view :View) :RecyclerView.ViewHolder(view)
     {
@@ -71,7 +71,11 @@ class LanguageAdaptor (): RecyclerView.Adapter<LanguageAdaptor.ViewHolder>()
         selectedItems.put(position, !selectedItems[position])
         notifyItemChanged(position)
     }
-
+    fun setUpdateSelectiionData(selectedItems : SparseBooleanArray,position: Int)
+    {
+        this.selectedItems =  selectedItems
+        notifyItemChanged(position)
+    }
 
     fun  getAllData()
     {

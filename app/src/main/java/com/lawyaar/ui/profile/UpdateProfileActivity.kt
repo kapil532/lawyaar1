@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.util.SparseBooleanArray
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Spinner
@@ -27,9 +28,11 @@ import com.lawyaar.models.case_category.CaseCategoryItem
 import com.lawyaar.models.case_category.view_model_factory.CaseCategoryViewModel
 import com.lawyaar.models.case_category.view_model_factory.CaseCategoryViewModelFactory
 import com.lawyaar.models.language.LanguageModel
+import com.lawyaar.models.language.LanguageModelItem
 import com.lawyaar.models.language.view_model_factory.LanguageViewModel
 import com.lawyaar.models.language.view_model_factory.LanguageViewModelFactory
 import com.lawyaar.models.location.LocationModel
+import com.lawyaar.models.location.LocationModelItem
 import com.lawyaar.models.location.view_factory_model.LocationViewModel
 import com.lawyaar.models.location.view_factory_model.LocationViewModelFactory
 import com.lawyaar.models.user_details.UserDetailsModel
@@ -64,6 +67,10 @@ class UpdateProfileActivity : BaseActivity()
 
     lateinit var userDetailsModel: UserDetailsModel
     lateinit var  dataSource: ArrayList<CaseCategoryItem>
+    lateinit var langModel: ArrayList<LanguageModelItem>
+    lateinit var locationModel: ArrayList<LocationModelItem>
+
+
     @SuppressLint("MissingIflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -120,7 +127,7 @@ class UpdateProfileActivity : BaseActivity()
     lateinit var languageAdaptor: LanguageAdaptor
     lateinit var laywerCategory: LaywerCategoryAdaptor
     lateinit var spinnerAdapter: CustomDropDownAdapter
-
+    val selectedItems_lang = SparseBooleanArray()
     fun initNetwork() {
 
         (application as LawyaarApplication).applicationComponent.inject(this)
@@ -136,6 +143,7 @@ class UpdateProfileActivity : BaseActivity()
             if (it != null)
             {
                 locationAdaptor.setUpdateData(it)
+               locationModel = it
             }
             else{
                 Log.d("","--> NUL VALUE")
@@ -146,6 +154,7 @@ class UpdateProfileActivity : BaseActivity()
             if (it != null)
             {
                 languageAdaptor.setUpdateData(it)
+                langModel = it
             }
             else{
                 Log.d("","--> NUL VALUE")
@@ -156,9 +165,7 @@ class UpdateProfileActivity : BaseActivity()
             if (it != null)
             {
                 spinnerAdapter.setUpdateData(it)
-                //getIndexForCase(it)
                 dataSource =it
-              //spinner04.set(2)
                 getDetails()
             }
             else{
@@ -199,9 +206,11 @@ class UpdateProfileActivity : BaseActivity()
         user_email.setText(userDetailsModel.email)
         update_user_name.setText(userDetailsModel.name)
 
-       Log.d("--> VALUES ",""+userDetailsModel.caseCategories.get(0).name)
         getIndexForCase()
+        getIndexForLangauge()
     }
+
+
     fun getIndexForCase()
     {
         for(dataVal in dataSource)
@@ -213,7 +222,28 @@ class UpdateProfileActivity : BaseActivity()
                 spinner04.setSelection(idexVal)
              }
         }
+    }
+
+   var  indexCount = 0
+    fun getIndexForLangauge()
+    {
+            for (lang in userDetailsModel.languages)
+            {
+                indexCount =0
+                for (dataVal in langModel) {
+                    val idexVal = dataVal.name.indexOf(lang.name)
+                    if (idexVal != -1)
+                    {
+                        selectedItems_lang.put(indexCount ,true)
+                        languageAdaptor.setUpdateSelectiionData(selectedItems_lang,indexCount)
+                    }
+                    indexCount ++
+                }
+           }
 
     }
+
+
+
 
 }
