@@ -23,6 +23,7 @@ import com.lawyaar.adapters.LaywerCategoryAdaptor
 import com.lawyaar.adapters.LocationAdaptor
 import com.lawyaar.application.LawyaarApplication
 import com.lawyaar.models.case_category.CaseCategory
+import com.lawyaar.models.case_category.CaseCategoryItem
 import com.lawyaar.models.case_category.view_model_factory.CaseCategoryViewModel
 import com.lawyaar.models.case_category.view_model_factory.CaseCategoryViewModelFactory
 import com.lawyaar.models.language.LanguageModel
@@ -59,8 +60,10 @@ class UpdateProfileActivity : BaseActivity()
     lateinit var  update_user_name :EditText
     lateinit var  user_mobileno :EditText
     lateinit var  user_email :EditText
+    lateinit var     spinner04 :Spinner
 
-
+    lateinit var userDetailsModel: UserDetailsModel
+    lateinit var  dataSource: ArrayList<CaseCategoryItem>
     @SuppressLint("MissingIflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,7 +90,7 @@ class UpdateProfileActivity : BaseActivity()
         val filter_recyle =findViewById<RecyclerView>(R.id.filter_recyle)
         val filter_recyle_langauge =findViewById<RecyclerView>(R.id.filter_recyle_langauge)
         val filter_recyle_location =findViewById<RecyclerView>(R.id.filter_recyle_location)
-        val spinner04 =findViewById<Spinner>(R.id.spinner04)
+         spinner04 =findViewById<Spinner>(R.id.spinner04)
 
         filter_recyle.layoutManager= StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         filter_recyle_langauge.layoutManager= StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
@@ -104,6 +107,7 @@ class UpdateProfileActivity : BaseActivity()
 
         filter_recyle.adapter=laywerCategory
         spinner04.adapter = spinnerAdapter
+
         filter_recyle_langauge.adapter=languageAdaptor
         filter_recyle_location.adapter=locationAdaptor
 
@@ -152,13 +156,17 @@ class UpdateProfileActivity : BaseActivity()
             if (it != null)
             {
                 spinnerAdapter.setUpdateData(it)
+                //getIndexForCase(it)
+                dataSource =it
+              //spinner04.set(2)
+                getDetails()
             }
             else{
                 Log.d("","--> NUL VALUE")
             }
         })
 
-        getDetails()
+
 
     }
 
@@ -186,9 +194,26 @@ class UpdateProfileActivity : BaseActivity()
     @SuppressLint("SetTextI18n")
     fun updateDetails(userDetailsModel: UserDetailsModel)
     {
+        this.userDetailsModel =userDetailsModel
         user_mobileno.setText( userDetailsModel.mobile)
         user_email.setText(userDetailsModel.email)
         update_user_name.setText(userDetailsModel.name)
+
+       Log.d("--> VALUES ",""+userDetailsModel.caseCategories.get(0).name)
+        getIndexForCase()
+    }
+    fun getIndexForCase()
+    {
+        for(dataVal in dataSource)
+        {
+            val idexVal =dataVal.name.indexOf(userDetailsModel.caseCategories.get(0).name)
+             if (idexVal != -1)
+             {
+                 Log.d("--> VALUES index ",""+idexVal)
+                spinner04.setSelection(idexVal)
+             }
+        }
+
     }
 
 }
