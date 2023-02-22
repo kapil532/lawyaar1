@@ -202,16 +202,13 @@ class UpdateProfileActivity : BaseActivity() {
          tokenValue = sharedPreferences.getString("token_val", " ").toString()
         user_id = sharedPreferences.getString("user_id", " ").toString()
 
-        Log.d("token v---->","token  ->  "+tokenValue +" --\n "+user_id)
         if (tokenValue != null && user_id != null) {
 
             userDetailsViewModel.getUserDetails(tokenValue, "language,category,locations", user_id)
-            Log.d("token v---->","TOKEN VALUE")
 
         }
         userDetailsViewModel.getUserLiveData.observe(this, Observer<UserDetailsModel> {
             if (it != null) {
-                Log.d("", "--> NUL VALUE" + it.name)
                 updateDetails(it)
             } else {
                 Log.d("", "--> NUL VALUE")
@@ -231,13 +228,16 @@ class UpdateProfileActivity : BaseActivity() {
     }
 
 
+    var indexCase =0
     fun getIndexForCase() {
-        for (dataVal in dataSource) {
+        indexCase =0
+        for (dataVal in dataSource)
+        {
             val idexVal = dataVal.name.indexOf(userDetailsModel.caseCategories.get(0).name)
             if (idexVal != -1) {
-                Log.d("--> VALUES index ", "" + idexVal)
-                spinner04.setSelection(idexVal)
+                spinner04.setSelection(indexCase)
             }
+            indexCase++
         }
     }
 
@@ -270,13 +270,6 @@ class UpdateProfileActivity : BaseActivity() {
         name = "" + update_user_name.text
         userId = user_id
         languages = languageAdaptor.getAllData()
-           for(case in languages)
-           {
-               Log.d("--> VALUES index ", "" + case)
-
-           }
-
-        Log.d("--> VALUES index ", "-->  " +dataSource.get(spinner04.selectedItemPosition).caseId  )
         caseCategories.add(""+dataSource.get(spinner04.selectedItemPosition).caseId )
         var UserUpdateModel = UserUpdateModel(caseCategories,email,languages,name,userId)
 
@@ -285,10 +278,9 @@ class UpdateProfileActivity : BaseActivity() {
         userUpdateViewmodel.getUserUpdateDetails(tokenValue,"role,language,category,locations",userId,UserUpdateModel)
         userUpdateViewmodel.getUserUpdateLiveData.observe(this, Observer<UserDetailsModel> {
             if (it != null) {
-                Log.d("", "--> NUL VALUE" + it.caseCategories.get(0).name)
                 updateDetails(it)
+
             } else {
-                Log.d("", "--> NUL VALUE")
             }
         })
 
