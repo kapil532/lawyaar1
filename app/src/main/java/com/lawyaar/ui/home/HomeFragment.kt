@@ -35,6 +35,7 @@ import com.lawyaar.testlist.QuoteList
 import com.lawyaar.ui.book_slots.BookingSlotActivity
 import com.lawyaar.ui.lawyaardetails.LawyaarDetailsActivity
 import com.lawyaar.utils.CellClickListener
+import com.lawyaar.utils.FilterOption
 import com.lawyaar.utils.TalkListner
 import com.razorpay.Checkout
 import com.razorpay.PaymentResultListener
@@ -42,7 +43,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import javax.inject.Inject
 
-class HomeFragment : Fragment(), CellClickListener, TalkListner {
+class HomeFragment : Fragment(), CellClickListener, TalkListner ,FilterOption {
 
     private var layoutManager: RecyclerView.LayoutManager? = null
     private lateinit var adapter: LawyaarAdapter
@@ -68,16 +69,18 @@ class HomeFragment : Fragment(), CellClickListener, TalkListner {
         recycle_veiw.adapter = adapter
         initNetwork()
         adapter.setUplistner(this, this)
+        MainActivity.filterOption =this
         return veiw
     }
 
+    var tokenValue =""
     @SuppressLint("FragmentLiveDataObserve", "SuspiciousIndentation")
     fun initNetwork() {
 
 
         val sharedPreferences: SharedPreferences =
             activity?.application!!.getSharedPreferences("token_auth", Context.MODE_PRIVATE)
-        val tokenValue = sharedPreferences.getString("token_val", " ")
+         tokenValue = sharedPreferences.getString("token_val", " ").toString()
 
         (activity?.application as LawyaarApplication).applicationComponent.inject(homeFragment = this)
         lawyerSearchViewModel =
@@ -156,6 +159,30 @@ class HomeFragment : Fragment(), CellClickListener, TalkListner {
 
     }
 
+    override fun updateLawyaarDetails(postDataFilter: PostDataFilter)
+    {
+        if (tokenValue != null)
+        {
+            Log.d("NOFOUND","NO LAWWAY -- > "+tokenValue)
+            lawyerSearchViewModel.lawyerSearchByFilter(
+                tokenValue,
+                "language,category,locations",
+                postDataFilter
+            )
+        }
+        lawyerSearchViewModel.searchLawyerLiveData.observe(this, Observer<LawyerSearchModel>
+        {
+            if (it != null) {
+                shimmer_view_container.hideShimmer()
+                shimmer_view_container.visibility = View.GONE
+                adapter.setUpdateData(it)
+            }
+            else{
+                Log.d("NOFOUND","NO LAWWAY")
+            }
+        })
+
+    }
 
 
 }
