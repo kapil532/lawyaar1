@@ -34,11 +34,14 @@ import com.lawyaar.models.language.LanguageModel
 import com.lawyaar.models.language.LanguageModelItem
 import com.lawyaar.models.language.view_model_factory.LanguageViewModel
 import com.lawyaar.models.language.view_model_factory.LanguageViewModelFactory
+import com.lawyaar.models.lawyer_search.post_details.PostFilter
 import com.lawyaar.models.location.LocationModel
 import com.lawyaar.models.location.LocationModelItem
 import com.lawyaar.models.location.view_factory_model.LocationViewModel
 import com.lawyaar.models.location.view_factory_model.LocationViewModelFactory
 import com.lawyaar.models.user_detail_update.UserUpdateModel
+import com.lawyaar.models.user_detail_update.update_view_model.UserUpdateFactoryModel
+import com.lawyaar.models.user_detail_update.update_view_model.UserUpdateViewmodel
 import com.lawyaar.models.user_details.UserDetailsModel
 import com.lawyaar.models.user_details.user_details_view_model.UserDetailsFactoryModel
 import com.lawyaar.models.user_details.user_details_view_model.UserDetailsViewModel
@@ -50,6 +53,7 @@ class UpdateProfileActivity : BaseActivity() {
     lateinit var languageViewModel: LanguageViewModel
     lateinit var locationViewModel: LocationViewModel
     lateinit var userDetailsViewModel: UserDetailsViewModel
+    lateinit var userUpdateViewmodel: UserUpdateViewmodel
 
 
     @Inject
@@ -63,6 +67,10 @@ class UpdateProfileActivity : BaseActivity() {
 
     @Inject
     lateinit var userDetailsFactoryModel: UserDetailsFactoryModel
+
+
+    @Inject
+    lateinit var userUpdateFactoryModel: UserUpdateFactoryModel
 
     lateinit var update_user_name: EditText
     lateinit var update_profile_b: AppCompatButton
@@ -187,14 +195,19 @@ class UpdateProfileActivity : BaseActivity() {
     }
 
     var user_id = ""
+    var   tokenValue =""
     fun getDetails() {
         val sharedPreferences: SharedPreferences =
             application!!.getSharedPreferences("token_auth", Context.MODE_PRIVATE)
-        val tokenValue = sharedPreferences.getString("token_val", " ")
+         tokenValue = sharedPreferences.getString("token_val", " ").toString()
         user_id = sharedPreferences.getString("user_id", " ").toString()
 
+        Log.d("token v---->","token  ->  "+tokenValue +" --\n "+user_id)
         if (tokenValue != null && user_id != null) {
+
             userDetailsViewModel.getUserDetails(tokenValue, "language,category,locations", user_id)
+            Log.d("token v---->","TOKEN VALUE")
+
         }
         userDetailsViewModel.getUserLiveData.observe(this, Observer<UserDetailsModel> {
             if (it != null) {
@@ -243,14 +256,10 @@ class UpdateProfileActivity : BaseActivity() {
         }
 
     }
-
+     var caseCategories: ArrayList<String> =ArrayList()
 
     fun updateUserDetails() {
 
-        var gson = Gson()
-
-
-        val caseCategories: ArrayList<String>
         val email: String
         val languages: ArrayList<String>
         val name: String
@@ -260,15 +269,28 @@ class UpdateProfileActivity : BaseActivity() {
         email = "" + user_email.text
         name = "" + update_user_name.text
         userId = user_id
-        caseCategories = languageAdaptor.getAllData()
-           for(case in caseCategories)
+        languages = languageAdaptor.getAllData()
+           for(case in languages)
            {
                Log.d("--> VALUES index ", "" + case)
+
            }
 
-        //   caseCategories.add()
+        Log.d("--> VALUES index ", "-->  " +dataSource.get(spinner04.selectedItemPosition).caseId  )
+        caseCategories.add(""+dataSource.get(spinner04.selectedItemPosition).caseId )
+        var UserUpdateModel = UserUpdateModel(caseCategories,email,languages,name,userId)
 
-        //  var jsonString = gson.toJson(UserUpdateModel("name","Test"))
+        userUpdateViewmodel =
+            ViewModelProvider(this, userUpdateFactoryModel).get(UserUpdateViewmodel::class.java)
+        userUpdateViewmodel.getUserUpdateDetails(tokenValue,"role,language,category,locations",userId,UserUpdateModel)
+        userUpdateViewmodel.getUserUpdateLiveData.observe(this, Observer<UserDetailsModel> {
+            if (it != null) {
+                Log.d("", "--> NUL VALUE" + it.caseCategories.get(0).name)
+                updateDetails(it)
+            } else {
+                Log.d("", "--> NUL VALUE")
+            }
+        })
 
     }
 

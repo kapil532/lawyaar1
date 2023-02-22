@@ -7,6 +7,7 @@ import com.lawyaar.models.language.LanguageModel
 import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModel
 import com.lawyaar.models.lawyer_search.post_details.PostFilter
 import com.lawyaar.models.location.LocationModel
+import com.lawyaar.models.user_detail_update.UserUpdateModel
 import com.lawyaar.models.user_details.UserDetailsModel
 import com.lawyaar.models.wallets.WalletModel
 import com.lawyaar.testlist.QuoteList
@@ -59,5 +60,17 @@ interface LawyaarApi {
     ): Response<LawyerSearchModel>
 
     @POST("wallet/list")
-    suspend fun getWalletsDetails( @Header("Authorization") token: String,): Response<WalletModel>
+    suspend fun getWalletsDetails(@Header("Authorization") token: String):
+            Response<WalletModel>
+
+
+    @POST("users/user/{userId}/update")
+    suspend fun updateUserDetails(
+        @Header("Authorization") token: String,
+        @Header("children") children: String,
+        @Path("userId") userId: String,
+        @Body data: UserUpdateModel
+    ): Response<UserDetailsModel>
+
+
 }

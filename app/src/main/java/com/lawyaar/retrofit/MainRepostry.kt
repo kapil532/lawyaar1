@@ -11,6 +11,7 @@ import com.lawyaar.models.language.LanguageModel
 import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModel
 import com.lawyaar.models.lawyer_search.post_details.PostFilter
 import com.lawyaar.models.location.LocationModel
+import com.lawyaar.models.user_detail_update.UserUpdateModel
 import com.lawyaar.models.user_details.UserDetailsModel
 import com.lawyaar.models.wallets.WalletModel
 import com.lawyaar.testlist.QuoteList
@@ -133,6 +134,19 @@ class MainRepostry @Inject constructor(private val lawyaarApi: LawyaarApi) {
         val result = lawyaarApi.getUserDetails(token,children,userId)
         if (result?.body() != null) {
             userDetailsLiveData.postValue(result.body())
+        }
+    }
+
+
+    //Update User details
+    private val userDetailsUpdateLiveData = MutableLiveData<UserDetailsModel>()
+    val userUpdateLiveData: LiveData<UserDetailsModel>
+        get() = userDetailsUpdateLiveData
+
+    suspend fun getUserUpdateDetails(token: String, children: String,userId: String, data: UserUpdateModel) {
+        val result = lawyaarApi.updateUserDetails(token,children,userId,data )
+        if (result?.body() != null) {
+            userDetailsUpdateLiveData.postValue(result.body())
         }
     }
 
