@@ -6,20 +6,14 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.util.SparseBooleanArray
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Spinner
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.textfield.TextInputEditText
-import com.google.gson.Gson
 import com.lawyaar.R
 import com.lawyaar.adapters.CustomDropDownAdapter
 import com.lawyaar.adapters.LanguageAdaptor
@@ -58,17 +52,12 @@ class UpdateProfileActivity : BaseActivity() {
 
     @Inject
     lateinit var locationViewModelFactory: LocationViewModelFactory
-
     @Inject
     lateinit var languaViewModelFactory: LanguageViewModelFactory
-
     @Inject
     lateinit var caseCategoryViewModelFactory: CaseCategoryViewModelFactory
-
     @Inject
     lateinit var userDetailsFactoryModel: UserDetailsFactoryModel
-
-
     @Inject
     lateinit var userUpdateFactoryModel: UserUpdateFactoryModel
 
@@ -195,11 +184,11 @@ class UpdateProfileActivity : BaseActivity() {
     }
 
     var user_id = ""
-    var   tokenValue =""
+    var tokenValue = ""
     fun getDetails() {
         val sharedPreferences: SharedPreferences =
             application!!.getSharedPreferences("token_auth", Context.MODE_PRIVATE)
-         tokenValue = sharedPreferences.getString("token_val", " ").toString()
+        tokenValue = sharedPreferences.getString("token_val", " ").toString()
         user_id = sharedPreferences.getString("user_id", " ").toString()
 
         if (tokenValue != null && user_id != null) {
@@ -228,11 +217,10 @@ class UpdateProfileActivity : BaseActivity() {
     }
 
 
-    var indexCase =0
+    var indexCase = 0
     fun getIndexForCase() {
-        indexCase =0
-        for (dataVal in dataSource)
-        {
+        indexCase = 0
+        for (dataVal in dataSource) {
             val idexVal = dataVal.name.indexOf(userDetailsModel.caseCategories.get(0).name)
             if (idexVal != -1) {
                 spinner04.setSelection(indexCase)
@@ -256,7 +244,8 @@ class UpdateProfileActivity : BaseActivity() {
         }
 
     }
-     var caseCategories: ArrayList<String> =ArrayList()
+
+    var caseCategories: ArrayList<String> = ArrayList()
 
     fun updateUserDetails() {
 
@@ -270,12 +259,17 @@ class UpdateProfileActivity : BaseActivity() {
         name = "" + update_user_name.text
         userId = user_id
         languages = languageAdaptor.getAllData()
-        caseCategories.add(""+dataSource.get(spinner04.selectedItemPosition).caseId )
-        var UserUpdateModel = UserUpdateModel(caseCategories,email,languages,name,userId)
+        caseCategories.add("" + dataSource.get(spinner04.selectedItemPosition).caseId)
+        var UserUpdateModel = UserUpdateModel(caseCategories, email, languages, name, userId)
 
         userUpdateViewmodel =
             ViewModelProvider(this, userUpdateFactoryModel).get(UserUpdateViewmodel::class.java)
-        userUpdateViewmodel.getUserUpdateDetails(tokenValue,"role,language,category,locations",userId,UserUpdateModel)
+        userUpdateViewmodel.getUserUpdateDetails(
+            tokenValue,
+            "role,language,category,locations",
+            userId,
+            UserUpdateModel
+        )
         userUpdateViewmodel.getUserUpdateLiveData.observe(this, Observer<UserDetailsModel> {
             if (it != null) {
                 updateDetails(it)
