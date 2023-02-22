@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.opengl.Visibility
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ import com.lawyaar.MainActivity
 import com.lawyaar.R
 import com.lawyaar.adapters.LawyaarAdapter
 import com.lawyaar.application.LawyaarApplication
+import com.lawyaar.models.lawyer_search.post_data.PostDataFilter
 import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModel
 import com.lawyaar.models.lawyer_search.post_details.PostFilter
 import com.lawyaar.models.lawyer_search.view_model.LawyerSearchFactoyModel
@@ -80,11 +82,40 @@ class HomeFragment : Fragment(), CellClickListener, TalkListner {
         (activity?.application as LawyaarApplication).applicationComponent.inject(homeFragment = this)
         lawyerSearchViewModel =
             ViewModelProvider(this, lawyerSearchFactoyModel).get(LawyerSearchViewModel::class.java)
-        val languages: MutableList<String> = ArrayList()
-        languages.add("7e566317-1984-48b8-be97-c77a41c43311")
-        var postFilter = PostFilter(languages)
 
-        if (tokenValue != null) {
+        val languages: MutableList<String> = ArrayList()
+        val caseCategories: MutableList<String> = ArrayList()
+        val locations: MutableList<String> = ArrayList()
+        val lawyerCategories: MutableList<String> = ArrayList()
+        val offerPriceRange: MutableList<Int> = ArrayList()
+        val actualPriceRange: MutableList<Int> = ArrayList()
+
+        languages.add("7e566317-1984-48b8-be97-c77a41c43311")
+        languages.add("7e566317-1984-48b8-be97-c77a41c43322")
+        languages.add("7e566317-1984-48b8-be97-c77a41c43333")
+//
+        caseCategories.add("7a5ac650-08d2-46be-b44e-c0829e20e111")
+        caseCategories.add("6b1ea0bb-3448-4d75-9d8b-aec4f9349b00")
+        caseCategories.add("279baded-f519-47d5-ae4d-ca892a769577")
+//
+        locations.add("92e33e89-a438-46a6-8eb7-944f0a541d11")
+        locations.add("92e33e89-a438-46a6-8eb7-944f0a541d22")
+        locations.add("92e33e89-a438-46a6-8eb7-944f0a541d33")
+//
+//        lawyerCategories.add("e03da15f-8b87-4cab-87a5-824baca0981")
+//        lawyerCategories.add("e03da15f-8b87-4cab-87a5-824baca09822")
+//
+        offerPriceRange.add(550)
+        offerPriceRange.add(1650)
+        actualPriceRange.add(650)
+        actualPriceRange.add(1500)
+
+
+        var postFilter = PostDataFilter(actualPriceRange,caseCategories,languages,lawyerCategories,locations,offerPriceRange)
+
+        if (tokenValue != null)
+        {
+            Log.d("NOFOUND","NO LAWWAY -- > "+tokenValue)
             lawyerSearchViewModel.lawyerSearchByFilter(
                 tokenValue,
                 "language,category,locations",
@@ -97,6 +128,9 @@ class HomeFragment : Fragment(), CellClickListener, TalkListner {
                 shimmer_view_container.hideShimmer()
                 shimmer_view_container.visibility = View.GONE
                 adapter.setUpdateData(it)
+            }
+            else{
+                Log.d("NOFOUND","NO LAWWAY")
             }
         })
 
@@ -121,5 +155,7 @@ class HomeFragment : Fragment(), CellClickListener, TalkListner {
         startActivity(Intent(activity, BookingSlotActivity::class.java))
 
     }
+
+
 
 }

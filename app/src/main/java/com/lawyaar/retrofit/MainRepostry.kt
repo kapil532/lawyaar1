@@ -8,6 +8,7 @@ import com.lawyaar.models.authentication.AuthSuccess
 import com.lawyaar.models.case_category.CaseCategory
 import com.lawyaar.models.category.CategoryModel
 import com.lawyaar.models.language.LanguageModel
+import com.lawyaar.models.lawyer_search.post_data.PostDataFilter
 import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModel
 import com.lawyaar.models.lawyer_search.post_details.PostFilter
 import com.lawyaar.models.location.LocationModel
@@ -104,7 +105,7 @@ class MainRepostry @Inject constructor(private val lawyaarApi: LawyaarApi) {
     val lawyerSearch: LiveData<LawyerSearchModel>
         get() = layersBySearchLiveData
 
-    suspend fun getLawyersSearch(token: String, children: String, postFilter: PostFilter) {
+    suspend fun getLawyersSearch(token: String, children: String, postFilter: PostDataFilter) {
         val result = lawyaarApi.getLawyersBySearch(token, children, postFilter)
         if (result?.body() != null) {
             layersBySearchLiveData.postValue(result.body())

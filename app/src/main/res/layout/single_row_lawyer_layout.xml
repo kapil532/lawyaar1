@@ -41,6 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/lawyaar_name"
             android:layout_marginLeft="16dp"
+            android:lines="1"
             android:layout_toRightOf="@+id/lawaar_icon"
             android:fontFamily="@font/proximanovaregular"
             android:text="Criminal,civil"

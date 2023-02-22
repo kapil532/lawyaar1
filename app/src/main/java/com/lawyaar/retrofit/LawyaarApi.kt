@@ -4,6 +4,7 @@ import com.lawyaar.models.authentication.AuthSuccess
 import com.lawyaar.models.case_category.CaseCategory
 import com.lawyaar.models.category.CategoryModel
 import com.lawyaar.models.language.LanguageModel
+import com.lawyaar.models.lawyer_search.post_data.PostDataFilter
 import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModel
 import com.lawyaar.models.lawyer_search.post_details.PostFilter
 import com.lawyaar.models.location.LocationModel
@@ -56,7 +57,7 @@ interface LawyaarApi {
     suspend fun getLawyersBySearch(
         @Header("Authorization") token: String,
         @Header("children") children: String,
-        @Body data: PostFilter
+        @Body data: PostDataFilter
     ): Response<LawyerSearchModel>
 
     @POST("wallet/list")

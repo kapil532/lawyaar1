@@ -1,17 +1,14 @@
 package com.lawyaar.adapters
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.lawyaar.MainActivity
 import com.lawyaar.R
 import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModelItem
-import com.lawyaar.testlist.QuoteList
 import com.lawyaar.utils.CellClickListener
 import com.lawyaar.utils.TalkListner
 
@@ -62,14 +59,19 @@ class LawyaarAdapter() : RecyclerView.Adapter<LawyaarAdapter.MyVeiwHolder>() {
         val currentitem = list.get(i)
         viewHolder.lawyaarname.text = currentitem.name
         var  caseS =""
+        var  langS =""
                if(currentitem.caseCategories.size  >0) {
 
                    for ( case in currentitem.caseCategories )
                    {
-                     caseS = ""+case.name
+                     caseS += " "+case.name
+                   }
+                   for ( lang in currentitem.languages )
+                   {
+                       langS += " "+lang.name
                    }
                }
-
+        viewHolder.lawyaar_lang.text = langS
         viewHolder.lawyaar_exper.text = ""+caseS
 
         viewHolder.lawyaaricon.setOnClickListener({
@@ -85,8 +87,6 @@ class LawyaarAdapter() : RecyclerView.Adapter<LawyaarAdapter.MyVeiwHolder>() {
     override fun getItemCount(): Int {
         return list.size
     }
-
-
 
 
 }
