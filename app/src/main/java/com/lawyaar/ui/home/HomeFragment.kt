@@ -32,6 +32,7 @@ import com.lawyaar.retrofit.LawyaarApi
 import com.lawyaar.retrofit.MainRepostry
 import com.lawyaar.retrofit.RetrofitHelperObj
 import com.lawyaar.testlist.QuoteList
+import com.lawyaar.ui.auth.OTPActivity
 import com.lawyaar.ui.book_slots.BookingSlotActivity
 import com.lawyaar.ui.lawyaardetails.LawyaarDetailsActivity
 import com.lawyaar.utils.CellClickListener
@@ -149,8 +150,11 @@ class HomeFragment : Fragment(), CellClickListener, TalkListner ,FilterOption {
     }
 
 
-    override fun onCellClickListener() {
-        startActivity(Intent(context, LawyaarDetailsActivity::class.java))
+    override fun onCellClickListener(userId :String) {
+        //startActivity(Intent(context, LawyaarDetailsActivity::class.java))
+        val intent = Intent(context, LawyaarDetailsActivity::class.java)
+        intent.putExtra("userId" , userId)
+        startActivity(intent)
     }
 
     override fun onTalkClickListner() {

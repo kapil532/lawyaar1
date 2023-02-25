@@ -13,4 +13,4 @@ class LawyerSearchFactoyModel @Inject constructor(private val repostry: MainRepo
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return LawyerSearchViewModel(repostry) as T
     }
-}
+} 

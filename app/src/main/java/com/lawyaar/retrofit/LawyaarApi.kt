@@ -4,6 +4,7 @@ import com.lawyaar.models.authentication.AuthSuccess
 import com.lawyaar.models.case_category.CaseCategory
 import com.lawyaar.models.category.CategoryModel
 import com.lawyaar.models.language.LanguageModel
+import com.lawyaar.models.lawyer_detail.LawyerModel
 import com.lawyaar.models.lawyer_search.post_data.PostDataFilter
 import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModel
 import com.lawyaar.models.lawyer_search.post_details.PostFilter
@@ -61,7 +62,8 @@ interface LawyaarApi {
     ): Response<LawyerSearchModel>
 
     @POST("wallet/list")
-    suspend fun getWalletsDetails(@Header("Authorization") token: String):
+    suspend fun getWalletsDetails(
+        @Header("Authorization") token: String):
             Response<WalletModel>
 
 
@@ -72,6 +74,14 @@ interface LawyaarApi {
         @Path("userId") userId: String,
         @Body data: UserUpdateModel
     ): Response<UserDetailsModel>
+
+
+    @GET("advocates/{userId}")
+    suspend fun getLawyerDetails(
+        @Header("Authorization") token: String,
+        @Header("children") children: String,
+        @Path("userId") userId: String,
+    ): Response<LawyerModel>
 
 
 }

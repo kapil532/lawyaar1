@@ -5,6 +5,7 @@ import com.lawyaar.ui.auth.OTPActivity
 import com.lawyaar.retrofit.NetworkModule
 import com.lawyaar.retrofit.RetrofitHelperObj
 import com.lawyaar.ui.home.HomeFragment
+import com.lawyaar.ui.lawyaardetails.LawyaarDetailsActivity
 import com.lawyaar.ui.profile.UpdateProfileActivity
 import com.lawyaar.ui.wallet.WalletActivity
 import dagger.Component
@@ -22,5 +23,7 @@ interface ApplicationComponent
   fun inject(updateProfileActivity: UpdateProfileActivity)
 
   fun inject(walletActivity: WalletActivity)
+
+  fun inject(lawyerDetailsActivity: LawyaarDetailsActivity)
 
 }

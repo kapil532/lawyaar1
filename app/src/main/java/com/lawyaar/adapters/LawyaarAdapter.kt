@@ -75,7 +75,7 @@ class LawyaarAdapter() : RecyclerView.Adapter<LawyaarAdapter.MyVeiwHolder>() {
         viewHolder.lawyaar_exper.text = ""+caseS
 
         viewHolder.lawyaaricon.setOnClickListener({
-            cellClickListener.onCellClickListener()
+            cellClickListener.onCellClickListener(currentitem.userId)
         })
 
         viewHolder.book_button.setOnClickListener({
