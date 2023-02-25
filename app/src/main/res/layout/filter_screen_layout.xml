@@ -3,13 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/backgorund_col"
     android:layout_height="wrap_content">
 
 
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="0dp"
+        android:background="@color/backgorund_col"
         android:layout_marginLeft="2dp"
         android:layout_height="match_parent">
 
@@ -27,8 +29,44 @@
                     android:layout_margin="10dp"
                     android:layout_width="20dp"
                     android:src="@drawable/cross"
-                    android:layout_height="20dp"/>
+                    android:layout_height="15dp"/>
             </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/filter_titlea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/proximanovaregular"
+                    android:text="Filter"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/filter_titleaq"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/proximanovaregular"
+                    android:text="Clear All"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp"
+                    android:textStyle="normal" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:backgroundTint="@color/blue"
+                android:background="@color/blue"
+                android:layout_margin="16dp"
+                android:layout_height="2dp"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -38,9 +76,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/proximanovaregular"
-                    android:text="Case Category"
+                    android:text="Choose A Category"
                     android:textColor="@color/black"
                     android:textSize="18sp"
+                    android:layout_marginLeft="16dp"
                     android:textStyle="bold" />
 
 
@@ -48,12 +87,12 @@
                     android:id="@+id/item_card_veiw"
                     android:layout_below="@+id/filter_title"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="72dp"
                     android:layout_centerHorizontal="true"
                     app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="4dp"
-                    app:cardElevation="2dp"
-                    app:cardMaxElevation="2dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="8dp"
+                    app:cardMaxElevation="8dp"
                     app:cardPreventCornerOverlap="true"
                     app:cardUseCompatPadding="true">
 
@@ -72,6 +111,7 @@
                     android:layout_width="match_parent"
                     android:visibility="gone"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
                     android:layout_below="@+id/item_card_veiw"
                     android:layout_marginTop="8dp" />
 
@@ -91,6 +131,7 @@
                     android:text="Language Preference"
                     android:textColor="@color/black"
                     android:textSize="18sp"
+                    android:layout_marginLeft="16dp"
                     android:textStyle="bold" />
 
 
@@ -108,7 +149,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="26dp">
 
                 <TextView
                     android:id="@+id/filter_location"
@@ -117,14 +158,38 @@
                     android:fontFamily="@font/proximanovaregular"
                     android:text="Lawyaar's Location"
                     android:textColor="@color/black"
+                    android:layout_marginLeft="16dp"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/item_card_veiw1"
+                    android:layout_below="@+id/filter_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_centerHorizontal="true"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="8dp"
+                    app:cardMaxElevation="8dp"
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true">
 
+                    >
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:layout_width="match_parent"
+                        android:layout_below="@+id/filter_title"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:tooltipText="Please select"
+                        android:autofillHints="Please select Case Category"
+                        android:id="@+id/spinner05"/>
+                </androidx.cardview.widget.CardView>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/filter_recyle_location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:layout_below="@+id/filter_location"
                     android:layout_marginTop="8dp" />
 
@@ -132,10 +197,10 @@
                     android:id="@+id/filter_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/filter_recyle_location"
+                    android:layout_below="@+id/item_card_veiw1"
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/blue_rounded_button"

@@ -21,10 +21,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.lawyaar.adapters.CustomDropDownAdapter
-import com.lawyaar.adapters.LanguageAdaptor
-import com.lawyaar.adapters.LaywerCategoryAdaptor
-import com.lawyaar.adapters.LocationAdaptor
+import com.lawyaar.adapters.*
 import com.lawyaar.application.LawyaarApplication
 import com.lawyaar.databinding.ActivityMainBinding
 import com.lawyaar.models.case_category.CaseCategory
@@ -100,6 +97,7 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
     lateinit var spinner04: Spinner
+    lateinit var spinner05: Spinner
     @SuppressLint("MissingInflatedId")
     fun initBottomSheet() {
         val dialog = BottomSheetDialog(this)
@@ -114,6 +112,7 @@ class MainActivity : AppCompatActivity() {
         val filter_recyle_langauge = view.findViewById<RecyclerView>(R.id.filter_recyle_langauge)
         val filter_recyle_location = view.findViewById<RecyclerView>(R.id.filter_recyle_location)
          spinner04 = view.findViewById<Spinner>(R.id.spinner04)
+         spinner05 = view.findViewById<Spinner>(R.id.spinner05)
 
         filter_recyle.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
@@ -127,6 +126,7 @@ class MainActivity : AppCompatActivity() {
         languageAdaptor = LanguageAdaptor()
         laywerCategory = LaywerCategoryAdaptor()
         spinnerAdapter = CustomDropDownAdapter(this)
+        spinnerAdapterLocation=LocationDropDownAdapter(this)
 
 
         filter_close_icon.setOnClickListener {
@@ -138,6 +138,7 @@ class MainActivity : AppCompatActivity() {
 
         filter_recyle.adapter = laywerCategory
         spinner04.adapter = spinnerAdapter
+        spinner05.adapter = spinnerAdapterLocation
         filter_recyle_langauge.adapter = languageAdaptor
         filter_recyle_location.adapter = locationAdaptor
 
@@ -150,6 +151,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var languageAdaptor: LanguageAdaptor
     lateinit var laywerCategory: LaywerCategoryAdaptor
     lateinit var spinnerAdapter: CustomDropDownAdapter
+    lateinit var spinnerAdapterLocation: LocationDropDownAdapter
 
     fun initNetwork() {
 
@@ -166,7 +168,7 @@ class MainActivity : AppCompatActivity() {
 
         locationViewModel.location.observe(this, Observer<LocationModel> {
             if (it != null) {
-                locationAdaptor.setUpdateData(it)
+                spinnerAdapterLocation.setUpdateData(it)
             } else {
                 Log.d("", "--> NUL VALUE")
             }

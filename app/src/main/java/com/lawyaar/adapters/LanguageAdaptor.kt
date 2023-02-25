@@ -43,7 +43,7 @@ class LanguageAdaptor() : RecyclerView.Adapter<LanguageAdaptor.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.single_row_time_booking_slot, parent, false)
+            .inflate(R.layout.single_row_for_langauge, parent, false)
 
         return LanguageAdaptor.ViewHolder(view)
     }
@@ -63,7 +63,7 @@ class LanguageAdaptor() : RecyclerView.Adapter<LanguageAdaptor.ViewHolder>() {
             holder.single_loc_lan_title.setTextColor(Color.WHITE)
         } else {
             holder.item_card_veiw.getBackground().setTint(Color.WHITE)
-            holder.single_loc_lan_title.setTextColor(Color.GRAY)
+            holder.single_loc_lan_title.setTextColor(Color.BLACK)
         }
     }
 
