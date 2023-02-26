@@ -27,6 +27,7 @@ import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModel
 import com.lawyaar.models.lawyer_search.post_details.PostFilter
 import com.lawyaar.models.lawyer_search.view_model.LawyerSearchFactoyModel
 import com.lawyaar.models.lawyer_search.view_model.LawyerSearchViewModel
+import com.lawyaar.preference.ModelPreferencesManager
 import com.lawyaar.ui.payment_screen.PaymentActivity
 import com.lawyaar.retrofit.LawyaarApi
 import com.lawyaar.retrofit.MainRepostry
@@ -87,12 +88,12 @@ class HomeFragment : Fragment(), CellClickListener, TalkListner ,FilterOption {
         lawyerSearchViewModel =
             ViewModelProvider(this, lawyerSearchFactoyModel).get(LawyerSearchViewModel::class.java)
 
-        val languages: MutableList<String> = ArrayList()
-        val caseCategories: MutableList<String> = ArrayList()
-        val locations: MutableList<String> = ArrayList()
-        val lawyerCategories: MutableList<String> = ArrayList()
-        val offerPriceRange: MutableList<Int> = ArrayList()
-        val actualPriceRange: MutableList<Int> = ArrayList()
+        val languages: ArrayList<String> = ArrayList()
+        val caseCategories: ArrayList<String> = ArrayList()
+        val locations: ArrayList<String> = ArrayList()
+        val lawyerCategories: ArrayList<String> = ArrayList()
+        val offerPriceRange: ArrayList<Int> = ArrayList()
+        val actualPriceRange: ArrayList<Int> = ArrayList()
 
         languages.add("7e566317-1984-48b8-be97-c77a41c43311")
         languages.add("7e566317-1984-48b8-be97-c77a41c43322")
@@ -165,6 +166,7 @@ class HomeFragment : Fragment(), CellClickListener, TalkListner ,FilterOption {
 
     override fun updateLawyaarDetails(postDataFilter: PostDataFilter)
     {
+        ModelPreferencesManager.put(postDataFilter,"FILTER_DETAILS")
         if (tokenValue != null)
         {
             Log.d("NOFOUND","NO LAWWAY -- > "+tokenValue)

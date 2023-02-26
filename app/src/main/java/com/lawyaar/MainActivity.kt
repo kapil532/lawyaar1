@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.util.SparseBooleanArray
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.Spinner
@@ -29,12 +30,14 @@ import com.lawyaar.models.case_category.CaseCategoryItem
 import com.lawyaar.models.case_category.view_model_factory.CaseCategoryViewModel
 import com.lawyaar.models.case_category.view_model_factory.CaseCategoryViewModelFactory
 import com.lawyaar.models.language.LanguageModel
+import com.lawyaar.models.language.LanguageModelItem
 import com.lawyaar.models.language.view_model_factory.LanguageViewModel
 import com.lawyaar.models.language.view_model_factory.LanguageViewModelFactory
 import com.lawyaar.models.lawyer_search.post_data.PostDataFilter
 import com.lawyaar.models.location.LocationModel
 import com.lawyaar.models.location.view_factory_model.LocationViewModel
 import com.lawyaar.models.location.view_factory_model.LocationViewModelFactory
+import com.lawyaar.preference.ModelPreferencesManager
 import com.lawyaar.utils.FilterOption
 
 import javax.inject.Inject
@@ -126,7 +129,7 @@ class MainActivity : AppCompatActivity() {
         languageAdaptor = LanguageAdaptor()
         laywerCategory = LaywerCategoryAdaptor()
         spinnerAdapter = CustomDropDownAdapter(this)
-        spinnerAdapterLocation=LocationDropDownAdapter(this)
+        spinnerAdapterLocation= LocationDropDownAdapter(this)
 
 
         filter_close_icon.setOnClickListener {
@@ -164,10 +167,11 @@ class MainActivity : AppCompatActivity() {
             this,
             caseCategoryViewModelFactory
         ).get(CaseCategoryViewModel::class.java)
-
+        updateFilterDetails()
 
         locationViewModel.location.observe(this, Observer<LocationModel> {
-            if (it != null) {
+            if (it != null)
+            {
                 spinnerAdapterLocation.setUpdateData(it)
             } else {
                 Log.d("", "--> NUL VALUE")
@@ -175,34 +179,52 @@ class MainActivity : AppCompatActivity() {
         })
 
         languageViewModel.language.observe(this, Observer<LanguageModel> {
-            if (it != null) {
+            if (it != null)
+            {
                 languageAdaptor.setUpdateData(it)
+                langModel = it
+                getIndexForLangauge(languages)
             } else {
                 Log.d("", "--> NUL VALUE")
             }
         })
 
         caseCategoryViewModel.category.observe(this, Observer<CaseCategory> {
-            if (it != null) {
+            if (it != null)
+            {
                 spinnerAdapter.setUpdateData(it)
                 dataSource =it
+                getIndexForCase(caseCategories)
+
             } else {
                 Log.d("", "--> NUL VALUE")
             }
         })
 
+    }
+    fun updateFilterDetails()
+    {
+        val postDataFilter = ModelPreferencesManager.get<PostDataFilter>("FILTER_DETAILS")
+        if(postDataFilter != null)
+        {
+            caseCategories = postDataFilter.caseCategories
+            locations = postDataFilter.locations
+            languages = postDataFilter.languages
 
+
+        }
     }
 
     lateinit var dataSource: ArrayList<CaseCategoryItem>
     var caseCategories: ArrayList<String> = ArrayList()
-    val locations: MutableList<String> = ArrayList()
-    val lawyerCategories: MutableList<String> = ArrayList()
-    val offerPriceRange: MutableList<Int> = ArrayList()
-    val actualPriceRange: MutableList<Int> = ArrayList()
+    var locations: ArrayList<String> = ArrayList()
+    val lawyerCategories: ArrayList<String> = ArrayList()
+    val offerPriceRange: ArrayList<Int> = ArrayList()
+    val actualPriceRange: ArrayList<Int> = ArrayList()
+    var languages: ArrayList<String> = ArrayList()
     fun getDetails()
     {
-        val languages: ArrayList<String>
+
         languages = languageAdaptor.getAllData()
         caseCategories.add("" + dataSource.get(spinner04.selectedItemPosition).caseId)
         offerPriceRange.add(550)
@@ -215,5 +237,47 @@ class MainActivity : AppCompatActivity() {
 
             filterOption.updateLawyaarDetails(postFilter)
         }
+    }
+
+
+
+
+
+
+
+    var indexCase = 0
+    fun getIndexForCase(caseCategories :ArrayList<String>) {
+        indexCase = 0
+        for (dataVal in dataSource)
+        {
+            Log.d("DATA VALUE","DATA -- > "+dataVal.name)
+            val idexVal = dataVal.caseId.indexOf(caseCategories.get(0))
+            Log.d("DATA VALUE","DATA -- > "+idexVal)
+            if (idexVal != -1) {
+                spinner04.setSelection(indexCase)
+            }
+            indexCase++
+        }
+    }
+
+    val selectedItems_lang = SparseBooleanArray()
+    lateinit var langModel: ArrayList<LanguageModelItem>
+    var indexCount = 0
+    fun getIndexForLangauge(languages: ArrayList<String>)
+    {
+        for (lang in languages) {
+            indexCount = 0
+            for (dataVal in langModel) {
+                Log.d("DATA VALUE QQ","DATA -- > "+dataVal.name)
+                val idexVal = dataVal.languageId.indexOf(lang)
+                Log.d("DATA VALU QQ","DATA -- > "+idexVal)
+                if (idexVal != -1) {
+                    selectedItems_lang.put(indexCount, true)
+                    languageAdaptor.setUpdateSelectiionData(selectedItems_lang, indexCount)
+                }
+                indexCount++
+            }
+        }
+
     }
 }
