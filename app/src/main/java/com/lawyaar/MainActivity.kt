@@ -8,6 +8,7 @@ import android.util.SparseBooleanArray
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.Spinner
+import android.widget.TextView
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -116,6 +117,13 @@ class MainActivity : AppCompatActivity() {
         val filter_recyle_location = view.findViewById<RecyclerView>(R.id.filter_recyle_location)
          spinner04 = view.findViewById<Spinner>(R.id.spinner04)
          spinner05 = view.findViewById<Spinner>(R.id.spinner05)
+       val clear_all_tag = view.findViewById<TextView>(R.id.clear_all_tag)
+        clear_all_tag.setOnClickListener({
+//            ModelPreferencesManager.deleteAll("FILTER_DETAILS")
+//            updateFilterDetails()
+            clearFilter()
+            dialog.dismiss()
+        })
 
         filter_recyle.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
@@ -228,7 +236,7 @@ class MainActivity : AppCompatActivity() {
         locations.clear()
         languages.clear()
         languages = languageAdaptor.getAllData()
-        Log.d("DATA","--- >  "+dataSource.get(spinner04.selectedItemPosition).caseId)
+//        Log.d("DATA","--- >  "+dataSource.get(spinner04.selectedItemPosition).caseId)
         caseCategories.add("" + dataSource.get(spinner04.selectedItemPosition).caseId)
         offerPriceRange.add(550)
         offerPriceRange.add(1650)
@@ -237,7 +245,7 @@ class MainActivity : AppCompatActivity() {
         if (filterOption != null) {
 
             var postFilter = PostDataFilter(actualPriceRange,caseCategories,languages,lawyerCategories,locations,offerPriceRange)
-           Log.d("MAINACTIVITY"," values -- > "+postFilter.caseCategories.get(0))
+//           Log.d("MAINACTIVITY"," values -- > "+postFilter.caseCategories.get(0))
             ModelPreferencesManager.put(postFilter,"FILTER_DETAILS")
             filterOption.updateLawyaarDetails(postFilter)
         }
@@ -247,19 +255,40 @@ class MainActivity : AppCompatActivity() {
 
 
 
+ fun clearFilter()
+ {
+     caseCategories.clear()
+     locations.clear()
+     languages.clear()
+     lawyerCategories.clear()
+     offerPriceRange.clear()
+     actualPriceRange.clear()
+     if (filterOption != null) {
 
+         var postFilter = PostDataFilter(actualPriceRange,caseCategories,languages,lawyerCategories,locations,offerPriceRange)
+//           Log.d("MAINACTIVITY"," values -- > "+postFilter.caseCategories.get(0))
+         ModelPreferencesManager.put(postFilter,"FILTER_DETAILS")
+         filterOption.updateLawyaarDetails(postFilter)
+     }
+ }
 
     var indexCase = 0
     fun getIndexForCase(caseCategories :ArrayList<String>) {
         indexCase = 0
         for (dataVal in dataSource)
         {
-            Log.d("DATA VALUE","DATA -- > "+dataVal.caseId +"--"+caseCategories.get(0))
-            val idexVal = dataVal.caseId.indexOf(caseCategories.get(0))
-            Log.d("DATA VALUE","DATA -- > "+idexVal)
-            if (idexVal != -1) {
-                spinner04.setSelection(indexCase)
+           // Log.d("DATA VALUE","DATA -- > "+dataVal.caseId +"--"+caseCategories.get(0))
+            try {
+                val idexVal = dataVal.caseId.indexOf(caseCategories.get(0))
+//            Log.d("DATA VALUE","DATA -- > "+idexVal)
+                if (idexVal != -1) {
+                    spinner04.setSelection(indexCase)
+                }
             }
+            catch (e : java.lang.Exception){
+
+            }
+
             indexCase++
         }
     }
@@ -272,9 +301,9 @@ class MainActivity : AppCompatActivity() {
         for (lang in languages) {
             indexCount = 0
             for (dataVal in langModel) {
-                Log.d("DATA VALUE QQ","DATA -- > "+dataVal.name)
+//                Log.d("DATA VALUE QQ","DATA -- > "+dataVal.name)
                 val idexVal = dataVal.languageId.indexOf(lang)
-                Log.d("DATA VALU QQ","DATA -- > "+idexVal)
+//                Log.d("DATA VALU QQ","DATA -- > "+idexVal)
                 if (idexVal != -1) {
                     selectedItems_lang.put(indexCount, true)
                     languageAdaptor.setUpdateSelectiionData(selectedItems_lang, indexCount)
