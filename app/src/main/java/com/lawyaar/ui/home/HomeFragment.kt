@@ -166,7 +166,7 @@ class HomeFragment : Fragment(), CellClickListener, TalkListner ,FilterOption {
 
     override fun updateLawyaarDetails(postDataFilter: PostDataFilter)
     {
-        ModelPreferencesManager.put(postDataFilter,"FILTER_DETAILS")
+
         if (tokenValue != null)
         {
             Log.d("NOFOUND","NO LAWWAY -- > "+tokenValue)

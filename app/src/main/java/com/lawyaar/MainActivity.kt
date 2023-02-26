@@ -224,8 +224,11 @@ class MainActivity : AppCompatActivity() {
     var languages: ArrayList<String> = ArrayList()
     fun getDetails()
     {
-
+        caseCategories.clear()
+        locations.clear()
+        languages.clear()
         languages = languageAdaptor.getAllData()
+        Log.d("DATA","--- >  "+dataSource.get(spinner04.selectedItemPosition).caseId)
         caseCategories.add("" + dataSource.get(spinner04.selectedItemPosition).caseId)
         offerPriceRange.add(550)
         offerPriceRange.add(1650)
@@ -234,7 +237,8 @@ class MainActivity : AppCompatActivity() {
         if (filterOption != null) {
 
             var postFilter = PostDataFilter(actualPriceRange,caseCategories,languages,lawyerCategories,locations,offerPriceRange)
-
+           Log.d("MAINACTIVITY"," values -- > "+postFilter.caseCategories.get(0))
+            ModelPreferencesManager.put(postFilter,"FILTER_DETAILS")
             filterOption.updateLawyaarDetails(postFilter)
         }
     }
@@ -250,7 +254,7 @@ class MainActivity : AppCompatActivity() {
         indexCase = 0
         for (dataVal in dataSource)
         {
-            Log.d("DATA VALUE","DATA -- > "+dataVal.name)
+            Log.d("DATA VALUE","DATA -- > "+dataVal.caseId +"--"+caseCategories.get(0))
             val idexVal = dataVal.caseId.indexOf(caseCategories.get(0))
             Log.d("DATA VALUE","DATA -- > "+idexVal)
             if (idexVal != -1) {
