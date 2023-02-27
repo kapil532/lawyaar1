@@ -79,8 +79,8 @@ class LawyaarAdapter() : RecyclerView.Adapter<LawyaarAdapter.MyVeiwHolder>() {
         viewHolder.lawyaaricon.setOnClickListener({
         Log.d("currentitem","--> "+currentitem.advocateDetailId +" -- >"+currentitem.userId)
 
-            if(currentitem.advocateDetailId != null)
-            cellClickListener.onCellClickListener(currentitem.advocateDetailId)
+           // if(currentitem.advocateDetailId != null)
+            cellClickListener.onCellClickListener("25b91f5e-3c4f-42cd-8d86-0148179f912f")
 
 
         })

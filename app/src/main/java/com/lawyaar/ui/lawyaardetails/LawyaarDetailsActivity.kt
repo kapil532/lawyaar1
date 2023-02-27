@@ -71,6 +71,8 @@ class LawyaarDetailsActivity : BaseActivity()
 
 
         lawyaar_name.setText(it.actualPrice)
+        lawyaar_exper.setText(it.experience)
+        price_hour.setText(it.offerPrice)
     }
 
     var tokenValue = ""
@@ -97,7 +99,7 @@ class LawyaarDetailsActivity : BaseActivity()
             if (it != null) {
 
                 Log.d("", "--> NUL VALUE"+it.experience)
-               // initializeView(it)
+                initializeView(it)
             } else {
                 Log.d("", "--> NUL VALUE")
             }

@@ -13,6 +13,7 @@ import com.lawyaar.models.lawyer_search.post_data.PostDataFilter
 import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModel
 import com.lawyaar.models.lawyer_search.post_details.PostFilter
 import com.lawyaar.models.location.LocationModel
+import com.lawyaar.models.session.SessionAvailability
 import com.lawyaar.models.user_detail_update.UserUpdateModel
 import com.lawyaar.models.user_details.UserDetailsModel
 import com.lawyaar.models.wallets.WalletModel
@@ -164,6 +165,32 @@ class MainRepostry @Inject constructor(private val lawyaarApi: LawyaarApi) {
             getLawyerDetailM.postValue(result.body())
         }
     }
+
+
+    //get Session Availability details
+    private val getSessionAbailablityM = MutableLiveData<SessionAvailability>()
+    val getSessionAbailablityL: LiveData<SessionAvailability>
+        get() = getSessionAbailablityM
+
+    suspend fun getSessionAbailablity(token: String, userId: String,date :String) {
+        val result = lawyaarApi.getSession(token,userId,date )
+        if (result?.body() != null) {
+            getSessionAbailablityM.postValue(result.body())
+        }
+    }
+
+
+    //Book Session Availability details
+    private val bookSessionMLD = MutableLiveData<LawyerModel>()
+    val bookSessionLD: LiveData<LawyerModel>
+        get() = bookSessionMLD
+
+//    suspend fun bookSession(token: String, userId: String,date :String) {
+//        val result = lawyaarApi.getSession(token,userId,date )
+//        if (result?.body() != null) {
+//            getSessionAbailablityM.postValue(result.body())
+//        }
+//    }
 
 
 }

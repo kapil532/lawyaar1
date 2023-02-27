@@ -1,6 +1,7 @@
 package com.lawyaar.retrofit
 
 import com.lawyaar.models.authentication.AuthSuccess
+import com.lawyaar.models.book_session.BookSessionPojo
 import com.lawyaar.models.case_category.CaseCategory
 import com.lawyaar.models.category.CategoryModel
 import com.lawyaar.models.language.LanguageModel
@@ -9,6 +10,7 @@ import com.lawyaar.models.lawyer_search.post_data.PostDataFilter
 import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModel
 import com.lawyaar.models.lawyer_search.post_details.PostFilter
 import com.lawyaar.models.location.LocationModel
+import com.lawyaar.models.session.SessionAvailability
 import com.lawyaar.models.user_detail_update.UserUpdateModel
 import com.lawyaar.models.user_details.UserDetailsModel
 import com.lawyaar.models.wallets.WalletModel
@@ -78,7 +80,7 @@ interface LawyaarApi {
     suspend fun getLawyerDetails(
         @Header("Authorization") token: String,
         @Header("children") children: String,
-        @Path("userId") userId: String,
+        @Path("userId") userId: String
     ): Response<LawyerModel>
 
     //add points pending
@@ -98,5 +100,27 @@ interface LawyaarApi {
         @Path("userId") userId: String,
          @Body data : WalletPostBody):
             Response<WalletModel>
+
+//    session/{{userId}}/availability/26-02-2023
+
+
+    @GET("session/{userId}/availability/{date}")
+    suspend fun getSession(
+        @Header("Authorization") token: String,
+        @Path("userId") userId: String,
+        @Path("date") date: String
+    ): Response<SessionAvailability>
+
+//    session/{{clientId}}/availability/{{userId}}
+
+    @POST("session/{clientID}/availability/{userId}")
+    suspend fun bookSession (
+        @Header("Authorization") token: String,
+        @Path("clientId") clientId: String,
+        @Path("userId") userId: String,
+        @Body data: BookSessionPojo
+    ): Response<UserDetailsModel>
+
+
 
 }
