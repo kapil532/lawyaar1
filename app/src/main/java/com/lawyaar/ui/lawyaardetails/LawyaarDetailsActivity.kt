@@ -87,7 +87,7 @@ class LawyaarDetailsActivity : BaseActivity()
                 langS += " "+lang.name
             }
         }
-        about_lawyer.setText(langS)
+        about_lawyer.setText("He knew these "+langS +" langauges. ")
         lawyaar_exper.setText(caseS)
         lawyer_type.setText(caseS)
         lawyaar_name.setText(lawyerSearchModelItem.name)

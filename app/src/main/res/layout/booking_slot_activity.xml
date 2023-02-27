@@ -3,111 +3,128 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/backgorund_col"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/backgorund_col">
 
-<RelativeLayout
-    android:id="@+id/header_back_title"
-    android:layout_width="match_parent"
-    android:layout_margin="12dp"
-    android:layout_height="wrap_content">
-
-       <ImageView
-           android:id="@+id/back_icon_book_slot"
-           android:layout_width="26dp"
-           android:backgroundTint="@color/black"
-           android:src="@drawable/ic_arrow_back_black_24dp"
-           android:layout_height="26dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/proximanovaregular"
-        android:text="Book your Slot"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-</RelativeLayout>
-
-    <FrameLayout
-        android:layout_below="@+id/header_back_title"
-        android:id="@+id/calender_view_for_datecard"
-        android:layout_margin="24dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <TextView
-        android:id="@+id/header_text_1"
+    <RelativeLayout
+        android:id="@+id/header_back_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/proximanovaregular"
-        android:text="Select Date"
-        android:layout_marginLeft="14dp"
-        android:layout_marginBottom="8dp"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        android:textStyle="bold" />
+        android:layout_margin="12dp">
 
+        <ImageView
+            android:id="@+id/back_icon_book_slot"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:backgroundTint="@color/black"
+            android:src="@drawable/ic_arrow_back_black_24dp" />
 
-    <androidx.cardview.widget.CardView
-          android:layout_width="wrap_content"
-        android:layout_height="325dp"
-        android:layout_marginTop="12dp"
-        android:layout_below="@id/header_text_1"
-        android:layout_centerHorizontal="true"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="6dp"
-        app:cardElevation="6dp"
-        app:cardMaxElevation="6dp"
-        app:cardPreventCornerOverlap="true"
-        app:cardUseCompatPadding="true">
-
-        <CalendarView
-            android:id="@+id/calender_view_for_date"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/proximanovaregular"
+            android:text="Book your Slot"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-            android:focusedMonthDateColor="@color/wallet_holo_blue_light" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/calender_view_for_datecard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header_back_title"
+        android:layout_margin="24dp">
+
+        <TextView
+            android:id="@+id/header_text_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/proximanovaregular"
+            android:text="Select Date"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
 
-    </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="325dp"
+            android:layout_below="@id/header_text_1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="6dp"
+            app:cardElevation="6dp"
+            app:cardMaxElevation="6dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true">
+
+            <CalendarView
+                android:id="@+id/calender_view_for_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:focusedMonthDateColor="@color/wallet_holo_blue_light" />
+
+
+        </androidx.cardview.widget.CardView>
 
     </FrameLayout>
 
 
     <RelativeLayout
-        android:layout_below="@+id/calender_view_for_datecard"
         android:layout_width="match_parent"
-        android:layout_marginLeft="24dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/calender_view_for_datecard"
+        android:layout_marginLeft="24dp">
+
         <TextView
             android:id="@+id/text_selected_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
             android:fontFamily="@font/proximanovaregular"
             android:text="Time Available"
-            android:layout_marginLeft="12dp"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/time_slots"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/text_selected_date"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:visibility="visible" />
+            android:layout_below="@+id/text_selected_date">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/time_slots"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/no_slots"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:fontFamily="@font/proximanovaregular"
+                android:text="Slots not available! Please check other dates!"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="visible" />
+        </RelativeLayout>
     </RelativeLayout>
-
-
-
 
 
     <TextView
@@ -121,19 +138,19 @@
         android:text="Slots for talking to your Consulor"
         android:textColor="@color/black"
         android:textSize="16sp"
-        android:visibility="gone"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/date_slots"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/header_text"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/slot_date"
@@ -145,20 +162,20 @@
         android:layout_marginTop="8dp"
         android:fontFamily="@font/proximanovaregular"
         android:text="Tomorrow 30 Jan"
-        android:visibility="gone"
         android:textColor="@color/black"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <View
         android:id="@+id/view_space"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:visibility="gone"
         android:layout_below="@+id/slot_date"
         android:layout_marginTop="8dp"
         android:background="@color/black"
-        android:backgroundTint="@color/black" />
+        android:backgroundTint="@color/black"
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/time_slotss"
@@ -167,17 +184,17 @@
         android:layout_below="@+id/view_space"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:visibility="gone"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/appoint_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
-        android:text="Book Appointment"
-        android:fontFamily="@font/proximanovaregular"
         android:background="@drawable/blue_rounded_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:fontFamily="@font/proximanovaregular"
+        android:text="Book Appointment" />
 </RelativeLayout>

@@ -89,7 +89,7 @@ class LawyaarAdapter() : RecyclerView.Adapter<LawyaarAdapter.MyVeiwHolder>() {
         })
 
         viewHolder.book_button.setOnClickListener({
-            talkListner.onTalkClickListner(currentitem.advocateDetail.advocateDetailId )
+            talkListner.onTalkClickListner(currentitem.userId )
         })
 
     }

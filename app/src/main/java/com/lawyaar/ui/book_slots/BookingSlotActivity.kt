@@ -9,6 +9,7 @@ import android.util.Log
 import android.widget.CalendarView
 import android.widget.CalendarView.OnDateChangeListener
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -35,6 +36,7 @@ class BookingSlotActivity : BaseActivity() {
     val arr = arrayOf("AM", "PM")
     lateinit var recyclerViewtime: RecyclerView
     lateinit var recyclerViewDate: RecyclerView
+    lateinit var no_slots: TextView
     lateinit var calenderView: CalendarView
 
     lateinit var sessionViewModel: SessionViewModel
@@ -56,6 +58,7 @@ class BookingSlotActivity : BaseActivity() {
         uSSERID = intent.getStringExtra("userId").toString()
         recyclerViewDate = findViewById<RecyclerView>(R.id.date_slots)
         recyclerViewtime = findViewById<RecyclerView>(R.id.time_slots)
+        no_slots = findViewById<TextView>(R.id.no_slots)
         calenderView = findViewById<CalendarView>(R.id.calender_view_for_date)
         val back_icon_book_slot = findViewById<ImageView>(R.id.back_icon_book_slot)
         back_icon_book_slot.setOnClickListener({
@@ -63,7 +66,7 @@ class BookingSlotActivity : BaseActivity() {
         })
         calenderView.setOnDateChangeListener(OnDateChangeListener { view, year, month, dayOfMonth ->
             curDate = dayOfMonth.toString()
-            curMonth = month.toString()
+            curMonth = (month+1).toString()
             curYear = year.toString()
             finalString = curDate+"-"+curMonth+"-"+curYear
             //            "26-02-2023"
@@ -146,6 +149,7 @@ class BookingSlotActivity : BaseActivity() {
     {
         sessionViewModel =
             ViewModelProvider(this, sessionFactoryModel).get(SessionViewModel::class.java)
+        Log.d("USER ID-- >"," USERID AND DATE"+advocateId +"   "+date)
         sessionViewModel.getSessionAbailablity(tokenValue, advocateId,date)
         sessionViewModel.getSessionAbailablityL.observe(this,androidx.lifecycle.Observer<SessionAvailability>{
             if(it !=null)
