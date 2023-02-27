@@ -16,6 +16,7 @@ import com.lawyaar.models.location.LocationModel
 import com.lawyaar.models.user_detail_update.UserUpdateModel
 import com.lawyaar.models.user_details.UserDetailsModel
 import com.lawyaar.models.wallets.WalletModel
+import com.lawyaar.models.wallets.wallet_post_pojo.WalletPostBody
 import com.lawyaar.testlist.QuoteList
 import javax.inject.Inject
 
@@ -118,8 +119,8 @@ class MainRepostry @Inject constructor(private val lawyaarApi: LawyaarApi) {
     val walletLive: LiveData<WalletModel>
         get() = userWalletLiveData
 
-    suspend fun getWalletsDetails_R(token: String) {
-        val result = lawyaarApi.getWalletsDetails(token)
+    suspend fun getWalletsDetails_R(token: String,userId: String,walletPostBody: WalletPostBody) {
+        val result = lawyaarApi.getWalletsDetails(token,userId,walletPostBody)
         if (result?.body() != null) {
             userWalletLiveData.postValue(result.body())
         }

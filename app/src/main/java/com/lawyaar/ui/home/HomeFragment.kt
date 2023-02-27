@@ -133,6 +133,7 @@ class HomeFragment : Fragment(), CellClickListener, TalkListner ,FilterOption {
                 shimmer_view_container.hideShimmer()
                 shimmer_view_container.visibility = View.GONE
                 adapter.setUpdateData(it)
+                Log.d("NOFOUND","NO LAWWAY"+it)
             }
             else{
                 Log.d("NOFOUND","NO LAWWAY")

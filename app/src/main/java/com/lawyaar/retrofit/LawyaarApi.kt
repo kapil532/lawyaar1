@@ -12,6 +12,7 @@ import com.lawyaar.models.location.LocationModel
 import com.lawyaar.models.user_detail_update.UserUpdateModel
 import com.lawyaar.models.user_details.UserDetailsModel
 import com.lawyaar.models.wallets.WalletModel
+import com.lawyaar.models.wallets.wallet_post_pojo.WalletPostBody
 import com.lawyaar.testlist.QuoteList
 import retrofit2.Response
 import retrofit2.http.Body
@@ -61,10 +62,7 @@ interface LawyaarApi {
         @Body data: PostDataFilter
     ): Response<LawyerSearchModel>
 
-    @POST("wallet/list")
-    suspend fun getWalletsDetails(
-        @Header("Authorization") token: String):
-            Response<WalletModel>
+
 
 
     @POST("users/user/{userId}/update")
@@ -83,5 +81,22 @@ interface LawyaarApi {
         @Path("userId") userId: String,
     ): Response<LawyerModel>
 
+    //add points pending
+    @POST("wallet/{userId}/points/")
+    suspend fun addPoints (
+        @Header("Authorization") token: String,
+        @Header("children") children: String,
+        @Path("userId") userId: String,
+        @Body data: UserUpdateModel
+    ): Response<UserDetailsModel>
+
+    //wallet
+
+    @POST("wallet/{userId}/list")
+    suspend fun getWalletsDetails(
+        @Header("Authorization") token: String,
+        @Path("userId") userId: String,
+         @Body data : WalletPostBody):
+            Response<WalletModel>
 
 }

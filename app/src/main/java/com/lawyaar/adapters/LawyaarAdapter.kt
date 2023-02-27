@@ -1,11 +1,13 @@
 package com.lawyaar.adapters
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.lawyaar.R
 import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModelItem
@@ -75,7 +77,12 @@ class LawyaarAdapter() : RecyclerView.Adapter<LawyaarAdapter.MyVeiwHolder>() {
         viewHolder.lawyaar_exper.text = ""+caseS
 
         viewHolder.lawyaaricon.setOnClickListener({
-            cellClickListener.onCellClickListener(currentitem.userId)
+        Log.d("currentitem","--> "+currentitem.advocateDetailId +" -- >"+currentitem.userId)
+
+            if(currentitem.advocateDetailId != null)
+            cellClickListener.onCellClickListener(currentitem.advocateDetailId)
+
+
         })
 
         viewHolder.book_button.setOnClickListener({
