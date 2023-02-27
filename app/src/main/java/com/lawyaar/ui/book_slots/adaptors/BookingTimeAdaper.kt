@@ -6,8 +6,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.lawyaar.R
+import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModelItem
+import com.lawyaar.models.session.SessionAvailabilityItem
 
-class BookingTimeAdaper(private val dataSet: Array<String>) : RecyclerView.Adapter<BookingTimeAdaper.ViewHolder>()
+class BookingTimeAdaper() : RecyclerView.Adapter<BookingTimeAdaper.ViewHolder>()
 {
       class ViewHolder(veiw : View) :RecyclerView.ViewHolder(veiw)
       {
@@ -22,6 +24,15 @@ class BookingTimeAdaper(private val dataSet: Array<String>) : RecyclerView.Adapt
           }
       }
 
+
+    var dataSet =ArrayList<SessionAvailabilityItem>()
+
+    fun setUpdateData( dataSet: ArrayList<SessionAvailabilityItem>)
+    {
+        this.dataSet =  dataSet
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
        val view =  LayoutInflater.from(parent.context).inflate(R.layout.single_row_time_booking_slot,parent,false)
@@ -35,7 +46,7 @@ class BookingTimeAdaper(private val dataSet: Array<String>) : RecyclerView.Adapt
     override fun onBindViewHolder(holder: ViewHolder, position: Int)
     {
 
-             holder.date_slots_text.text = dataSet[position]
+             holder.date_slots_text.text = dataSet[position].sessionTime
 //             holder.slots_available_down_date.text = dataSet[position]
     }
 

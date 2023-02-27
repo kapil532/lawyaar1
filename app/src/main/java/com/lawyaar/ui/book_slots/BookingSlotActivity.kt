@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.CalendarView
 import android.widget.CalendarView.OnDateChangeListener
 import android.widget.ImageView
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lawyaar.R
+import com.lawyaar.adapters.LawyaarAdapter
 import com.lawyaar.application.LawyaarApplication
 import com.lawyaar.models.session.SessionAvailability
 import com.lawyaar.models.session.session_view_model.SessionFactoryModel
@@ -49,7 +51,7 @@ class BookingSlotActivity : BaseActivity() {
     lateinit var finalString: String
     private lateinit var uSSERID: String
 
-
+    private lateinit var adapter: BookingTimeAdaper
     @SuppressLint("MissingInflatedId", "SuspiciousIndentation")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,6 +61,7 @@ class BookingSlotActivity : BaseActivity() {
         recyclerViewDate = findViewById<RecyclerView>(R.id.date_slots)
         recyclerViewtime = findViewById<RecyclerView>(R.id.time_slots)
         no_slots = findViewById<TextView>(R.id.no_slots)
+        no_slots.visibility = View.GONE
         calenderView = findViewById<CalendarView>(R.id.calender_view_for_date)
         val back_icon_book_slot = findViewById<ImageView>(R.id.back_icon_book_slot)
         back_icon_book_slot.setOnClickListener({
@@ -101,7 +104,7 @@ class BookingSlotActivity : BaseActivity() {
         recyclerViewtime.layoutManager = layoutManager
 //        recyclerViewtime.setLayoutManager(layoutManager);
         getDateTomorrow()
-        val adapter = BookingTimeAdaper(arrtime)
+         adapter = BookingTimeAdaper()
         recyclerViewtime.adapter = adapter
 
         setDateUtill()
@@ -152,13 +155,24 @@ class BookingSlotActivity : BaseActivity() {
         Log.d("USER ID-- >"," USERID AND DATE"+advocateId +"   "+date)
         sessionViewModel.getSessionAbailablity(tokenValue, advocateId,date)
         sessionViewModel.getSessionAbailablityL.observe(this,androidx.lifecycle.Observer<SessionAvailability>{
-            if(it !=null)
-            {
-             Log.d("ITTTT","-->  "+it)
+            if(it !=null) {
+                Log.d("ITTTT", "-->  " + it)
+                if (it.size > 0) {
+                    recyclerViewtime.visibility = View.VISIBLE
+                    adapter.setUpdateData(it)
+                    no_slots.visibility = View.GONE
+                }else
+                {
+                    Log.d("ITTTT","-->  NULL")
+                    recyclerViewtime.visibility = View.GONE
+                    no_slots.visibility = View.VISIBLE
+                }
+
             }
             else
             {
                 Log.d("ITTTT","-->  NULL")
+                no_slots.visibility = View.VISIBLE
             }
 
 
