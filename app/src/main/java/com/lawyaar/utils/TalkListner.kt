@@ -2,5 +2,5 @@ package com.lawyaar.utils
 
 interface TalkListner
 {
-    fun onTalkClickListner()
+    fun onTalkClickListner(userId :String)
 }

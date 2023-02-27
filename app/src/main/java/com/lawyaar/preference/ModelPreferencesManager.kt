@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.GsonBuilder
+import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModelItem
 
 /**
  * Singleton class for managing preferences for POJO or model class's object.
@@ -51,7 +52,7 @@ object ModelPreferencesManager {
      *
      * @param key Shared Preference key with which object was saved.
      **/
-    inline fun <reified T> get(key: String): T? {
+    inline fun <reified T : Any> get(key: String): T {
         //We read JSON String which was saved.
         val value = preferences.getString(key, null)
         //JSON String was found which means object can be read.

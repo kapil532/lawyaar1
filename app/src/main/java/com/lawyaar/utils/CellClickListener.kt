@@ -1,6 +1,8 @@
 package com.lawyaar.utils
 
+import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModelItem
+
 interface CellClickListener
 {
-    fun onCellClickListener(userId :String)
+    fun onCellClickListener(lawyerDetails : LawyerSearchModelItem)
 }

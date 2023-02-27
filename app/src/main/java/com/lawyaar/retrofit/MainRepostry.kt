@@ -11,7 +11,6 @@ import com.lawyaar.models.language.LanguageModel
 import com.lawyaar.models.lawyer_detail.LawyerModel
 import com.lawyaar.models.lawyer_search.post_data.PostDataFilter
 import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModel
-import com.lawyaar.models.lawyer_search.post_details.PostFilter
 import com.lawyaar.models.location.LocationModel
 import com.lawyaar.models.session.SessionAvailability
 import com.lawyaar.models.user_detail_update.UserUpdateModel

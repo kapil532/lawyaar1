@@ -4,19 +4,16 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.lawyaar.MainActivity
 import com.lawyaar.R
@@ -24,25 +21,14 @@ import com.lawyaar.adapters.LawyaarAdapter
 import com.lawyaar.application.LawyaarApplication
 import com.lawyaar.models.lawyer_search.post_data.PostDataFilter
 import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModel
-import com.lawyaar.models.lawyer_search.post_details.PostFilter
+import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModelItem
 import com.lawyaar.models.lawyer_search.view_model.LawyerSearchFactoyModel
 import com.lawyaar.models.lawyer_search.view_model.LawyerSearchViewModel
-import com.lawyaar.preference.ModelPreferencesManager
-import com.lawyaar.ui.payment_screen.PaymentActivity
-import com.lawyaar.retrofit.LawyaarApi
-import com.lawyaar.retrofit.MainRepostry
-import com.lawyaar.retrofit.RetrofitHelperObj
-import com.lawyaar.testlist.QuoteList
-import com.lawyaar.ui.auth.OTPActivity
 import com.lawyaar.ui.book_slots.BookingSlotActivity
 import com.lawyaar.ui.lawyaardetails.LawyaarDetailsActivity
 import com.lawyaar.utils.CellClickListener
 import com.lawyaar.utils.FilterOption
 import com.lawyaar.utils.TalkListner
-import com.razorpay.Checkout
-import com.razorpay.PaymentResultListener
-import org.json.JSONException
-import org.json.JSONObject
 import javax.inject.Inject
 
 class HomeFragment : Fragment(), CellClickListener, TalkListner ,FilterOption {
@@ -152,16 +138,20 @@ class HomeFragment : Fragment(), CellClickListener, TalkListner ,FilterOption {
     }
 
 
-    override fun onCellClickListener(userId :String) {
+    override fun onCellClickListener(lawyerDetails : LawyerSearchModelItem) {
         //startActivity(Intent(context, LawyaarDetailsActivity::class.java))
         val intent = Intent(context, LawyaarDetailsActivity::class.java)
-        intent.putExtra("userId" , userId)
+       // intent.putExtra("userId" , lawyerDetails)
         startActivity(intent)
     }
 
-    override fun onTalkClickListner() {
+    override fun onTalkClickListner(userId :String) {
         // initPayment(""+10)
-        startActivity(Intent(activity, BookingSlotActivity::class.java))
+
+        val intent = Intent(context, BookingSlotActivity::class.java)
+        intent.putExtra("userId" , userId)
+        startActivity(intent)
+      //  startActivity(Intent(activity, BookingSlotActivity::class.java))
 
     }
 
@@ -182,7 +172,10 @@ class HomeFragment : Fragment(), CellClickListener, TalkListner ,FilterOption {
             if (it != null) {
                 shimmer_view_container.hideShimmer()
                 shimmer_view_container.visibility = View.GONE
+
+                Log.d("LAWYER DETAILS ","DETAILS-> "+it)
                 adapter.setUpdateData(it)
+
             }
             else{
                 Log.d("NOFOUND","NO LAWWAY")

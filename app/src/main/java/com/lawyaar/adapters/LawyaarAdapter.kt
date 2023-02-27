@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.lawyaar.R
 import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModelItem
+import com.lawyaar.preference.ModelPreferencesManager
 import com.lawyaar.utils.CellClickListener
 import com.lawyaar.utils.TalkListner
 
@@ -30,7 +30,7 @@ class LawyaarAdapter() : RecyclerView.Adapter<LawyaarAdapter.MyVeiwHolder>() {
 
     var list = ArrayList<LawyerSearchModelItem>()
 
-    fun setUpdateData(list: ArrayList<LawyerSearchModelItem>)
+        fun setUpdateData(list: ArrayList<LawyerSearchModelItem>)
     {
         this.list =  list
         notifyDataSetChanged()
@@ -77,16 +77,19 @@ class LawyaarAdapter() : RecyclerView.Adapter<LawyaarAdapter.MyVeiwHolder>() {
         viewHolder.lawyaar_exper.text = ""+caseS
 
         viewHolder.lawyaaricon.setOnClickListener({
-        Log.d("currentitem","--> "+currentitem.advocateDetailId +" -- >"+currentitem.userId)
+        Log.d("currentitem","--> "+currentitem.advocateDetail.advocateDetailId +" -- >"+currentitem.userId)
 
-           // if(currentitem.advocateDetailId != null)
-            cellClickListener.onCellClickListener("25b91f5e-3c4f-42cd-8d86-0148179f912f")
+           if(currentitem != null) {
+               ModelPreferencesManager.put(currentitem,"LAWYAR_DETAILS")
+               cellClickListener.onCellClickListener(currentitem)
 
+
+           }
 
         })
 
         viewHolder.book_button.setOnClickListener({
-            talkListner.onTalkClickListner()
+            talkListner.onTalkClickListner(currentitem.advocateDetail.advocateDetailId )
         })
 
     }

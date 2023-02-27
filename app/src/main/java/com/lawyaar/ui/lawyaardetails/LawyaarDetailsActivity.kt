@@ -18,8 +18,10 @@ import com.lawyaar.databinding.ActivityMainBinding
 import com.lawyaar.models.lawyer_detail.LawyerModel
 import com.lawyaar.models.lawyer_detail.view_model_factory.LawyerDetailsFactoryModel
 import com.lawyaar.models.lawyer_detail.view_model_factory.LawyerDetailsViewModel
+import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModelItem
 import com.lawyaar.models.location.view_factory_model.LocationViewModel
 import com.lawyaar.models.location.view_factory_model.LocationViewModelFactory
+import com.lawyaar.preference.ModelPreferencesManager
 import com.lawyaar.ui.base_screen.BaseActivity
 import com.lawyaar.ui.book_slots.BookingSlotActivity
 import javax.inject.Inject
@@ -33,7 +35,8 @@ class LawyaarDetailsActivity : BaseActivity()
     @Inject
     lateinit var lawyerDetailsFactoryModel: LawyerDetailsFactoryModel
 
-    private lateinit var uSSERID: String
+   //val lawyerSearchModelItem
+   lateinit var lawyerSearchModelItem : LawyerSearchModelItem
     //lateinit var binding: ActivityMainBinding
     @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +44,7 @@ class LawyaarDetailsActivity : BaseActivity()
         //  binding = ActivityMainBinding.inflate(layoutInflater)
         // val view = binding.root
         setContentView(R.layout.lawyer_profile_layout)
-        uSSERID = intent.getStringExtra("userId").toString()
+        lawyerSearchModelItem = ModelPreferencesManager.get<LawyerSearchModelItem>("LAWYAR_DETAILS")
         // to bazsck the past activity
         val back_icon = findViewById<ImageView>(R.id.back_icon)
         back_icon.setOnClickListener({
@@ -60,6 +63,7 @@ class LawyaarDetailsActivity : BaseActivity()
 
     fun initializeView(it: LawyerModel) {
         val rating_no = findViewById<TextView>(R.id.rating_no)
+        val lawyer_type = findViewById<TextView>(R.id.lawyer_type)
         val lawyaar_name = findViewById<TextView>(R.id.lawyaar_name)
         val lawyaar_exper = findViewById<TextView>(R.id.lawyaar_exper)
         val experience = findViewById<TextView>(R.id.experience)
@@ -70,8 +74,24 @@ class LawyaarDetailsActivity : BaseActivity()
         val reveiw_count = findViewById<TextView>(R.id.reveiw_count)
 
 
-        lawyaar_name.setText(it.actualPrice)
-        lawyaar_exper.setText(it.experience)
+        var  caseS =""
+        var  langS =""
+        if(lawyerSearchModelItem.caseCategories.size  >0) {
+
+            for ( case in lawyerSearchModelItem.caseCategories )
+            {
+                caseS += " "+case.name
+            }
+            for ( lang in lawyerSearchModelItem.languages )
+            {
+                langS += " "+lang.name
+            }
+        }
+        about_lawyer.setText(langS)
+        lawyaar_exper.setText(caseS)
+        lawyer_type.setText(caseS)
+        lawyaar_name.setText(lawyerSearchModelItem.name)
+        experience.setText(it.experience)
         price_hour.setText(it.offerPrice)
     }
 
@@ -93,8 +113,8 @@ class LawyaarDetailsActivity : BaseActivity()
                 this,
                 lawyerDetailsFactoryModel
             ).get(LawyerDetailsViewModel::class.java)
-        Log.d("", "--> NUL VALUE"+uSSERID)
-        lawyerDetailsViewModel.getLawyerDetails(tokenValue, "language,category,locations", uSSERID)
+        Log.d("", "--> NUL VALUE"+lawyerSearchModelItem.userId)
+        lawyerDetailsViewModel.getLawyerDetails(tokenValue, "language,category,locations", lawyerSearchModelItem.advocateDetail.advocateDetailId)
         lawyerDetailsViewModel.getLawyerLiveData.observe(this, Observer<LawyerModel> {
             if (it != null) {
 
