@@ -10,7 +10,8 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Appoitment</string>
     <string name="menu_slideshow">Wallet</string>
-    <string name="menu_profileshow">Profile</string>
+    <string name="menu_profileshow">My Profile</string>
+    <string name="menu_setting">Settings</string>
     <string name="veiw_details"><u>Veiw details</u></string>
 
     <string name="job_success">Job Success</string>

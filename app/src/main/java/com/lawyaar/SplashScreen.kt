@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.lawyaar.ui.auth.OTPActivity
 import com.lawyaar.ui.auth.PhoneActivity
+import com.lawyaar.ui.intro_screen.IntroScreen
 
 class SplashScreen : AppCompatActivity()
 {
@@ -42,7 +43,7 @@ class SplashScreen : AppCompatActivity()
         if (auth.currentUser != null)
         {
             if (tokenValue != null && tokenValue.length > 10) {
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity(Intent(this, IntroScreen::class.java))
                     finish()
 
             }else {

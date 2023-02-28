@@ -63,6 +63,11 @@
             android:theme="@style/Theme.Lawyaar.NoActionBar"></activity>
 
 
+<activity
+            android:name=".ui.intro_screen.IntroScreen"
+            android:theme="@style/Theme.Lawyaar.NoActionBar"></activity>
+
+
     </application>
 
 
