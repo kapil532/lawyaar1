@@ -77,10 +77,13 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarMain.toolbar)
         supportActionBar?.hide();
-        binding.appBarMain.fab.setColorFilter(Color.WHITE);
-        binding.appBarMain.fab.setOnClickListener { view ->
+        binding.appBarMain.contentmain.searchbar.filterIcon.setOnClickListener { view ->
             initBottomSheet()
         }
+        //binding.appBarMain.fab.setColorFilter(Color.WHITE);
+//        binding.appBarMain.fab.setOnClickListener { view ->
+//            initBottomSheet()
+//        }
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_main)

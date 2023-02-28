@@ -22,15 +22,16 @@ class SplashScreen : AppCompatActivity()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_screen)
         init()
-        Handler(Looper.getMainLooper()).postDelayed({
-           checkvalidity()
-        }, 3000)
+
     }
 
     private fun init()
     {
 
         auth = FirebaseAuth.getInstance()
+        Handler(Looper.getMainLooper()).postDelayed({
+            checkvalidity()
+        }, 3000)
     }
 
     @SuppressLint("SuspiciousIndentation")
@@ -43,7 +44,7 @@ class SplashScreen : AppCompatActivity()
         if (auth.currentUser != null)
         {
             if (tokenValue != null && tokenValue.length > 10) {
-                    startActivity(Intent(this, IntroScreen::class.java))
+                    startActivity(Intent(this, MainActivity::class.java))
                     finish()
 
             }else {
