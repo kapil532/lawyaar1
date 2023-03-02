@@ -54,7 +54,7 @@ object ModelPreferencesManager {
      **/
     inline fun <reified T : Any> get(key: String): T {
         //We read JSON String which was saved.
-        val value = preferences.getString(key, null)
+        val value = preferences.getString(key, "")
         //JSON String was found which means object can be read.
         //We convert this JSON String to model object. Parameter "c" (of
         //type Class < T >" is used to cast.

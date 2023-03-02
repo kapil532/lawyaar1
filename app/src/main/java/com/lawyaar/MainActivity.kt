@@ -180,7 +180,7 @@ class MainActivity : AppCompatActivity() {
             this,
             caseCategoryViewModelFactory
         ).get(CaseCategoryViewModel::class.java)
-        updateFilterDetails()
+       //5  getDetails()
 
         locationViewModel.location.observe(this, Observer<LocationModel> {
             if (it != null)

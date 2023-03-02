@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.CalendarView
 import android.widget.CalendarView.OnDateChangeListener
 import android.widget.ImageView
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lawyaar.R
+import com.lawyaar.adapters.LanguageAdaptor
 import com.lawyaar.adapters.LawyaarAdapter
 import com.lawyaar.application.LawyaarApplication
 import com.lawyaar.models.session.SessionAvailability
@@ -38,6 +40,7 @@ class BookingSlotActivity : BaseActivity() {
     val arr = arrayOf("AM", "PM")
     lateinit var recyclerViewtime: RecyclerView
     lateinit var recyclerViewDate: RecyclerView
+    lateinit var appoint_button: Button
     lateinit var no_slots: TextView
     lateinit var calenderView: CalendarView
 
@@ -45,6 +48,8 @@ class BookingSlotActivity : BaseActivity() {
 
     @Inject
     lateinit var sessionFactoryModel: SessionFactoryModel
+
+
     lateinit var curDate: String
     lateinit var curYear: String
     lateinit var curMonth: String
@@ -52,6 +57,7 @@ class BookingSlotActivity : BaseActivity() {
     private lateinit var uSSERID: String
 
     private lateinit var adapter: BookingTimeAdaper
+
     @SuppressLint("MissingInflatedId", "SuspiciousIndentation")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,6 +65,10 @@ class BookingSlotActivity : BaseActivity() {
         setContentView(R.layout.booking_slot_activity)
         uSSERID = intent.getStringExtra("userId").toString()
         recyclerViewDate = findViewById<RecyclerView>(R.id.date_slots)
+        appoint_button = findViewById<Button>(R.id.appoint_button)
+        appoint_button.setOnClickListener({
+            bookingSlots()
+        })
         recyclerViewtime = findViewById<RecyclerView>(R.id.time_slots)
         no_slots = findViewById<TextView>(R.id.no_slots)
         no_slots.visibility = View.GONE
@@ -69,14 +79,15 @@ class BookingSlotActivity : BaseActivity() {
         })
         calenderView.setOnDateChangeListener(OnDateChangeListener { view, year, month, dayOfMonth ->
             curDate = dayOfMonth.toString()
-            curMonth = (month+1).toString()
+            curMonth = (month + 1).toString()
             curYear = year.toString()
-            finalString = curDate+"-"+curMonth+"-"+curYear
+            finalString = curDate + "-" + curMonth + "-" + curYear
             //            "26-02-2023"
-            Log.d("CURSAT","--> "+finalString)
-            getDateWiseSlots(uSSERID,finalString)
+            Log.d("CURSAT", "--> " + finalString)
+            getDateWiseSlots(uSSERID, finalString)
 
         })
+        initNetwork()
         initDateForm()
     }
 
@@ -85,6 +96,14 @@ class BookingSlotActivity : BaseActivity() {
     fun initDateForm() {
         val c = Calendar.getInstance()
 
+        val d = c.get(Calendar.DAY_OF_MONTH)
+        val m = c.get(Calendar.MONTH) + 1
+        val y = c.get(Calendar.YEAR)
+
+        finalString = "" + d + "-" + m + "-" + y
+        //            "26-02-2023"
+        Log.d("CURSAT", "--> " + finalString)
+        getDateWiseSlots(uSSERID, finalString)
         val timmm = c.get(Calendar.AM_PM)
         val timmma = c.get(Calendar.HOUR)
         val minute = c.get(Calendar.MINUTE)
@@ -103,8 +122,8 @@ class BookingSlotActivity : BaseActivity() {
         val layoutManager = GridLayoutManager(this, 3)
         recyclerViewtime.layoutManager = layoutManager
 //        recyclerViewtime.setLayoutManager(layoutManager);
-        getDateTomorrow()
-         adapter = BookingTimeAdaper()
+        //getDateTomorrow()
+        adapter = BookingTimeAdaper()
         recyclerViewtime.adapter = adapter
 
         setDateUtill()
@@ -120,6 +139,8 @@ class BookingSlotActivity : BaseActivity() {
         calenderView.maxDate = now + 1000 * 60 * 60 * 24 * 7
     }
 
+    lateinit var languageAdaptor: LanguageAdaptor
+
     @RequiresApi(Build.VERSION_CODES.O)
     fun getDateTomorrow() {
         val tomorrow = LocalDate.now().plus(1, ChronoUnit.DAYS)
@@ -131,52 +152,62 @@ class BookingSlotActivity : BaseActivity() {
 
         recyclerViewDate.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true)
-        val adapter = BookingDateAdaptar(arrDate)
-        recyclerViewDate.adapter = adapter
+        // adapter = BookingDateAdaptar(arrDate)
+      //  recyclerViewDate.adapter = adapter
 
         initNetwork()
 
     }
 
-    var tokenValue =""
-    fun initNetwork()
-    {
+    var tokenValue = ""
+    fun initNetwork() {
         val sharedPreferences: SharedPreferences =
-           application!!.getSharedPreferences("token_auth", Context.MODE_PRIVATE)
+            application!!.getSharedPreferences("token_auth", Context.MODE_PRIVATE)
         tokenValue = sharedPreferences.getString("token_val", " ").toString()
         (application as LawyaarApplication).applicationComponent.inject(this)
 
     }
 
-    fun getDateWiseSlots( advocateId : String ,date : String)
-    {
+   lateinit var  selectedDate :String
+
+
+    fun getDateWiseSlots(advocateId: String, date: String) {
+
+        selectedDate =date
         sessionViewModel =
             ViewModelProvider(this, sessionFactoryModel).get(SessionViewModel::class.java)
-        Log.d("USER ID-- >"," USERID AND DATE"+advocateId +"   "+date)
-        sessionViewModel.getSessionAbailablity(tokenValue, advocateId,date)
-        sessionViewModel.getSessionAbailablityL.observe(this,androidx.lifecycle.Observer<SessionAvailability>{
-            if(it !=null) {
-                Log.d("ITTTT", "-->  " + it)
-                if (it.size > 0) {
-                    recyclerViewtime.visibility = View.VISIBLE
-                    adapter.setUpdateData(it)
-                    no_slots.visibility = View.GONE
-                }else
-                {
-                    Log.d("ITTTT","-->  NULL")
-                    recyclerViewtime.visibility = View.GONE
+        Log.d("USER ID-- >", " USERID AND DATE" + advocateId + "   " + date)
+        sessionViewModel.getSessionAbailablity(tokenValue, advocateId, date)
+        sessionViewModel.getSessionAbailablityL.observe(
+            this,
+            androidx.lifecycle.Observer<SessionAvailability> {
+                if (it != null) {
+                    Log.d("ITTTT", "-->  " + it)
+                    if (it.size > 0) {
+                        recyclerViewtime.visibility = View.VISIBLE
+                        adapter.setUpdateData(it)
+                        no_slots.visibility = View.GONE
+                        appoint_button.visibility = View.VISIBLE
+                    } else {
+                        Log.d("ITTTT", "-->  NULL")
+                        recyclerViewtime.visibility = View.GONE
+                        no_slots.visibility = View.VISIBLE
+                        appoint_button.visibility = View.GONE
+                    }
+
+                } else {
+                    Log.d("ITTTT", "-->  NULL")
                     no_slots.visibility = View.VISIBLE
+                    appoint_button.visibility = View.GONE
                 }
 
-            }
-            else
-            {
-                Log.d("ITTTT","-->  NULL")
-                no_slots.visibility = View.VISIBLE
-            }
 
-
-        })
+            })
     }
 
+
+    fun bookingSlots() {
+        val timeSel = adapter.getSelectedTime()
+        Log.d("BOOKINGSLOTS", selectedDate+  "  TIMESET-->" + timeSel)
+    }
 }
