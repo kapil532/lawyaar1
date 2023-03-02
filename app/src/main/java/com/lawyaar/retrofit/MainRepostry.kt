@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.lawyaar.ui.auth.OTPActivity
 import com.lawyaar.models.authentication.AuthSuccess
+import com.lawyaar.models.book_session.BookSessionPojo
 import com.lawyaar.models.case_category.CaseCategory
 import com.lawyaar.models.category.CategoryModel
 import com.lawyaar.models.language.LanguageModel
@@ -180,16 +181,16 @@ class MainRepostry @Inject constructor(private val lawyaarApi: LawyaarApi) {
 
 
     //Book Session Availability details
-    private val bookSessionMLD = MutableLiveData<LawyerModel>()
-    val bookSessionLD: LiveData<LawyerModel>
+    private val bookSessionMLD = MutableLiveData<String>()
+    val bookSessionLD: LiveData<String>
         get() = bookSessionMLD
 
-//    suspend fun bookSession(token: String, userId: String,date :String) {
-//        val result = lawyaarApi.getSession(token,userId,date )
-//        if (result?.body() != null) {
-//            getSessionAbailablityM.postValue(result.body())
-//        }
-//    }
+    suspend fun bookSession(token: String, clientId: String,userID :String,  data: BookSessionPojo) {
+        val result = lawyaarApi.bookSession(token,clientId,userID,data )
+        if (result?.body() != null) {
+            bookSessionMLD.postValue(result.body())
+        }
+    }
 
 
 }

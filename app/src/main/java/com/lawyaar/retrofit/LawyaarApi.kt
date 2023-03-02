@@ -112,14 +112,13 @@ interface LawyaarApi {
 
 //    session/{{clientId}}/availability/{{userId}}
 
-    @POST("session/{clientID}/availability/{userId}")
+    @POST("session/{clientId}/availability/{userId}")
     suspend fun bookSession (
         @Header("Authorization") token: String,
         @Path("clientId") clientId: String,
         @Path("userId") userId: String,
         @Body data: BookSessionPojo
-    ): Response<UserDetailsModel>
-
+    ): Response<String>
 
 
 }

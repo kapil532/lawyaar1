@@ -2,6 +2,7 @@ package com.lawyaar.ui.book_slots
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
@@ -21,12 +22,16 @@ import com.lawyaar.R
 import com.lawyaar.adapters.LanguageAdaptor
 import com.lawyaar.adapters.LawyaarAdapter
 import com.lawyaar.application.LawyaarApplication
+import com.lawyaar.models.book_session.BookSessionPojo
+import com.lawyaar.models.book_session.view_model.BookingSessionFactoryModel
+import com.lawyaar.models.book_session.view_model.BookingSessionViewModel
 import com.lawyaar.models.session.SessionAvailability
 import com.lawyaar.models.session.session_view_model.SessionFactoryModel
 import com.lawyaar.models.session.session_view_model.SessionViewModel
 import com.lawyaar.ui.base_screen.BaseActivity
 import com.lawyaar.ui.book_slots.adaptors.BookingDateAdaptar
 import com.lawyaar.ui.book_slots.adaptors.BookingTimeAdaper
+import com.lawyaar.ui.success_screen.SuccessActivity
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
@@ -55,6 +60,7 @@ class BookingSlotActivity : BaseActivity() {
     lateinit var curMonth: String
     lateinit var finalString: String
     private lateinit var uSSERID: String
+    private lateinit var userID: String
 
     private lateinit var adapter: BookingTimeAdaper
 
@@ -164,6 +170,7 @@ class BookingSlotActivity : BaseActivity() {
         val sharedPreferences: SharedPreferences =
             application!!.getSharedPreferences("token_auth", Context.MODE_PRIVATE)
         tokenValue = sharedPreferences.getString("token_val", " ").toString()
+        userID = sharedPreferences.getString("user_id", " ").toString()
         (application as LawyaarApplication).applicationComponent.inject(this)
 
     }
@@ -206,8 +213,29 @@ class BookingSlotActivity : BaseActivity() {
     }
 
 
+    lateinit var bookingSessionViewModel: BookingSessionViewModel
+
+    @Inject
+    lateinit var bookSessionFactoryModel: BookingSessionFactoryModel
+
+
+
     fun bookingSlots() {
         val timeSel = adapter.getSelectedTime()
-        Log.d("BOOKINGSLOTS", selectedDate+  "  TIMESET-->" + timeSel)
+        Log.d("BOOKINGSLOTS", selectedDate+  "  TIMESET-->" + timeSel+"  --  "+userID+"  "+uSSERID  +"  "+tokenValue)
+        val bookSessionPojo = BookSessionPojo(uSSERID,selectedDate,timeSel,userID)
+
+        bookingSessionViewModel = ViewModelProvider(this, bookSessionFactoryModel).get(BookingSessionViewModel::class.java)
+        bookingSessionViewModel.bookSession(tokenValue,userID,uSSERID,bookSessionPojo)
+        bookingSessionViewModel.bookSessionLD.observe(this, androidx.lifecycle.Observer<String>{
+          //  Log.d("VALUE","BOOKING DONE "+it)
+            if(it.equals("true"))
+            {
+                val intent = Intent(this, SuccessActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        })
+
     }
 }
