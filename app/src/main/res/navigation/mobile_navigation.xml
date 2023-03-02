@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.lawyaar.ui.gallery.GalleryFragment"
+        android:name="com.lawyaar.ui.slideshow.BookedAppointmentFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_gallery" />
 
@@ -21,13 +21,13 @@
         android:id="@+id/nav_slideshow"
         android:name="com.lawyaar.ui.wallet.WalletActivity"
         android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_wallet" />
 
     <activity
         android:id="@+id/nav_profileshow"
         android:name="com.lawyaar.ui.profile.UpdateProfileActivity"
         android:label="@string/menu_profileshow"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_wallet" />
 
 
 

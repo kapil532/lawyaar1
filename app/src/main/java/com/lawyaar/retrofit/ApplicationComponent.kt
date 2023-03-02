@@ -8,6 +8,7 @@ import com.lawyaar.ui.book_slots.BookingSlotActivity
 import com.lawyaar.ui.home.HomeFragment
 import com.lawyaar.ui.lawyaardetails.LawyaarDetailsActivity
 import com.lawyaar.ui.profile.UpdateProfileActivity
+import com.lawyaar.ui.slideshow.BookedAppointmentFragment
 import com.lawyaar.ui.wallet.WalletActivity
 import dagger.Component
 import javax.inject.Singleton
@@ -28,5 +29,8 @@ interface ApplicationComponent
   fun inject(lawyerDetailsActivity: LawyaarDetailsActivity)
 
   fun inject(bookingSlotActivity: BookingSlotActivity)
+
+
+  fun inject(bookedAppointmentFragment: BookedAppointmentFragment)
 
 }

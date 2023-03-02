@@ -2,6 +2,7 @@ package com.lawyaar.retrofit
 
 import com.lawyaar.models.authentication.AuthSuccess
 import com.lawyaar.models.book_session.BookSessionPojo
+import com.lawyaar.models.booked_session.BookedSessionModel
 import com.lawyaar.models.case_category.CaseCategory
 import com.lawyaar.models.category.CategoryModel
 import com.lawyaar.models.language.LanguageModel
@@ -120,5 +121,13 @@ interface LawyaarApi {
         @Body data: BookSessionPojo
     ): Response<String>
 
+
+    @GET("session/{userId}/booking/{date}")
+    suspend fun getBookedSessions(
+        @Header("Authorization") token: String,
+        @Header("children") children: String,
+        @Path("userId") userId: String,
+        @Path("date") date: String
+    ): Response<BookedSessionModel>
 
 }

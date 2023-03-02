@@ -222,6 +222,7 @@ class BookingSlotActivity : BaseActivity() {
 
     fun bookingSlots() {
         val timeSel = adapter.getSelectedTime()
+
         Log.d("BOOKINGSLOTS", selectedDate+  "  TIMESET-->" + timeSel+"  --  "+userID+"  "+uSSERID  +"  "+tokenValue)
         val bookSessionPojo = BookSessionPojo(uSSERID,selectedDate,timeSel,userID)
 

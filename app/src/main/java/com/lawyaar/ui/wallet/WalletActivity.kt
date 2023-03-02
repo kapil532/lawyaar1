@@ -14,7 +14,7 @@ class WalletActivity : AppCompatActivity()
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_slideshow)
+        setContentView(R.layout.fragment_wallet)
         val payment_button = findViewById<Button>(R.id.appoint_button)
         payment_button.setOnClickListener({
 
