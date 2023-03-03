@@ -52,8 +52,8 @@
                 android:layout_height="40dp"
                 android:layout_centerInParent="true"
                 android:padding="6dp"
-                android:visibility="invisible"
-                android:src="@drawable/ic_notifications_white_24dp" />
+                android:src="@drawable/ic_notifications_white_24dp"
+                android:visibility="invisible" />
 
             <ImageView
                 android:layout_width="20dp"
@@ -74,6 +74,17 @@
         android:layout_height="190dp"
         android:layout_below="@+id/topbar">
 
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:fontFamily="@font/proximanovaregular"
+            android:text="Loading ..."
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+
 
     </RelativeLayout>
 
@@ -83,6 +94,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/profile_details_lay"
+        android:layout_marginTop="0dp"
         android:background="@drawable/top_corner_rounded"
         android:backgroundTint="@color/backgorund_col">
 
@@ -97,22 +109,12 @@
         </LinearLayout>
 
 
-        <Button
-            android:id="@+id/appoint_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/blue_rounded_button"
-            android:fontFamily="@font/proximanovaregular"
-            android:text="Add POINTS" />
+
 
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/cards_view"
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:layout_marginLeft="32dp"
@@ -127,10 +129,11 @@
             app:cardElevation="4dp"
             app:cardMaxElevation="10dp"
             app:contentPadding="25dp"
-            card_view:cardPreventCornerOverlap="true" >
+            card_view:cardPreventCornerOverlap="true">
 
 
             <TextView
+                android:id="@+id/user_mobileno"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -138,13 +141,91 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:fontFamily="@font/proximanovaregular"
-                android:text="Wallet Details"
+                android:text="Loading ..."
                 android:textColor="@color/white"
-                android:textSize="25sp"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/wallet_balance_tex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/wallet_balance"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/proximanovaregular"
+                android:text="Balance"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+
+            <RelativeLayout
+                android:layout_width="70dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/circular_grey_bordersolid" />
+
+            <TextView
+                android:id="@+id/wallet_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/proximanovaregular"
+                android:text="Loading ..."
+                android:textColor="@color/white"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
 
         </RelativeLayout>
 
+
     </RelativeLayout>
+
+<TextView
+    android:layout_width="match_parent"
+    android:id="@+id/text"
+    android:text="Transaction Details"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_below="@+id/cards_view"
+    android:textColor="@color/blue"
+    android:fontFamily="@font/proximanovaregular"
+    android:textSize="16sp"
+    android:textStyle="bold"
+    android:layout_height="wrap_content"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/wallet_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_above="@+id/appoint_button"
+        tools:listitem="@layout/single_row_wallet_transactiont"
+        android:layout_marginEnd="16dp"
+         />
+
+    <Button
+        android:id="@+id/appoint_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/blue_rounded_button"
+        android:fontFamily="@font/proximanovaregular"
+        android:text="Add POINTS" />
 </RelativeLayout>

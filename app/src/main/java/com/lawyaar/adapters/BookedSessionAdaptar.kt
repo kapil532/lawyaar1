@@ -15,6 +15,10 @@ import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModelItem
 import com.lawyaar.preference.ModelPreferencesManager
 import com.lawyaar.utils.CellClickListener
 import com.lawyaar.utils.TalkListner
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 class BookedSessionAdaptar() : RecyclerView.Adapter<BookedSessionAdaptar.MyVeiwHolder>() {
 
@@ -50,8 +54,10 @@ class BookedSessionAdaptar() : RecyclerView.Adapter<BookedSessionAdaptar.MyVeiwH
         this.talkListner= talkListner
 
     }
-
-
+    @SuppressLint("SimpleDateFormat")
+    fun dateFormatter(milliseconds: String): String {
+        return SimpleDateFormat("dd/MM/yyyy").format(Date(milliseconds.toLong())).toString()
+    }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): MyVeiwHolder {
         val v = LayoutInflater.from(viewGroup.context)
@@ -64,8 +70,8 @@ class BookedSessionAdaptar() : RecyclerView.Adapter<BookedSessionAdaptar.MyVeiwH
     override fun onBindViewHolder(viewHolder: MyVeiwHolder, i: Int) {
         val currentitem = list.get(i)
         viewHolder.lawyaarname.text = currentitem.name
-        viewHolder.session_time.text = currentitem.sessionTime
-        viewHolder.session_date.text = currentitem.sessionDate
+        viewHolder.session_time.text =currentitem.sessionTime
+        viewHolder.session_date.text = (currentitem.sessionDate)
         var  caseS =""
         var  langS =""
                if(currentitem.caseCategories.size  >0) {

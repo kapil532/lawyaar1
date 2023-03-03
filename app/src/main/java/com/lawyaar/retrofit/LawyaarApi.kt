@@ -13,6 +13,7 @@ import com.lawyaar.models.location.LocationModel
 import com.lawyaar.models.session.SessionAvailability
 import com.lawyaar.models.user_detail_update.UserUpdateModel
 import com.lawyaar.models.user_details.UserDetailsModel
+import com.lawyaar.models.wallet_details.AddWalletModel
 import com.lawyaar.models.wallets.WalletModel
 import com.lawyaar.models.wallets.wallet_post_pojo.WalletPostBody
 import com.lawyaar.testlist.QuoteList
@@ -65,8 +66,6 @@ interface LawyaarApi {
     ): Response<LawyerSearchModel>
 
 
-
-
     @POST("users/user/{userId}/update")
     suspend fun updateUserDetails(
         @Header("Authorization") token: String,
@@ -84,21 +83,29 @@ interface LawyaarApi {
     ): Response<LawyerModel>
 
     //add points pending
-    @POST("wallet/{userId}/points/")
-    suspend fun addPoints (
-        @Header("Authorization") token: String,
-        @Header("children") children: String,
-        @Path("userId") userId: String,
-        @Body data: UserUpdateModel
-    ): Response<UserDetailsModel>
 
+
+    @POST("wallet/{userId}/points/{points}")
+    suspend fun addPoints(
+        @Header("Authorization") token: String,
+        @Path("userId") userId: String,
+        @Path("points") points: String
+    ): Response<AddWalletModel>
+
+    //    wallet/{{userId}}/list
     //wallet
+    @POST("wallet/{userId}/list")
+    suspend fun listPoints(
+        @Header("Authorization") token: String,
+        @Path("userId") userId: String,
+    ): Response<String>
 
     @POST("wallet/{userId}/list")
     suspend fun getWalletsDetails(
         @Header("Authorization") token: String,
         @Path("userId") userId: String,
-         @Body data : WalletPostBody):
+        @Body data: WalletPostBody
+    ):
             Response<WalletModel>
 
 //    session/{{userId}}/availability/26-02-2023
@@ -114,7 +121,7 @@ interface LawyaarApi {
 //    session/{{clientId}}/availability/{{userId}}
 
     @POST("session/{clientId}/availability/{userId}")
-    suspend fun bookSession (
+    suspend fun bookSession(
         @Header("Authorization") token: String,
         @Path("clientId") clientId: String,
         @Path("userId") userId: String,

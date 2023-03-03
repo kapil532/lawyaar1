@@ -48,13 +48,13 @@ class SplashScreen : AppCompatActivity()
                     finish()
 
             }else {
-                val intent = Intent(this, PhoneActivity::class.java)
+                val intent = Intent(this, IntroScreen::class.java)
                 startActivity(intent)
                 finish()
             }
         }
         else{
-            val intent = Intent(this, PhoneActivity::class.java)
+            val intent = Intent(this, IntroScreen::class.java)
             startActivity(intent)
             finish()
        }
