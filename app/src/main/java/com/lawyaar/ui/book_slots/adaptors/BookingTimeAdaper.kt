@@ -1,6 +1,7 @@
 package com.lawyaar.ui.book_slots.adaptors
 
 import android.graphics.Color
+import android.graphics.Paint
 import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,6 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.lawyaar.R
-import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModelItem
 import com.lawyaar.models.session.SessionAvailabilityItem
 
 class BookingTimeAdaper() : RecyclerView.Adapter<BookingTimeAdaper.ViewHolder>() {
@@ -52,26 +52,36 @@ class BookingTimeAdaper() : RecyclerView.Adapter<BookingTimeAdaper.ViewHolder>()
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         holder.date_slots_text.text = dataSet[position].sessionTime
+        if (dataSet[position].slotAvailability ==1) {
+
+
 //             holder.slots_available_down _date.text = dataSet[position]
-        holder.itemView.setOnClickListener({
+            holder.itemView.setOnClickListener({
 
-            if (selectedItems.size() > 0) {
+                if (selectedItems.size() > 0) {
 
-                selectedItems.clear()
-                toggleSelection(position)
+                    selectedItems.clear()
+                    toggleSelection(position)
 
+                } else {
+                    toggleSelection(position)
+                }
+
+            })
+
+            if (selectedItems[position]) {
+                holder.item_card_veiw.getBackground().setTint(Color.parseColor("#31bcf4"))
+                holder.date_slots_text.setTextColor(Color.WHITE)
             } else {
-                toggleSelection(position)
+                holder.item_card_veiw.getBackground().setTint(Color.WHITE)
+                holder.date_slots_text.setTextColor(Color.GRAY)
             }
-
-        })
-
-        if (selectedItems[position]) {
-            holder.item_card_veiw.getBackground().setTint(Color.parseColor("#31bcf4"))
-            holder.date_slots_text.setTextColor(Color.WHITE)
-        } else {
-            holder.item_card_veiw.getBackground().setTint(Color.WHITE)
-            holder.date_slots_text.setTextColor(Color.GRAY)
+        }
+        else
+        {
+            holder.item_card_veiw.getBackground().setTint(Color.parseColor("#dddddd"))
+            holder.date_slots_text.setTextColor(Color.BLACK)
+            holder.date_slots_text.setPaintFlags( holder.date_slots_text.getPaintFlags() or Paint.STRIKE_THRU_TEXT_FLAG)
         }
     }
 

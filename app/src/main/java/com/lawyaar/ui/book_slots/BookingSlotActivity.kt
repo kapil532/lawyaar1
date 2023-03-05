@@ -13,6 +13,7 @@ import android.widget.CalendarView
 import android.widget.CalendarView.OnDateChangeListener
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -229,12 +230,16 @@ class BookingSlotActivity : BaseActivity() {
         bookingSessionViewModel = ViewModelProvider(this, bookSessionFactoryModel).get(BookingSessionViewModel::class.java)
         bookingSessionViewModel.bookSession(tokenValue,userID,uSSERID,bookSessionPojo)
         bookingSessionViewModel.bookSessionLD.observe(this, androidx.lifecycle.Observer<String>{
-          //  Log.d("VALUE","BOOKING DONE "+it)
+          Log.d("VALUE","BOOKING DONE "+it)
             if(it.equals("true"))
             {
                 val intent = Intent(this, SuccessActivity::class.java)
                 startActivity(intent)
                 finish()
+            }
+            else
+            {
+                Toast.makeText(this,"Please try again!",Toast.LENGTH_LONG).show()
             }
         })
 
