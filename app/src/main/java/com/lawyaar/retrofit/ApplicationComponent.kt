@@ -7,6 +7,7 @@ import com.lawyaar.retrofit.RetrofitHelperObj
 import com.lawyaar.ui.book_slots.BookingSlotActivity
 import com.lawyaar.ui.home.HomeFragment
 import com.lawyaar.ui.lawyaardetails.LawyaarDetailsActivity
+import com.lawyaar.ui.payment_screen.PaymentActivity
 import com.lawyaar.ui.profile.UpdateProfileActivity
 import com.lawyaar.ui.slideshow.BookedAppointmentFragment
 import com.lawyaar.ui.wallet.WalletActivity
@@ -32,5 +33,6 @@ interface ApplicationComponent
 
 
   fun inject(bookedAppointmentFragment: BookedAppointmentFragment)
+  fun inject(paymentActivity: PaymentActivity)
 
 }

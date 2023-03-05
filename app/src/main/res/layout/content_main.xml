@@ -10,7 +10,6 @@
     android:background="@color/backgorund_col"
     tools:showIn="@layout/app_bar_main">
 
-    <include layout="@layout/top_bar_layout" />
     <include layout="@layout/search_bar_layout"
         android:id="@+id/searchbar"/>
     <fragment

@@ -53,7 +53,9 @@ class LawyaarDetailsActivity : BaseActivity()
 
         val appoint_button = findViewById<Button>(R.id.appoint_button)
         appoint_button.setOnClickListener({
-            startActivity(Intent(this, BookingSlotActivity::class.java))
+            val intent = Intent(this, BookingSlotActivity::class.java)
+            intent.putExtra("userId" , lawyerSearchModelItem.userId)
+            startActivity(intent)
         })
 
         initNetwork()

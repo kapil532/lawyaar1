@@ -24,6 +24,7 @@ import com.lawyaar.models.user_details.user_details_view_model.UserDetailsViewMo
 import com.lawyaar.models.wallet_details.AddWalletFactoryModel
 import com.lawyaar.models.wallet_details.AddWalletViewModel
 import com.lawyaar.models.wallets.WalletModel
+import com.lawyaar.models.wallets.WalletModelItem
 import com.lawyaar.models.wallets.veiw_model.WalletModelFactory
 import com.lawyaar.models.wallets.veiw_model.WalletViewModel
 import com.lawyaar.models.wallets.wallet_post_pojo.WalletPostBody
@@ -63,8 +64,10 @@ class WalletActivity : AppCompatActivity() {
             finish()
         })
         payment_button.setOnClickListener({
-
-            startActivity(Intent(this@WalletActivity, PaymentActivity::class.java))
+            val intent = Intent(this@WalletActivity, AddPointsInWallet::class.java)
+            intent.putExtra("points" , ""+points)
+            startActivity(intent)
+           // startActivity(Intent(this@WalletActivity, PaymentActivity::class.java))
         })
         wallet_recycle.layoutManager = LinearLayoutManager(this)
         adaptor = WalletAdaptor()
@@ -74,6 +77,11 @@ class WalletActivity : AppCompatActivity() {
         getWalletDetails()
     }
 
+    override fun onStart() {
+        super.onStart()
+
+
+    }
     var user_id = ""
     var tokenValue = ""
     fun initNetwork() {
@@ -108,7 +116,7 @@ class WalletActivity : AppCompatActivity() {
         val dateRange: ArrayList<Long> = ArrayList()
 
         amountRange.add(3)
-        amountRange.add(110)
+        amountRange.add(1500)
 
 //        dateRange.add(1676472242335)
 //        dateRange.add(1676480011194)
@@ -120,13 +128,26 @@ class WalletActivity : AppCompatActivity() {
 
         walletViewModel.wallet.observe(this, Observer<WalletModel> {
             if (it != null) {
+                if(it.size >0)
+                {
+                    adaptor.setUpdateData(it)
+                    getValue(it)
+                }
 
 
-                adaptor.setUpdateData(it)
-               wallet_balance.setText("\u20B9 "+it.get(0).point)
             }
         })
         getDetails()
+    }
+    var points : Int =0
+    fun getValue(quoteList: ArrayList<WalletModelItem>)
+    {
+
+        for(value in quoteList)
+        {
+            points += value.point
+        }
+        wallet_balance.setText("\u20B9 "+ points)
     }
 
     lateinit var userDetailsViewModel: UserDetailsViewModel

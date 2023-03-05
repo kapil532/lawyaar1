@@ -221,9 +221,16 @@ class UpdateProfileActivity : BaseActivity() {
     fun getIndexForCase() {
         indexCase = 0
         for (dataVal in dataSource) {
-            val idexVal = dataVal.name.indexOf(userDetailsModel.caseCategories.get(0).name)
-            if (idexVal != -1) {
-                spinner04.setSelection(indexCase)
+            try {
+
+                val idexVal = dataVal.name.indexOf(userDetailsModel.caseCategories.get(0).name)
+                if (idexVal != -1) {
+                    spinner04.setSelection(indexCase)
+                }
+            }
+            catch (e : java.lang.Exception)
+            {
+
             }
             indexCase++
         }
@@ -231,18 +238,25 @@ class UpdateProfileActivity : BaseActivity() {
 
     var indexCount = 0
     fun getIndexForLangauge() {
-        for (lang in userDetailsModel.languages) {
-            indexCount = 0
-            for (dataVal in langModel) {
-                val idexVal = dataVal.name.indexOf(lang.name)
-                if (idexVal != -1) {
-                    selectedItems_lang.put(indexCount, true)
-                    languageAdaptor.setUpdateSelectiionData(selectedItems_lang, indexCount)
+        try {
+
+
+            for (lang in userDetailsModel.languages) {
+                indexCount = 0
+                for (dataVal in langModel) {
+                    val idexVal = dataVal.name.indexOf(lang.name)
+                    if (idexVal != -1) {
+                        selectedItems_lang.put(indexCount, true)
+                        languageAdaptor.setUpdateSelectiionData(selectedItems_lang, indexCount)
+                    }
+                    indexCount++
                 }
-                indexCount++
             }
         }
+        catch (e : java.lang.Exception)
+        {
 
+        }
     }
 
     var caseCategories: ArrayList<String> = ArrayList()
