@@ -56,10 +56,8 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var locationViewModelFactory: LocationViewModelFactory
-
     @Inject
     lateinit var languaViewModelFactory: LanguageViewModelFactory
-
     @Inject
     lateinit var caseCategoryViewModelFactory: CaseCategoryViewModelFactory
 
@@ -77,6 +75,9 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarMain.toolbar)
         supportActionBar?.hide();
+        binding.appBarMain.contentmain.searchbar.backIcon.setOnClickListener({
+              drawerLayout.open()
+        })
         binding.appBarMain.contentmain.searchbar.filterIcon.setOnClickListener { view ->
             initBottomSheet()
         }
@@ -84,7 +85,8 @@ class MainActivity : AppCompatActivity() {
 //        binding.appBarMain.fab.setOnClickListener { view ->
 //            initBottomSheet()
 //        }
-        val drawerLayout: DrawerLayout = binding.drawerLayout
+         drawerLayout = binding.drawerLayout
+
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(
@@ -96,7 +98,7 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
-
+    lateinit var drawerLayout: DrawerLayout
 
     lateinit var token_: String
 

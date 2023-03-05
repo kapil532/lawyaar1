@@ -66,15 +66,18 @@ class LawyaarAdapter() : RecyclerView.Adapter<LawyaarAdapter.MyVeiwHolder>() {
 
                    for ( case in currentitem.caseCategories )
                    {
-                     caseS += " "+case.name
+                     caseS += case.name+", "
                    }
                    for ( lang in currentitem.languages )
                    {
-                       langS += " "+lang.name
+                       langS += lang.name+", "
                    }
                }
-        viewHolder.lawyaar_lang.text = langS
-        viewHolder.lawyaar_exper.text = ""+caseS
+
+        val res_lang = langS.dropLast(2)
+        val res_case = caseS.dropLast(2)
+        viewHolder.lawyaar_lang.text = res_lang
+        viewHolder.lawyaar_exper.text = ""+res_case
 
         viewHolder.lawyaaricon.setOnClickListener({
         Log.d("currentitem","--> "+currentitem.advocateDetail.advocateDetailId +" -- >"+currentitem.userId)
