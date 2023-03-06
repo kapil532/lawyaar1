@@ -1,7 +1,6 @@
 package com.lawyaar.adapters
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,16 +8,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.lawyaar.R
-import com.lawyaar.models.booked_session.BookedSessionModel
 import com.lawyaar.models.booked_session.BookedSessionModelItem
-import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModelItem
-import com.lawyaar.preference.ModelPreferencesManager
 import com.lawyaar.utils.CellClickListener
 import com.lawyaar.utils.TalkListner
 import java.text.SimpleDateFormat
-import java.util.Calendar
 import java.util.Date
-import java.util.Locale
 
 class BookedSessionAdaptar() : RecyclerView.Adapter<BookedSessionAdaptar.MyVeiwHolder>() {
 

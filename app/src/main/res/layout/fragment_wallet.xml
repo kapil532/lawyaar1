@@ -19,8 +19,8 @@
 
         <ImageView
             android:id="@+id/back_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/topbar_back_icon_size"
+            android:layout_height="@dimen/topbar_back_icon_size"
             android:padding="10dp"
             android:src="@drawable/ic_arrow_back_24dp" />
 
@@ -35,7 +35,7 @@
             android:fontFamily="@font/proximanovaregular"
             android:text="Wallet Details"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="@dimen/topbar_title_text_size"
             android:textStyle="normal" />
 
         <Space

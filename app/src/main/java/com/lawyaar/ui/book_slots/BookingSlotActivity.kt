@@ -80,7 +80,7 @@ class BookingSlotActivity : BaseActivity() {
         no_slots = findViewById<TextView>(R.id.no_slots)
         no_slots.visibility = View.GONE
         calenderView = findViewById<CalendarView>(R.id.calender_view_for_date)
-        val back_icon_book_slot = findViewById<ImageView>(R.id.back_icon_book_slot)
+        val back_icon_book_slot = findViewById<ImageView>(R.id.back_icon)
         back_icon_book_slot.setOnClickListener({
             finish()
         })

@@ -7,42 +7,71 @@
     android:background="@color/backgorund_col">
 
 
-    <RelativeLayout
-        android:id="@+id/header_profile"
+    <LinearLayout
+        android:id="@+id/topbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/backgorund_col">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical"
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/back_icon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/topbar_back_icon_size"
+            android:layout_height="@dimen/topbar_back_icon_size"
             android:padding="10dp"
-            android:src="@drawable/ic_arrow_back_24dp"
-            android:tint="@color/black"
-            tools:ignore="UseAppTint" />
+            android:src="@drawable/ic_arrow_back_black_24dp" />
 
-
-        <TextView
-
+        <Space
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/proximanovaregular"
             android:text="Update Profile"
             android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/topbar_title_text_size"
+            android:textStyle="normal" />
 
-    </RelativeLayout>
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <RelativeLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:padding="6dp"
+                android:src="@drawable/ic_notifications_white_24dp"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="8dp"
+                android:padding="4dp"
+                android:src="@drawable/circleyellowfil"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+    </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="2dp"
-        android:layout_marginTop="12dp">
+        android:layout_below="@+id/topbar"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,7 +83,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32dp"
-                android:layout_marginTop="20dp"
                 android:layout_marginRight="32dp"
                 android:orientation="vertical"
 
@@ -62,7 +90,7 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/parent"
-                    android:layout_marginTop="19dp">
+                    android:layout_marginTop="0dp">
 
                     <EditText
                         android:id="@+id/update_user_name"
@@ -116,7 +144,7 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <Button
         android:id="@+id/update_profile_b"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -126,6 +154,6 @@
         android:fontFamily="@font/proximanovaregular"
         android:text="Update Profile"
         android:textColor="@color/white"
-        android:textSize="16sp" />
+        />
 
 </RelativeLayout>

@@ -130,19 +130,46 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/lawyaar_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lawyaar_lang"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="6dp"
+            android:layout_toRightOf="@+id/lawaar_icon"
+            android:fontFamily="@font/proximanovaregular"
+            android:text="@string/rs_symbol"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="normal" />
       <TextView
-          android:id="@+id/lawyaar_price"
+          android:id="@+id/lawyaar_price_actual"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_below="@+id/lawyaar_lang"
-          android:layout_marginLeft="16dp"
+          android:layout_marginLeft="6dp"
           android:layout_marginTop="6dp"
-          android:layout_toRightOf="@+id/lawaar_icon"
+          android:layout_toRightOf="@+id/lawyaar_price"
           android:fontFamily="@font/proximanovaregular"
-          android:text="500 Rs./ 20min"
+          android:text="500/Session"
           android:textColor="@color/white"
           android:textSize="16sp"
-          android:textStyle="bold" />
+          android:textStyle="normal" />
+        <TextView
+            android:id="@+id/lawyaar_price_offer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lawyaar_lang"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="6dp"
+            android:layout_toRightOf="@+id/lawyaar_price_actual"
+            android:fontFamily="@font/proximanovaregular"
+            android:text="500/Session"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="normal" />
 
 
 

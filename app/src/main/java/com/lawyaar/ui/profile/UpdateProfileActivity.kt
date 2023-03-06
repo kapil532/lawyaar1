@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.util.SparseBooleanArray
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Spinner
@@ -62,7 +63,7 @@ class UpdateProfileActivity : BaseActivity() {
     lateinit var userUpdateFactoryModel: UserUpdateFactoryModel
 
     lateinit var update_user_name: EditText
-    lateinit var update_profile_b: AppCompatButton
+    lateinit var update_profile_b: Button
     lateinit var user_mobileno: EditText
     lateinit var user_email: EditText
     lateinit var spinner04: Spinner
@@ -80,15 +81,15 @@ class UpdateProfileActivity : BaseActivity() {
 
 
         val back_icon = findViewById<ImageView>(R.id.back_icon)
-        back_icon.setOnClickListener({
-            finish()
-        })
+      back_icon.setOnClickListener { finish() }
 
 
         update_user_name = findViewById<EditText>(R.id.update_user_name)
         user_mobileno = findViewById<EditText>(R.id.user_mobileno)
         user_email = findViewById<EditText>(R.id.user_email)
-        update_profile_b = findViewById<AppCompatButton>(R.id.update_profile_b)
+
+
+        update_profile_b = findViewById<Button>(R.id.update_profile_b)
         update_profile_b.setOnClickListener(
             {
                 updateUserDetails()

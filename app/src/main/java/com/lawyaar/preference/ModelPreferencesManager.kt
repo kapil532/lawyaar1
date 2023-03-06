@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.GsonBuilder
-import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModelItem
 
 /**
  * Singleton class for managing preferences for POJO or model class's object.

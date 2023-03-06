@@ -1,9 +1,5 @@
 package com.lawyaar.models.lawyer_search.post_details
 
-import android.os.Parcelable
-
-
-
 data class LawyerSearchModelItem(
     val advocateDetail: AdvocateDetail,
     val businessTitle: String,

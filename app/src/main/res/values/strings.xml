@@ -8,6 +8,7 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Home</string>
+    <string name="rs_symbol">\u20B9</string>
     <string name="menu_gallery">Appoitment</string>
     <string name="menu_slideshow">Wallet</string>
     <string name="menu_profileshow">My Profile</string>

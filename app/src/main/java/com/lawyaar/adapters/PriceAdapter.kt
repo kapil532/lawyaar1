@@ -9,9 +9,6 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.lawyaar.R
-import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModelItem
-import com.lawyaar.models.session.SessionAvailabilityItem
-import com.lawyaar.utils.CellClickListener
 import com.lawyaar.utils.TalkListner
 
 class PriceAdapter() : RecyclerView.Adapter<PriceAdapter.ViewHolder>() {

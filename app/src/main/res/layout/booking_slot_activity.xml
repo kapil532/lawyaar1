@@ -6,37 +6,70 @@
     android:layout_height="match_parent"
     android:background="@color/backgorund_col">
 
-    <RelativeLayout
-        android:id="@+id/header_back_title"
+    <LinearLayout
+        android:id="@+id/topbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp">
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical"
+        android:padding="10dp">
 
         <ImageView
-            android:id="@+id/back_icon_book_slot"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:backgroundTint="@color/black"
+            android:id="@+id/back_icon"
+            android:layout_width="@dimen/topbar_back_icon_size"
+            android:layout_height="@dimen/topbar_back_icon_size"
+            android:padding="10dp"
             android:src="@drawable/ic_arrow_back_black_24dp" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
             android:fontFamily="@font/proximanovaregular"
-            android:text="Book your Slot"
+            android:text="Choose Your Slot"
             android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/topbar_title_text_size"
+            android:textStyle="normal" />
 
-    </RelativeLayout>
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <RelativeLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:padding="6dp"
+                android:src="@drawable/ic_notifications_white_24dp"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="8dp"
+                android:padding="4dp"
+                android:src="@drawable/circleyellowfil"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/calender_view_for_datecard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/header_back_title"
+        android:layout_below="@+id/topbar"
         android:layout_margin="24dp">
 
         <TextView

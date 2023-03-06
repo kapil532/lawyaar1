@@ -1,6 +1,7 @@
 package com.lawyaar.adapters
 
 import android.annotation.SuppressLint
+import android.graphics.Paint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -22,8 +23,11 @@ class LawyaarAdapter() : RecyclerView.Adapter<LawyaarAdapter.MyVeiwHolder>() {
    {
        val lawyaarname : TextView = itemVeiw.findViewById(R.id.lawyaar_name)
        val lawyaar_exper : TextView = itemVeiw.findViewById(R.id.lawyaar_exper)
+       val lawyaar_exp : TextView = itemVeiw.findViewById(R.id.lawyaar_exp)
        val lawyaaricon : ImageView = itemVeiw.findViewById(R.id.lawaar_icon)
        val lawyaar_lang : TextView = itemVeiw.findViewById(R.id.lawyaar_lang)
+       val lawyaar_price_actual : TextView = itemVeiw.findViewById(R.id.lawyaar_price_actual)
+       val lawyaar_price_offer : TextView = itemVeiw.findViewById(R.id.lawyaar_price_offer)
        val book_button : TextView = itemVeiw.findViewById(R.id.book_button)
 
    }
@@ -78,6 +82,12 @@ class LawyaarAdapter() : RecyclerView.Adapter<LawyaarAdapter.MyVeiwHolder>() {
         val res_case = caseS.dropLast(2)
         viewHolder.lawyaar_lang.text = res_lang
         viewHolder.lawyaar_exper.text = ""+res_case
+        viewHolder.lawyaar_exp.text = ""+currentitem.advocateDetail.experience+" experience"
+        viewHolder.lawyaar_price_actual.text = ""+currentitem.advocateDetail.actualPrice +"/Session"
+        viewHolder.lawyaar_price_actual.setPaintFlags(viewHolder.lawyaar_price_actual.getPaintFlags() or Paint.STRIKE_THRU_TEXT_FLAG)
+
+        viewHolder.lawyaar_price_offer.text = ""+currentitem.advocateDetail.offerPrice+"/Session"
+      //
 
         viewHolder.lawyaaricon.setOnClickListener({
         Log.d("currentitem","--> "+currentitem.advocateDetail.advocateDetailId +" -- >"+currentitem.userId)

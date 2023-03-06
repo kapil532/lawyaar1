@@ -60,6 +60,8 @@ class WalletActivity : AppCompatActivity() {
        val wallet_recycle = findViewById<RecyclerView>(R.id.wallet_recycle)
         user_mobileno = findViewById<TextView>(R.id.user_mobileno)
         wallet_balance = findViewById<TextView>(R.id.wallet_balance)
+
+
         back_icon.setOnClickListener({
             finish()
         })
