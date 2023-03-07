@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:name=".application.LawyaarApplication"
         android:allowBackup="true"
@@ -72,7 +74,17 @@
             android:name=".ui.wallet.AddPointsInWallet"
             android:theme="@style/Theme.Lawyaar.NoActionBar"></activity>
 
-
+        <service
+            android:name=".notification.CloudMessagingService"
+            android:stopWithTask="false"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+            <meta-data
+                android:name="com.google.firebase.messaging.default_notification_channel_id"
+                android:value="@string/appointment_notifications_channel_id" />
+        </service>
     </application>
 
 

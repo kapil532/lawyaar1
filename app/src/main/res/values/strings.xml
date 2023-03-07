@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">lawyaar</string>
+    <string name="app_name"></string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">shambhu k</string>
@@ -18,7 +18,7 @@
     <string name="menu_share">Share with Friends\n and Family</string>
     <string name="menu_setting">Settings</string>
     <string name="veiw_details"><u>Veiw details</u></string>
-
+    <string name="appointment_notifications_channel_id">appointments_channel_id</string>
     <string name="job_success">Job Success</string>
     <string name="ui_ux_designer">UI/UX Designer</string>
     <string name="my_desc">Doing at the sweet spot between aesthetics and elegance to give life to your brand.My opinion belong to nobody but myself.</string>
