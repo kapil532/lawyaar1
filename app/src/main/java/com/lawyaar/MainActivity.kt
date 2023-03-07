@@ -1,10 +1,15 @@
 package com.lawyaar
 
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.util.SparseBooleanArray
+import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.Spinner
@@ -20,6 +25,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -43,7 +50,7 @@ import com.lawyaar.utils.FilterOption
 
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -56,15 +63,16 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var locationViewModelFactory: LocationViewModelFactory
+
     @Inject
     lateinit var languaViewModelFactory: LanguageViewModelFactory
+
     @Inject
     lateinit var caseCategoryViewModelFactory: CaseCategoryViewModelFactory
 
     companion object {
         lateinit var filterOption: FilterOption
     }
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,7 +84,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.appBarMain.toolbar)
         supportActionBar?.hide();
         binding.appBarMain.contentmain.searchbar.backIcon.setOnClickListener({
-              drawerLayout.open()
+            drawerLayout.open()
         })
         binding.appBarMain.contentmain.searchbar.filterIcon.setOnClickListener { view ->
             initBottomSheet()
@@ -85,18 +93,62 @@ class MainActivity : AppCompatActivity() {
 //        binding.appBarMain.fab.setOnClickListener { view ->
 //            initBottomSheet()
 //        }
-         drawerLayout = binding.drawerLayout
+        drawerLayout = binding.drawerLayout
 
-        val navView: NavigationView = binding.navView
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
-            ), drawerLayout
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+//        val navView: NavigationView = binding.navView
+        navController = findNavController(R.id.nav_host_fragment_content_main)
+//        appBarConfiguration = AppBarConfiguration(
+//            setOf(
+//                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
+//            ), drawerLayout
+//        )
+//        navController
+//            .addOnDestinationChangedListener { nc: NavController, nd: NavDestination, args: Bundle? ->
+//                if (nd.id == R.id.faq)
+//                {
+//                    drawerLayout.close()
+//                }
+//            }
+
+        binding.navView.setNavigationItemSelectedListener(this)
+
+
+//        setupActionBarWithNavController(navController, appBarConfiguration)
+//        navView.setupWithNavController(navController)
+
+
     }
+
+    private lateinit var navController: NavController
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+
+
+        if (item.itemId == R.id.nav_home) {
+            drawerLayout.close()
+            navController.navigate(R.id.nav_home)
+        }
+        if (item.itemId == R.id.share)
+        {
+            drawerLayout.close()
+            shareApp(this)
+        }
+        if (item.itemId == R.id.rate_lawyaar) {
+            drawerLayout.close()
+            openPlayStore()
+        }
+        if (item.itemId == R.id.nav_slideshow ) {
+            drawerLayout.close()
+            navController.navigate(R.id.nav_slideshow)
+        }
+        if (item.itemId == R.id.nav_profileshow) {
+            drawerLayout.close()
+            navController.navigate(R.id.nav_profileshow)
+        }
+
+
+        return true
+    }
+
 
     lateinit var drawerLayout: DrawerLayout
 
@@ -107,8 +159,10 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
     lateinit var spinner04: Spinner
     lateinit var spinner05: Spinner
+
     @SuppressLint("MissingInflatedId")
     fun initBottomSheet() {
         val dialog = BottomSheetDialog(this)
@@ -122,9 +176,9 @@ class MainActivity : AppCompatActivity() {
         })
         val filter_recyle_langauge = view.findViewById<RecyclerView>(R.id.filter_recyle_langauge)
         val filter_recyle_location = view.findViewById<RecyclerView>(R.id.filter_recyle_location)
-         spinner04 = view.findViewById<Spinner>(R.id.spinner04)
-         spinner05 = view.findViewById<Spinner>(R.id.spinner05)
-       val clear_all_tag = view.findViewById<TextView>(R.id.clear_all_tag)
+        spinner04 = view.findViewById<Spinner>(R.id.spinner04)
+        spinner05 = view.findViewById<Spinner>(R.id.spinner05)
+        val clear_all_tag = view.findViewById<TextView>(R.id.clear_all_tag)
         clear_all_tag.setOnClickListener({
 //            ModelPreferencesManager.deleteAll("FILTER_DETAILS")
 //            updateFilterDetails()
@@ -144,7 +198,7 @@ class MainActivity : AppCompatActivity() {
         languageAdaptor = LanguageAdaptor()
         laywerCategory = LaywerCategoryAdaptor()
         spinnerAdapter = CustomDropDownAdapter(this)
-        spinnerAdapterLocation= LocationDropDownAdapter(this)
+        spinnerAdapterLocation = LocationDropDownAdapter(this)
 
 
         filter_close_icon.setOnClickListener {
@@ -182,11 +236,10 @@ class MainActivity : AppCompatActivity() {
             this,
             caseCategoryViewModelFactory
         ).get(CaseCategoryViewModel::class.java)
-       //5  getDetails()
+        //5  getDetails()
 
         locationViewModel.location.observe(this, Observer<LocationModel> {
-            if (it != null)
-            {
+            if (it != null) {
                 spinnerAdapterLocation.setUpdateData(it)
             } else {
                 Log.d("", "--> NUL VALUE")
@@ -194,8 +247,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         languageViewModel.language.observe(this, Observer<LanguageModel> {
-            if (it != null)
-            {
+            if (it != null) {
                 languageAdaptor.setUpdateData(it)
                 langModel = it
                 getIndexForLangauge(languages)
@@ -205,10 +257,9 @@ class MainActivity : AppCompatActivity() {
         })
 
         caseCategoryViewModel.category.observe(this, Observer<CaseCategory> {
-            if (it != null)
-            {
+            if (it != null) {
                 spinnerAdapter.setUpdateData(it)
-                dataSource =it
+                dataSource = it
                 getIndexForCase(caseCategories)
 
             } else {
@@ -217,11 +268,10 @@ class MainActivity : AppCompatActivity() {
         })
 
     }
-    fun updateFilterDetails()
-    {
+
+    fun updateFilterDetails() {
         val postDataFilter = ModelPreferencesManager.get<PostDataFilter>("FILTER_DETAILS")
-        if(postDataFilter != null)
-        {
+        if (postDataFilter != null) {
             caseCategories = postDataFilter.caseCategories
             locations = postDataFilter.locations
             languages = postDataFilter.languages
@@ -237,8 +287,7 @@ class MainActivity : AppCompatActivity() {
     val offerPriceRange: ArrayList<Int> = ArrayList()
     val actualPriceRange: ArrayList<Int> = ArrayList()
     var languages: ArrayList<String> = ArrayList()
-    fun getDetails()
-    {
+    fun getDetails() {
         caseCategories.clear()
         locations.clear()
         languages.clear()
@@ -251,48 +300,56 @@ class MainActivity : AppCompatActivity() {
         actualPriceRange.add(1500)
         if (filterOption != null) {
 
-            var postFilter = PostDataFilter(actualPriceRange,caseCategories,languages,lawyerCategories,locations,offerPriceRange)
+            var postFilter = PostDataFilter(
+                actualPriceRange,
+                caseCategories,
+                languages,
+                lawyerCategories,
+                locations,
+                offerPriceRange
+            )
 //           Log.d("MAINACTIVITY"," values -- > "+postFilter.caseCategories.get(0))
-            ModelPreferencesManager.put(postFilter,"FILTER_DETAILS")
+            ModelPreferencesManager.put(postFilter, "FILTER_DETAILS")
             filterOption.updateLawyaarDetails(postFilter)
         }
     }
 
 
+    fun clearFilter() {
+        caseCategories.clear()
+        locations.clear()
+        languages.clear()
+        lawyerCategories.clear()
+        offerPriceRange.clear()
+        actualPriceRange.clear()
+        if (filterOption != null) {
 
-
-
- fun clearFilter()
- {
-     caseCategories.clear()
-     locations.clear()
-     languages.clear()
-     lawyerCategories.clear()
-     offerPriceRange.clear()
-     actualPriceRange.clear()
-     if (filterOption != null) {
-
-         var postFilter = PostDataFilter(actualPriceRange,caseCategories,languages,lawyerCategories,locations,offerPriceRange)
+            var postFilter = PostDataFilter(
+                actualPriceRange,
+                caseCategories,
+                languages,
+                lawyerCategories,
+                locations,
+                offerPriceRange
+            )
 //           Log.d("MAINACTIVITY"," values -- > "+postFilter.caseCategories.get(0))
-         ModelPreferencesManager.put(postFilter,"FILTER_DETAILS")
-         filterOption.updateLawyaarDetails(postFilter)
-     }
- }
+            ModelPreferencesManager.put(postFilter, "FILTER_DETAILS")
+            filterOption.updateLawyaarDetails(postFilter)
+        }
+    }
 
     var indexCase = 0
-    fun getIndexForCase(caseCategories :ArrayList<String>) {
+    fun getIndexForCase(caseCategories: ArrayList<String>) {
         indexCase = 0
-        for (dataVal in dataSource)
-        {
-           // Log.d("DATA VALUE","DATA -- > "+dataVal.caseId +"--"+caseCategories.get(0))
+        for (dataVal in dataSource) {
+            // Log.d("DATA VALUE","DATA -- > "+dataVal.caseId +"--"+caseCategories.get(0))
             try {
                 val idexVal = dataVal.caseId.indexOf(caseCategories.get(0))
 //            Log.d("DATA VALUE","DATA -- > "+idexVal)
                 if (idexVal != -1) {
                     spinner04.setSelection(indexCase)
                 }
-            }
-            catch (e : java.lang.Exception){
+            } catch (e: java.lang.Exception) {
 
             }
 
@@ -303,8 +360,7 @@ class MainActivity : AppCompatActivity() {
     val selectedItems_lang = SparseBooleanArray()
     lateinit var langModel: ArrayList<LanguageModelItem>
     var indexCount = 0
-    fun getIndexForLangauge(languages: ArrayList<String>)
-    {
+    fun getIndexForLangauge(languages: ArrayList<String>) {
         for (lang in languages) {
             indexCount = 0
             for (dataVal in langModel) {
@@ -319,5 +375,27 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    fun shareApp(context: Context) {
+        val appPackageName = BuildConfig.APPLICATION_ID
+        val appName = context.getString(R.string.app_name)
+        val shareBodyText = "Check out the Lawyaar App at: https://play.google.com/store/apps/details?id=$appPackageName"
+
+        val sendIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TITLE, appName)
+            putExtra(Intent.EXTRA_TEXT, shareBodyText)
+        }
+        context.startActivity(Intent.createChooser(sendIntent, null))
+    }
+
+    fun openPlayStore()
+    {
+        try {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName")))
+        } catch (e: ActivityNotFoundException) {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$packageName")))
+        }
     }
 }

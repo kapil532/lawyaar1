@@ -1,6 +1,7 @@
 package com.lawyaar.ui.payment_screen
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -24,20 +25,30 @@ class PaymentActivity : AppCompatActivity(), PaymentResultListener {
     private lateinit var points: String
 
     lateinit var addWalletViewModel: AddWalletViewModel
+
     @Inject
     lateinit var addWalletFactoryModel: AddWalletFactoryModel
 
 
-lateinit var recharge_wallet :TextView
+    lateinit var recharge_wallet: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.payment_screen)
 
-         recharge_wallet = findViewById<TextView>(R.id.recharge_wallet)
-        recharge_wallet.visibility =View.GONE
+        recharge_wallet = findViewById<TextView>(R.id.recharge_wallet)
+        recharge_wallet.visibility = View.GONE
         points = intent.getStringExtra("points").toString()
         initPayment(points)
+
+    }
+
+
+    companion object
+    {
+        fun newIntent(activity: AppCompatActivity) : AppCompatActivity{
+           return activity
+        }
 
     }
 
@@ -69,6 +80,7 @@ lateinit var recharge_wallet :TextView
     override fun onPaymentSuccess(p0: String?) {
         Toast.makeText(applicationContext, "Thanks For Payment!", Toast.LENGTH_SHORT).show()
         recharge_wallet.visibility = View.VISIBLE
+       // PaymentActivity.newIntent()
         initNetwork()
     }
 
@@ -97,12 +109,9 @@ lateinit var recharge_wallet :TextView
             if (it != null) {
                 Log.d("ADPIONTS", "points --> " + it.userId)
                 //wallet_balance.setText(""+it.point)
-
                 finish()
-            }
-            else
-            {
-                Log.d("ADPIONTS", "points --> ELSE " )
+            } else {
+                Log.d("ADPIONTS", "points --> ELSE ")
                 finish()
             }
         })

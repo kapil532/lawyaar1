@@ -27,7 +27,7 @@
         android:id="@+id/nav_profileshow"
         android:name="com.lawyaar.ui.profile.UpdateProfileActivity"
         android:label="@string/menu_profileshow"
-        tools:layout="@layout/fragment_wallet" />
+        tools:layout="@layout/update_profile_screen" />
 
 
 

@@ -12,6 +12,10 @@
     <string name="menu_gallery">Appoitment</string>
     <string name="menu_slideshow">Wallet</string>
     <string name="menu_profileshow">My Profile</string>
+    <string name="menu_profileshowrate">Rate Lawyaar</string>
+    <string name="menu_contact">Contact Us</string>
+    <string name="menu_faq">FAQs</string>
+    <string name="menu_share">Share with Friends\n and Family</string>
     <string name="menu_setting">Settings</string>
     <string name="veiw_details"><u>Veiw details</u></string>
 

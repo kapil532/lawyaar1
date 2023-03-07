@@ -75,14 +75,19 @@ class WalletActivity : AppCompatActivity() {
         adaptor = WalletAdaptor()
         wallet_recycle.adapter = adaptor
 
-        initNetwork()
-        getWalletDetails()
+
     }
 
     override fun onStart() {
         super.onStart()
 
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        initNetwork()
+        getWalletDetails()
     }
     var user_id = ""
     var tokenValue = ""
@@ -144,7 +149,7 @@ class WalletActivity : AppCompatActivity() {
     var points : Int =0
     fun getValue(quoteList: ArrayList<WalletModelItem>)
     {
-
+        points =0
         for(value in quoteList)
         {
             points += value.point

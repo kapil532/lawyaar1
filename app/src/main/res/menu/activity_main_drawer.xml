@@ -27,6 +27,30 @@
             android:title="@string/menu_profileshow" />
 
         <item
+            android:id="@+id/rate_lawyaar"
+            android:icon="@drawable/icon_fav"
+            android:fontFamily="@font/proximanovaregular"
+            android:title="@string/menu_profileshowrate" />
+
+        <item
+            android:id="@+id/rate_contact"
+            android:icon="@drawable/messenger"
+            android:fontFamily="@font/proximanovaregular"
+            android:title="@string/menu_contact" />
+
+        <item
+            android:id="@+id/faq"
+            android:icon="@drawable/report"
+            android:fontFamily="@font/proximanovaregular"
+            android:title="@string/menu_faq" />
+
+        <item
+            android:id="@+id/share"
+            android:icon="@drawable/gavel"
+            android:fontFamily="@font/proximanovaregular"
+            android:title="@string/menu_share" />
+
+        <item
             android:id="@+id/nav_setting"
             android:icon="@drawable/icon_setting"
             android:fontFamily="@font/proximanovaregular"

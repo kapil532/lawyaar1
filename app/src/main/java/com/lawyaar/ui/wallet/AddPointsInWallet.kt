@@ -31,10 +31,12 @@ class AddPointsInWallet : BaseActivity() ,TalkListner{
 
         val wallet_balance = findViewById<TextView>(R.id.wallet_balance)
         wallet_balance.setText("\u20B9 "+ points)
+
         val proceed_pay = findViewById<Button>(R.id.proceed_pay)
         proceed_pay.setOnClickListener({
             proceedToPay()
         })
+
         recyclerPriceSlots = findViewById<RecyclerView>(R.id.prices_list)
         wallet_balance_edit_text = findViewById<EditText>(R.id.wallet_balance_edit_text)
 
@@ -67,13 +69,17 @@ class AddPointsInWallet : BaseActivity() ,TalkListner{
         adapter.setUpdateData(arrtime)
     }
 
-    fun proceedToPay() {
+    fun proceedToPay()
+    {
         if (wallet_balance_edit_text.text.length > 1)
         {
+
 
             val intent =Intent(this@AddPointsInWallet, PaymentActivity::class.java)
             intent.putExtra("points" , ""+wallet_balance_edit_text.text)
             startActivity(intent)
+            finish()
+        //    PaymentActivity.newIntent(this)
            // startActivity(Intent(this@AddPointsInWallet, PaymentActivity::class.java))
         }
         else{
