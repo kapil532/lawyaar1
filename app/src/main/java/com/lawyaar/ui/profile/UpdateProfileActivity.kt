@@ -2,6 +2,7 @@ package com.lawyaar.ui.profile
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -41,6 +42,8 @@ import com.lawyaar.models.user_details.UserDetailsModel
 import com.lawyaar.models.user_details.user_details_view_model.UserDetailsFactoryModel
 import com.lawyaar.models.user_details.user_details_view_model.UserDetailsViewModel
 import com.lawyaar.ui.base_screen.BaseActivity
+import com.lawyaar.ui.lawyaardetails.LawyaarDetailsActivity
+import com.lawyaar.ui.success_screen.SuccessActivity
 import javax.inject.Inject
 
 class UpdateProfileActivity : BaseActivity() {
@@ -287,8 +290,12 @@ class UpdateProfileActivity : BaseActivity() {
         )
         userUpdateViewmodel.getUserUpdateLiveData.observe(this, Observer<UserDetailsModel> {
             if (it != null) {
-                updateDetails(it)
 
+              //  updateDetails(it)
+                val intent = Intent(this, SuccessActivity::class.java)
+                // intent.putExtra("userId" , lawyerDetails)
+                startActivity(intent)
+                finish()
             } else {
             }
         })
