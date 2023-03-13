@@ -12,7 +12,7 @@ import kotlin.contracts.Returns
 @InstallIn(SingletonComponent::class)
 @Module
 class NetworkModule {
-    val baseUrl = "http://13.233.146.29/api/v1/"
+    val baseUrl = "http://65.1.91.89/api/v1/"
 
 
     @Singleton
