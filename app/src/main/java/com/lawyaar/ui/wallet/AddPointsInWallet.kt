@@ -58,7 +58,8 @@ class AddPointsInWallet : BaseActivity() ,TalkListner{
             "499",
             "699",
             "1000",
-            "2000"
+            "2000",
+
         )
         val layoutManager = GridLayoutManager(this, 4)
         recyclerPriceSlots.layoutManager = layoutManager

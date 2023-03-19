@@ -22,7 +22,6 @@ class SuccessActivity : BaseActivity()
             }
             override fun onAnimationEnd(animation: Animator) {
                 Log.e("Animation:", "end")
-                //Ex: here the layout is removed!
               finish()
             }
 
@@ -36,9 +35,6 @@ class SuccessActivity : BaseActivity()
             }
 
         })
-//        Handler(Looper.getMainLooper()).postDelayed({
-//            checkvalidity()
-//        }, 3000)
     }
 
 

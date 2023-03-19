@@ -47,10 +47,13 @@ import com.lawyaar.ui.success_screen.SuccessActivity
 import javax.inject.Inject
 
 class UpdateProfileActivity : BaseActivity() {
+
+
     lateinit var caseCategoryViewModel: CaseCategoryViewModel
     lateinit var languageViewModel: LanguageViewModel
     lateinit var locationViewModel: LocationViewModel
     lateinit var userDetailsViewModel: UserDetailsViewModel
+
     lateinit var userUpdateViewmodel: UserUpdateViewmodel
 
 
