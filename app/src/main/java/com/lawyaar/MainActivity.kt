@@ -136,6 +136,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             drawerLayout.close()
             openPlayStore()
         }
+
+        if (item.itemId == R.id.nav_gallery) {
+            drawerLayout.close()
+            navController.navigate(R.id.nav_gallery)
+        }
         if (item.itemId == R.id.nav_slideshow ) {
             drawerLayout.close()
             navController.navigate(R.id.nav_slideshow)

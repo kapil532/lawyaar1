@@ -7,18 +7,18 @@
     android:layout_marginLeft="16dp"
     android:layout_marginTop="12dp"
     android:layout_marginRight="16dp"
-    card_view:cardBackgroundColor="@color/blue"
+    card_view:cardBackgroundColor="@color/white"
     card_view:cardCornerRadius="8dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="100dp">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/lawaar_icon"
-            android:layout_width="130dp"
-            android:layout_height="210dp"
-            android:scaleType="fitXY"
+            android:layout_width="90dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/law"
              />
 
@@ -31,8 +31,8 @@
             android:layout_toRightOf="@+id/lawaar_icon"
             android:fontFamily="@font/proximanovaregular"
             android:text="Sujit kumar"
-            android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
@@ -40,13 +40,102 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/lawyaar_name"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="14dp"
             android:lines="1"
+            android:layout_marginTop="2dp"
             android:layout_toRightOf="@+id/lawaar_icon"
             android:fontFamily="@font/proximanovaregular"
             android:text="Criminal,civil"
-            android:textColor="@color/shimmer_background"
+            android:textColor="@color/teal_200"
             android:textSize="14sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:weightSum="2"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/lawaar_icon">
+
+
+             <LinearLayout
+                 android:layout_width="0dp"
+                 android:layout_weight="1"
+                 android:orientation="horizontal"
+                 android:layout_height="wrap_content">
+                 <ImageView
+                     android:layout_width="20dp"
+                     android:layout_height="20dp"
+                     android:src="@drawable/calendar"></ImageView>
+                 <TextView
+                     android:id="@+id/session_date"
+                     android:layout_width="60dp"
+                     android:layout_marginLeft="4dp"
+                     android:singleLine="true"
+                     android:layout_gravity="center_vertical"
+                     android:layout_height="wrap_content"
+                     android:layout_below="@+id/lawyaar_price"
+                     android:fontFamily="@font/proximanovaregular"
+                     android:text="3-3-2023"
+                     android:textColor="@color/teal_200"
+                     android:textSize="14sp"
+                     android:textStyle="normal" />
+
+             </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/clock"></ImageView>
+                <TextView
+                    android:id="@+id/session_time"
+                    android:layout_marginLeft="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/proximanovaregular"
+                    android:text="10:10"
+                    android:gravity="center"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/teal_200"
+                    android:textSize="14sp"
+                    android:textStyle="normal" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/green_dot"></ImageView>
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/proximanovaregular"
+                    android:text="Confirmed"
+                    android:textColor="@color/teal_200"
+                    android:textSize="14sp"
+                    android:textStyle="normal" />
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/lawyaar_exp"
@@ -58,6 +147,7 @@
             android:layout_toRightOf="@+id/lawaar_icon"
             android:fontFamily="@font/proximanovaregular"
             android:text="5 years experience"
+            android:visibility="gone"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="normal" />
@@ -122,6 +212,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rating_lay"
+            android:visibility="gone"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="6dp"
             android:layout_toRightOf="@+id/lawaar_icon"
@@ -129,7 +220,7 @@
             android:text="Hindi , English"
             android:textColor="@color/white"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="normal" />
       <TextView
           android:id="@+id/lawyaar_price"
           android:layout_width="wrap_content"
@@ -146,12 +237,13 @@
           android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/session_date"
+            android:id="@+id/session_datea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/lawyaar_price"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="6dp"
+            android:visibility="gone"
             android:layout_toRightOf="@+id/lawaar_icon"
             android:fontFamily="@font/proximanovaregular"
             android:text="3-3-2023"
@@ -159,12 +251,13 @@
             android:textSize="16sp"
             android:textStyle="bold" />
         <TextView
-            android:id="@+id/session_time"
+            android:id="@+id/session_timea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/session_date"
+            android:layout_below="@+id/session_datea"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="6dp"
+            android:visibility="gone"
             android:layout_toRightOf="@+id/lawaar_icon"
             android:fontFamily="@font/proximanovaregular"
             android:text="10:10"

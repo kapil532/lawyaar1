@@ -12,7 +12,6 @@ import com.lawyaar.models.booked_session.BookedSessionModelItem
 import com.lawyaar.utils.CellClickListener
 import com.lawyaar.utils.TalkListner
 import java.text.SimpleDateFormat
-import java.util.Date
 
 class BookedSessionAdaptar() : RecyclerView.Adapter<BookedSessionAdaptar.MyVeiwHolder>() {
 
@@ -50,7 +49,11 @@ class BookedSessionAdaptar() : RecyclerView.Adapter<BookedSessionAdaptar.MyVeiwH
     }
     @SuppressLint("SimpleDateFormat")
     fun dateFormatter(milliseconds: String): String {
-        return SimpleDateFormat("dd/MM/yyyy").format(Date(milliseconds.toLong())).toString()
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        val outputFormat = SimpleDateFormat("dd-MM-yyyy")
+        val date = inputFormat.parse(milliseconds)
+        val formattedDate = outputFormat.format(date)
+        return  (formattedDate)
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): MyVeiwHolder {
