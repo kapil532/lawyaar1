@@ -33,6 +33,7 @@ import javax.inject.Inject
 
 class OTPActivity : AppCompatActivity() {
 
+
     private lateinit var auth: FirebaseAuth
     private lateinit var verifyBtn: Button
     private lateinit var resendTV: TextView
