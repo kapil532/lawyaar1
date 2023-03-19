@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.lawyaar.R
 import com.lawyaar.application.LawyaarApplication
+import com.lawyaar.models.lawyaar_details_transfer.LawyaarTransfer
 import com.lawyaar.models.lawyer_detail.LawyerModel
 import com.lawyaar.models.lawyer_detail.view_model_factory.LawyerDetailsFactoryModel
 import com.lawyaar.models.lawyer_detail.view_model_factory.LawyerDetailsViewModel
@@ -32,7 +33,7 @@ class LawyaarDetailsActivity : BaseActivity()
     lateinit var lawyerDetailsFactoryModel: LawyerDetailsFactoryModel
 
    //val lawyerSearchModelItem
-   lateinit var lawyerSearchModelItem : LawyerSearchModelItem
+   lateinit var lawyerSearchModelItem : LawyaarTransfer
     //lateinit var binding: ActivityMainBinding
     @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +41,7 @@ class LawyaarDetailsActivity : BaseActivity()
         //  binding = ActivityMainBinding.inflate(layoutInflater)
         // val view = binding.root
         setContentView(R.layout.lawyer_profile_layout)
-        lawyerSearchModelItem = ModelPreferencesManager.get<LawyerSearchModelItem>("LAWYAR_DETAILS")
+        lawyerSearchModelItem = ModelPreferencesManager.get<LawyaarTransfer>("LAWYAR_DETAILS")
         // to bazsck the past activity
         val back_icon = findViewById<ImageView>(R.id.back_icon)
         back_icon.setOnClickListener({
@@ -50,7 +51,7 @@ class LawyaarDetailsActivity : BaseActivity()
         val appoint_button = findViewById<Button>(R.id.appoint_button)
         appoint_button.setOnClickListener({
             val intent = Intent(this, BookingSlotActivity::class.java)
-            intent.putExtra("userId" , lawyerSearchModelItem.userId)
+            intent.putExtra("userId" , lawyerSearchModelItem.advocateId)
             startActivity(intent)
         })
 
@@ -111,8 +112,8 @@ class LawyaarDetailsActivity : BaseActivity()
                 this,
                 lawyerDetailsFactoryModel
             ).get(LawyerDetailsViewModel::class.java)
-        Log.d("", "--> NUL VALUE"+lawyerSearchModelItem.userId)
-        lawyerDetailsViewModel.getLawyerDetails(tokenValue, "language,category,locations", lawyerSearchModelItem.advocateDetail.advocateDetailId)
+        Log.d("", "--> NUL VALUE"+lawyerSearchModelItem.advocateId)
+        lawyerDetailsViewModel.getLawyerDetails(tokenValue, "language,category,locations", lawyerSearchModelItem.advocateDetailId)
         lawyerDetailsViewModel.getLawyerLiveData.observe(this, Observer<LawyerModel> {
             if (it != null) {
 

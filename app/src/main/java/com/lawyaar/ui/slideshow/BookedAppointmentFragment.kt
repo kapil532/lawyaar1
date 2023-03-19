@@ -1,6 +1,7 @@
 package com.lawyaar.ui.slideshow
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -19,16 +20,19 @@ import com.lawyaar.adapters.LawyaarAdapter
 import com.lawyaar.application.LawyaarApplication
 import com.lawyaar.models.book_session.view_model.BookingSessionFactoryModel
 import com.lawyaar.models.booked_session.BookedSessionModel
+import com.lawyaar.models.booked_session.BookedSessionModelItem
 import com.lawyaar.models.booked_session.view_models.BookedSessionFactoryModel
 import com.lawyaar.models.booked_session.view_models.BookedSessionViewModel
 import com.lawyaar.models.lawyer_search.view_model.LawyerSearchFactoyModel
 import com.lawyaar.models.lawyer_search.view_model.LawyerSearchViewModel
+import com.lawyaar.ui.lawyaardetails.LawyaarDetailsActivity
+import com.lawyaar.utils.BookedSessionCallBack
 import javax.inject.Inject
 
-class BookedAppointmentFragment : Fragment() {
+class BookedAppointmentFragment : Fragment() ,BookedSessionCallBack
+{
     lateinit var shimmer_view_container: ShimmerFrameLayout
     private lateinit var adapter: BookedSessionAdaptar
-
 
     lateinit var bookedSessionViewModel: BookedSessionViewModel
 
@@ -47,7 +51,7 @@ class BookedAppointmentFragment : Fragment() {
         adapter = BookedSessionAdaptar()
         recycle_veiw.adapter = adapter
         initNetwork()
-      //  adapter.setUplistner(this, this)
+       adapter.setUplistner(this)
         return veiw
     }
     var user_id = ""
@@ -77,5 +81,11 @@ class BookedAppointmentFragment : Fragment() {
     }
     override fun onDestroyView() {
         super.onDestroyView()
+    }
+
+    override fun onCellClickListener(bookedSessionModelItem: BookedSessionModelItem)
+    {
+        val intent = Intent(context, LawyaarDetailsActivity::class.java)
+        startActivity(intent)
     }
 }

@@ -10,6 +10,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.lawyaar.R
+import com.lawyaar.models.lawyaar_details_transfer.LawyaarTransfer
+import com.lawyaar.models.lawyer_search.post_details.CaseCategory
+import com.lawyaar.models.lawyer_search.post_details.Language
 import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModelItem
 import com.lawyaar.preference.ModelPreferencesManager
 import com.lawyaar.utils.CellClickListener
@@ -93,7 +96,9 @@ class LawyaarAdapter() : RecyclerView.Adapter<LawyaarAdapter.MyVeiwHolder>() {
         Log.d("currentitem","--> "+currentitem.advocateDetail.advocateDetailId +" -- >"+currentitem.userId)
 
            if(currentitem != null) {
-               ModelPreferencesManager.put(currentitem,"LAWYAR_DETAILS")
+               val lawyaarTransfer = LawyaarTransfer(currentitem.advocateDetail.advocateDetailId,currentitem.userId, (currentitem.caseCategories)  ,(currentitem.languages),currentitem.name)
+               ModelPreferencesManager.put(lawyaarTransfer,"LAWYAR_DETAILS")
+             //  ModelPreferencesManager.put(currentitem,"LAWYAR_DETAILS")
                cellClickListener.onCellClickListener(currentitem)
 
 

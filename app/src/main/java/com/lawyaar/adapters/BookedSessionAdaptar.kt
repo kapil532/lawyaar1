@@ -9,8 +9,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.lawyaar.R
 import com.lawyaar.models.booked_session.BookedSessionModelItem
-import com.lawyaar.utils.CellClickListener
-import com.lawyaar.utils.TalkListner
+import com.lawyaar.models.booked_session.CaseCategory
+import com.lawyaar.models.lawyaar_details_transfer.LawyaarTransfer
+import com.lawyaar.preference.ModelPreferencesManager
+import com.lawyaar.utils.BookedSessionCallBack
 import java.text.SimpleDateFormat
 
 class BookedSessionAdaptar() : RecyclerView.Adapter<BookedSessionAdaptar.MyVeiwHolder>() {
@@ -38,13 +40,12 @@ class BookedSessionAdaptar() : RecyclerView.Adapter<BookedSessionAdaptar.MyVeiwH
     }
 
 
-    private lateinit var cellClickListener: CellClickListener
-    private lateinit var talkListner: TalkListner
+    private lateinit var cellClickListener: BookedSessionCallBack
 
-    fun setUplistner(cellClickListener: CellClickListener ,talkListner: TalkListner)
+
+    fun setUplistner(cellClickListener: BookedSessionCallBack)
     {
         this.cellClickListener= cellClickListener
-        this.talkListner= talkListner
 
     }
     @SuppressLint("SimpleDateFormat")
@@ -85,11 +86,12 @@ class BookedSessionAdaptar() : RecyclerView.Adapter<BookedSessionAdaptar.MyVeiwH
         viewHolder.lawyaar_lang.text = langS
         viewHolder.lawyaar_exper.text = ""+caseS
 
-        viewHolder.lawyaaricon.setOnClickListener({
-       // Log.d("currentitem","--> "+currentitem.advocateDetail.advocateDetailId +" -- >"+currentitem.userId)
+        viewHolder.itemView.setOnClickListener({
 
            if(currentitem != null) {
-
+               val lawyaarTransfer = LawyaarTransfer(currentitem.advocateDetailId,currentitem.advocateId, (currentitem.caseCategories) as (List<com.lawyaar.models.lawyer_search.post_details.CaseCategory>) ,(currentitem.languages) as (List<com.lawyaar.models.lawyer_search.post_details.Language>),currentitem.name)
+               ModelPreferencesManager.put(lawyaarTransfer,"LAWYAR_DETAILS")
+               cellClickListener.onCellClickListener(currentitem)
            }
 
         })
