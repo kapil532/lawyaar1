@@ -12,9 +12,9 @@ class BookedSessionViewModel  constructor(private val repostry: MainRepostry) :
     ViewModel() {
 
 
-    fun getBookedSession(token: String, children :String,userID: String,date :String,  ){
+    fun getBookedSession(token: String, children :String,userID: String){
         viewModelScope.launch(Dispatchers.IO) {
-            repostry.getBookedSession(token,children,userID,date )
+            repostry.getBookedSession(token,children,userID )
         }
     }
     val bookedSessionLD: LiveData<BookedSessionModel>

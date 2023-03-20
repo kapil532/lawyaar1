@@ -127,8 +127,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             drawerLayout.close()
             navController.navigate(R.id.nav_home)
         }
-        if (item.itemId == R.id.share)
-        {
+        if (item.itemId == R.id.share) {
             drawerLayout.close()
             shareApp(this)
         }
@@ -141,13 +140,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             drawerLayout.close()
             navController.navigate(R.id.nav_gallery)
         }
-        if (item.itemId == R.id.nav_slideshow ) {
+        if (item.itemId == R.id.nav_slideshow) {
             drawerLayout.close()
             navController.navigate(R.id.nav_slideshow)
         }
         if (item.itemId == R.id.nav_profileshow) {
             drawerLayout.close()
             navController.navigate(R.id.nav_profileshow)
+        }
+
+        if (item.itemId == R.id.nav_setting) {
+            drawerLayout.close()
+            navController.navigate(R.id.nav_setting)
         }
 
 
@@ -385,7 +389,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     fun shareApp(context: Context) {
         val appPackageName = BuildConfig.APPLICATION_ID
         val appName = context.getString(R.string.app_name)
-        val shareBodyText = "Check out the Lawyaar App at: https://play.google.com/store/apps/details?id=$appPackageName"
+        val shareBodyText =
+            "Check out the Lawyaar App at: https://play.google.com/store/apps/details?id=$appPackageName"
 
         val sendIntent = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
@@ -395,12 +400,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         context.startActivity(Intent.createChooser(sendIntent, null))
     }
 
-    fun openPlayStore()
-    {
+    fun openPlayStore() {
         try {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName")))
         } catch (e: ActivityNotFoundException) {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$packageName")))
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+                )
+            )
         }
     }
 }

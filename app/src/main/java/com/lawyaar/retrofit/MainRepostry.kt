@@ -211,8 +211,8 @@ class MainRepostry @Inject constructor(private val lawyaarApi: LawyaarApi) {
     val bookedSessionLD: LiveData<BookedSessionModel>
         get() = bookedSessionMLD
 
-    suspend fun getBookedSession(token: String, children :String,userID: String,date :String,  ) {
-        val result = lawyaarApi.getBookedSessions(token,children,userID,date )
+    suspend fun getBookedSession(token: String, children :String,userID: String ) {
+        val result = lawyaarApi.getBookedSessions(token,children,userID )
         if (result?.body() != null) {
             bookedSessionMLD.postValue(result.body())
         }

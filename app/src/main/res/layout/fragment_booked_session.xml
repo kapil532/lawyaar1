@@ -34,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
-        tools:listitem="@layout/single_row_lawyer_layout"
+        tools:listitem="@layout/single_row_booked_session_layout"
+        android:layout_marginBottom="10dp"
         />
 </RelativeLayout>

@@ -17,7 +17,7 @@
             android:title="@string/menu_gallery" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/icon_wallet"
+            android:icon="@drawable/wallet"
             android:fontFamily="@font/proximanovaregular"
             android:title="@string/menu_slideshow" />
         <item
@@ -52,7 +52,7 @@
 
         <item
             android:id="@+id/nav_setting"
-            android:icon="@drawable/icon_setting"
+            android:icon="@drawable/setting"
             android:fontFamily="@font/proximanovaregular"
             android:title="@string/menu_setting" />
     </group>

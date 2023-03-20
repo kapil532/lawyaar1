@@ -66,7 +66,7 @@ class BookedAppointmentFragment : Fragment() ,BookedSessionCallBack
 
         bookedSessionViewModel =
             ViewModelProvider(this, bookedSessionFactoryModel).get(BookedSessionViewModel::class.java)
-        bookedSessionViewModel.getBookedSession(tokenValue,"language,case,category,location",user_id,"3-3-2023")
+        bookedSessionViewModel.getBookedSession(tokenValue,"language,case,category,location",user_id)
         bookedSessionViewModel.bookedSessionLD.observe(viewLifecycleOwner, Observer<BookedSessionModel>{
             if (it != null) {
                 shimmer_view_container.hideShimmer()

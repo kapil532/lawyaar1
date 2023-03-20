@@ -129,12 +129,12 @@ interface LawyaarApi {
     ): Response<String>
 
 
-    @GET("session/{userId}/booking/{date}")
+    @GET("session/{userId}/booking")
     suspend fun getBookedSessions(
         @Header("Authorization") token: String,
         @Header("children") children: String,
         @Path("userId") userId: String,
-        @Path("date") date: String
+
     ): Response<BookedSessionModel>
 
 }
