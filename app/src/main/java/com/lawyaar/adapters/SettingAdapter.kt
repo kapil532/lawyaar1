@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.lawyaar.R
+import com.lawyaar.utils.TalkListner
 
 class SettingAdapter : RecyclerView.Adapter<SettingAdapter.ViewHolder>()
 {
@@ -41,7 +42,13 @@ class SettingAdapter : RecyclerView.Adapter<SettingAdapter.ViewHolder>()
             .inflate(R.layout.single_row_setting, parent, false)
         return SettingAdapter.ViewHolder(view)
     }
+    private lateinit var talkListner: TalkListner
 
+    fun setUplistner( talkListner: TalkListner)
+    {
+        this.talkListner= talkListner
+
+    }
     override fun getItemCount(): Int {
      return dataSet.size
     }
@@ -50,7 +57,10 @@ class SettingAdapter : RecyclerView.Adapter<SettingAdapter.ViewHolder>()
         holder.single_loc_lan_title.text = dataSet[position]
         holder.left_icon.setImageResource(arrtime[position])
         holder.itemView.setOnClickListener({
-
+            if(talkListner != null)
+            {
+                talkListner.onTalkClickListner(dataSet[position])
+            }
         })
     }
 
