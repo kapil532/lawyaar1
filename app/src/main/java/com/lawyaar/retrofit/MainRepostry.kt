@@ -15,6 +15,7 @@ import com.lawyaar.models.lawyer_search.post_data.PostDataFilter
 import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModel
 import com.lawyaar.models.location.LocationModel
 import com.lawyaar.models.session.SessionAvailability
+import com.lawyaar.models.token_update.TokenBody
 import com.lawyaar.models.user_detail_update.UserUpdateModel
 import com.lawyaar.models.user_details.UserDetailsModel
 import com.lawyaar.models.wallet_details.AddWalletModel
@@ -217,6 +218,19 @@ class MainRepostry @Inject constructor(private val lawyaarApi: LawyaarApi) {
             bookedSessionMLD.postValue(result.body())
         }
     }
+
+    //Post token
+    private val tokenData = MutableLiveData<String>()
+    val tokenDataLD: LiveData<String>
+        get() = tokenData
+
+    suspend fun postToken(token: String, userId :String,body: TokenBody) {
+        val result = lawyaarApi.postToken(token,userId,body )
+        if (result?.body() != null) {
+            tokenData.postValue(result.body())
+        }
+    }
+
 
 
 }

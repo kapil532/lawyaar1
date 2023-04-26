@@ -26,6 +26,8 @@ class CloudMessagingService : FirebaseMessagingService() {
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
         preferences.edit().putString("device_token", newToken).apply()
         Log.d("TOKEN","token--> "+newToken)
+
+
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage)

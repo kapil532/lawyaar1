@@ -13,7 +13,8 @@ class SessionViewModel constructor(private val repostry: MainRepostry) :
     ViewModel()
 {
 
-    fun getSessionAbailablity(token: String, userId: String,date :String) {
+    fun getSessionAbailablity(token: String, userId: String,date :String)
+    {
         viewModelScope.launch(Dispatchers.IO) {
            repostry.getSessionAbailablity(token,userId,date)
         }

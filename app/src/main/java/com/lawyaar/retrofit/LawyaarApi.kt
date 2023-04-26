@@ -11,6 +11,7 @@ import com.lawyaar.models.lawyer_search.post_data.PostDataFilter
 import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModel
 import com.lawyaar.models.location.LocationModel
 import com.lawyaar.models.session.SessionAvailability
+import com.lawyaar.models.token_update.TokenBody
 import com.lawyaar.models.user_detail_update.UserUpdateModel
 import com.lawyaar.models.user_details.UserDetailsModel
 import com.lawyaar.models.wallet_details.AddWalletModel
@@ -135,6 +136,21 @@ interface LawyaarApi {
         @Header("children") children: String,
         @Path("userId") userId: String,
 
-    ): Response<BookedSessionModel>
+        ): Response<BookedSessionModel>
+
+    @POST("firebase/token/{userId}")
+    suspend fun postToken(
+        @Header("Authorization") token: String,
+        @Path("userId") userId: String,
+        @Body data: TokenBody
+        ): Response<String>
+
+//    @GET("session/{userId}/booking")
+//    suspend fun getBookedSessions(
+//        @Header("Authorization") token: String,
+//        @Header("children") children: String,
+//        @Path("userId") userId: String,
+//
+//    ): Response<BookedSessionModel>
 
 }
