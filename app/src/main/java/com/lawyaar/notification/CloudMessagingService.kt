@@ -23,10 +23,9 @@ class CloudMessagingService : FirebaseMessagingService() {
     }
 
     private fun updateToken(newToken: String?) {
-        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
-        preferences.edit().putString("device_token", newToken).apply()
+        val sharedPreference =  getSharedPreferences("device_token",Context.MODE_PRIVATE)
+        sharedPreference.edit().putString("device_token", newToken).apply()
         Log.d("TOKEN","token--> "+newToken)
-
 
     }
 

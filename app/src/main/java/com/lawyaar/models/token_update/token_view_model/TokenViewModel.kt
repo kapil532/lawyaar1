@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lawyaar.models.session.SessionAvailability
 import com.lawyaar.models.token_update.TokenBody
+import com.lawyaar.models.token_update.token_response.TokenResponse
 import com.lawyaar.retrofit.MainRepostry
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,7 +19,7 @@ class TokenViewModel constructor(private val repostry: MainRepostry) :
         }
     }
 
-    val getToken: LiveData<String>
+    val getToken: LiveData<TokenResponse>
         get() = repostry.tokenDataLD
 
 }

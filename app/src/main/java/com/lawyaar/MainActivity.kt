@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -29,7 +30,9 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.messaging.FirebaseMessaging
 import com.lawyaar.adapters.*
 import com.lawyaar.application.LawyaarApplication
 import com.lawyaar.databinding.ActivityMainBinding
@@ -45,6 +48,11 @@ import com.lawyaar.models.lawyer_search.post_data.PostDataFilter
 import com.lawyaar.models.location.LocationModel
 import com.lawyaar.models.location.view_factory_model.LocationViewModel
 import com.lawyaar.models.location.view_factory_model.LocationViewModelFactory
+import com.lawyaar.models.token_update.TokenBody
+import com.lawyaar.models.token_update.token_view_model.TokenFactoryModel
+import com.lawyaar.models.token_update.token_view_model.TokenViewModel
+import com.lawyaar.models.wallet_details.AddWalletFactoryModel
+import com.lawyaar.models.wallets.veiw_model.WalletViewModel
 import com.lawyaar.preference.ModelPreferencesManager
 import com.lawyaar.utils.FilterOption
 
@@ -276,6 +284,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         })
 
+
+        sendNotification()
     }
 
     fun updateFilterDetails() {
@@ -411,5 +421,34 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 )
             )
         }
+    }
+
+    lateinit var tokenViewModel: TokenViewModel
+
+    @Inject
+    lateinit var tokenFactoryModel: TokenFactoryModel
+
+    var user_id = ""
+    var tokenValue = ""
+    var firebase_token = ""
+    fun sendNotification() {
+
+        val sharedPreferences: SharedPreferences =
+            application!!.getSharedPreferences("token_auth", Context.MODE_PRIVATE)
+        tokenValue = sharedPreferences.getString("token_val", " ").toString()
+        user_id = sharedPreferences.getString("user_id", " ").toString()
+
+        val sharedPreference = getSharedPreferences("device_token", Context.MODE_PRIVATE)
+        firebase_token = sharedPreference.getString("device_token", "00").toString()
+        val tokenBody = TokenBody(firebase_token)
+        tokenViewModel = ViewModelProvider(this, tokenFactoryModel).get(TokenViewModel::class.java)
+        tokenViewModel.postToken(tokenValue, user_id, tokenBody)
+        tokenViewModel.getToken.observe(this , Observer {
+
+
+
+        })
+
+
     }
 }
