@@ -283,9 +283,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 Log.d("", "--> NUL VALUE")
             }
         })
+        val sharedPreference1 = getSharedPreferences("device_token_update", Context.MODE_PRIVATE)
+        val tokenBool = sharedPreference1.getString("device_token_update", "00").toString()
+        if (tokenBool.equals("false"))
+        {
+            sendNotification()
+        }
+        else
+        {
+            Log.d("", "-->Token false")
+        }
 
-
-        sendNotification()
     }
 
     fun updateFilterDetails() {
@@ -443,9 +451,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val tokenBody = TokenBody(firebase_token)
         tokenViewModel = ViewModelProvider(this, tokenFactoryModel).get(TokenViewModel::class.java)
         tokenViewModel.postToken(tokenValue, user_id, tokenBody)
-        tokenViewModel.getToken.observe(this , Observer {
+        tokenViewModel.getToken.observe(this, Observer {
 
-
+            val sharedPreference = getSharedPreferences("device_token_update", Context.MODE_PRIVATE)
+            sharedPreference.edit().putString("device_token_update", "true").apply()
 
         })
 
