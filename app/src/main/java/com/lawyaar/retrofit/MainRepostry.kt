@@ -3,6 +3,7 @@ package com.lawyaar.retrofit
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.gson.JsonObject
 import com.lawyaar.ui.auth.OTPActivity
 import com.lawyaar.models.authentication.AuthSuccess
 import com.lawyaar.models.book_session.BookSessionPojo

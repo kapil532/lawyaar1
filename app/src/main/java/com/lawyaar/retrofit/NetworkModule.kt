@@ -28,6 +28,4 @@ class NetworkModule {
     fun provideQuotaionAPI(retrofit: Retrofit): LawyaarApi {
         return retrofit.create(LawyaarApi::class.java)
     }
-
-
 }

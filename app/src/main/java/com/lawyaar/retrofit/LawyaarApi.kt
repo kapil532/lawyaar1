@@ -145,7 +145,4 @@ interface LawyaarApi {
         @Path("userId") userId: String,
         @Body data: TokenBody
         ): Response<TokenResponse>
-
-
-
 }
