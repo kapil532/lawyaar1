@@ -5,13 +5,9 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.lawyaar.ui.auth.OTPActivity
-import com.lawyaar.ui.auth.PhoneActivity
 import com.lawyaar.ui.intro_screen.IntroScreen
 
 class SplashScreen : AppCompatActivity() {
@@ -42,7 +38,7 @@ class SplashScreen : AppCompatActivity() {
         Log.d("TOKEN VALUE", "token--> " + tokenValue)
         if (auth.currentUser != null) {
             if (tokenValue != null && tokenValue.length > 10) {
-                startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, HomeScreenActivity::class.java))
                 finish()
 
             } else {

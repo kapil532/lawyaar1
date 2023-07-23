@@ -20,6 +20,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -29,6 +30,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.lawyaar.adapters.*
 import com.lawyaar.application.LawyaarApplication
 import com.lawyaar.databinding.ActivityMainBinding
+import com.lawyaar.databinding.HomeScreenActivityBinding
 import com.lawyaar.models.case_category.CaseCategory
 import com.lawyaar.models.case_category.CaseCategoryItem
 import com.lawyaar.models.case_category.view_model_factory.CaseCategoryViewModel
@@ -45,20 +47,19 @@ import com.lawyaar.models.token_update.TokenBody
 import com.lawyaar.models.token_update.token_view_model.TokenFactoryModel
 import com.lawyaar.models.token_update.token_view_model.TokenViewModel
 import com.lawyaar.preference.ModelPreferencesManager
+import com.lawyaar.ui.home.HomeFragment
+import com.lawyaar.ui.slideshow.BookedAppointmentFragment
 import com.lawyaar.utils.FilterOption
 
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class HomeScreenActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivityMainBinding
-
-
+    private lateinit var binding: HomeScreenActivityBinding
     lateinit var caseCategoryViewModel: CaseCategoryViewModel
     lateinit var languageViewModel: LanguageViewModel
     lateinit var locationViewModel: LocationViewModel
-
 
     @Inject
     lateinit var locationViewModelFactory: LocationViewModelFactory
@@ -73,54 +74,51 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         lateinit var filterOption: FilterOption
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = HomeScreenActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.appBarMain.toolbar)
-        supportActionBar?.hide();
-        binding.appBarMain.contentmain.searchbar.backIcon.setOnClickListener {
-            drawerLayout.open()
+        val homeFragment = HomeFragment()
+        val appointmentFragment = BookedAppointmentFragment()
+
+        setCurrentFragment(homeFragment)
+
+        binding.bottomNavigationView.setOnItemSelectedListener {
+            when(it.itemId){
+                R.id.bottom_nav_home->setCurrentFragment(homeFragment)
+                R.id.bottom_nav_appointment->setCurrentFragment(appointmentFragment)
+                //R.id.settings->setCurrentFragment(thirdFragment)
+
+            }
+            true
         }
-        binding.appBarMain.contentmain.searchbar.filterIcon.setOnClickListener {
-            initBottomSheet()
-        }
-        //binding.appBarMain.fab.setColorFilter(Color.WHITE);
-//        binding.appBarMain.fab.setOnClickListener { view ->
-//            initBottomSheet()
-//        }
-        drawerLayout = binding.drawerLayout
 
-//        val navView: NavigationView = binding.navView
-        navController = findNavController(R.id.nav_host_fragment_content_main)
-//        appBarConfiguration = AppBarConfiguration(
-//            setOf(
-//                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
-//            ), drawerLayout
-//        )
-//        navController
-//            .addOnDestinationChangedListener { nc: NavController, nd: NavDestination, args: Bundle? ->
-//                if (nd.id == R.id.faq)
-//                {
-//                    drawerLayout.close()
-//                }
-//            }
+//        setSupportActionBar(binding.appBarMain.toolbar)
+//        supportActionBar?.hide()
 
-        binding.navView.setNavigationItemSelectedListener(this)
+        // Below code is for bottom sheet for filter view and commented for feature use
+        /* binding.appBarMain.contentmain.searchbar.backIcon.setOnClickListener {
+             drawerLayout.open()
+         }
+         binding.appBarMain.contentmain.searchbar.filterIcon.setOnClickListener {
+             initBottomSheet()
+         }*/
 
-
-//        setupActionBarWithNavController(navController, appBarConfiguration)
-//        navView.setupWithNavController(navController)
-
-
+//        drawerLayout = binding.drawerLayout
+//        navController = findNavController(R.id.nav_host_fragment_content_main)
+//        binding.navView.setNavigationItemSelectedListener(this)
     }
+
+    private fun setCurrentFragment(fragment: Fragment)=
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.flFragment,fragment)
+            commit()
+        }
 
     private lateinit var navController: NavController
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-
 
         if (item.itemId == R.id.nav_home) {
             drawerLayout.close()
@@ -152,17 +150,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             drawerLayout.close()
             navController.navigate(R.id.nav_setting)
         }
-
-
         return true
     }
 
-
     lateinit var drawerLayout: DrawerLayout
-
     lateinit var token_: String
-
-
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
@@ -175,30 +167,28 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     fun initBottomSheet() {
         val dialog = BottomSheetDialog(this)
         val view = layoutInflater.inflate(R.layout.filter_screen_layout, null)
-        val filter_close_icon = view.findViewById<ImageView>(R.id.filter_close_icon)
-        val filter_recyle = view.findViewById<RecyclerView>(R.id.filter_recyle)
-        val filter_button = view.findViewById<AppCompatButton>(R.id.filter_button)
-        filter_button.setOnClickListener({
+        val filterCloseIcon = view.findViewById<ImageView>(R.id.filter_close_icon)
+        val filterRecycle = view.findViewById<RecyclerView>(R.id.filter_recyle)
+        val filterButton = view.findViewById<AppCompatButton>(R.id.filter_button)
+        filterButton.setOnClickListener {
             dialog.dismiss()
             getDetails()
-        })
-        val filter_recyle_langauge = view.findViewById<RecyclerView>(R.id.filter_recyle_langauge)
-        val filter_recyle_location = view.findViewById<RecyclerView>(R.id.filter_recyle_location)
-        spinner04 = view.findViewById<Spinner>(R.id.spinner04)
-        spinner05 = view.findViewById<Spinner>(R.id.spinner05)
-        val clear_all_tag = view.findViewById<TextView>(R.id.clear_all_tag)
-        clear_all_tag.setOnClickListener({
-//            ModelPreferencesManager.deleteAll("FILTER_DETAILS")
-//            updateFilterDetails()
+        }
+        val filterRecycleLanguage = view.findViewById<RecyclerView>(R.id.filter_recyle_langauge)
+        val filterRecycleLocation = view.findViewById<RecyclerView>(R.id.filter_recyle_location)
+        spinner04 = view.findViewById(R.id.spinner04)
+        spinner05 = view.findViewById(R.id.spinner05)
+        val clearAllTag = view.findViewById<TextView>(R.id.clear_all_tag)
+        clearAllTag.setOnClickListener {
             clearFilter()
             dialog.dismiss()
-        })
+        }
 
-        filter_recyle.layoutManager =
+        filterRecycle.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        filter_recyle_langauge.layoutManager =
+        filterRecycleLanguage.layoutManager =
             StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
-        filter_recyle_location.layoutManager =
+        filterRecycleLocation.layoutManager =
             StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
 
 
@@ -208,21 +198,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         spinnerAdapter = CustomDropDownAdapter(this)
         spinnerAdapterLocation = LocationDropDownAdapter(this)
 
-
-        filter_close_icon.setOnClickListener {
+        filterCloseIcon.setOnClickListener {
             dialog.dismiss()
         }
         dialog.setCancelable(true)
         dialog.setContentView(view)
         dialog.show()
 
-        filter_recyle.adapter = laywerCategory
+        filterRecycle.adapter = laywerCategory
         spinner04.adapter = spinnerAdapter
         spinner05.adapter = spinnerAdapterLocation
-        filter_recyle_langauge.adapter = languageAdaptor
-        filter_recyle_location.adapter = locationAdaptor
-
-
+        filterRecycleLanguage.adapter = languageAdaptor
+        filterRecycleLanguage.adapter = locationAdaptor
         initNetwork()
     }
 
@@ -243,7 +230,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         caseCategoryViewModel = ViewModelProvider(
             this,
             caseCategoryViewModelFactory
-        ).get(CaseCategoryViewModel::class.java)
+        )[CaseCategoryViewModel::class.java]
         //5  getDetails()
 
         locationViewModel.location.observe(this, Observer<LocationModel> {
@@ -276,12 +263,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         })
         val sharedPreference1 = getSharedPreferences("device_token_update", Context.MODE_PRIVATE)
         val tokenBool = sharedPreference1.getString("device_token_update", "00").toString()
-        if (tokenBool.equals("false"))
-        {
+        if (tokenBool == "false") {
             sendNotification()
-        }
-        else
-        {
+        } else {
             Log.d("", "-->Token false")
         }
 
@@ -289,13 +273,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     fun updateFilterDetails() {
         val postDataFilter = ModelPreferencesManager.get<PostDataFilter>("FILTER_DETAILS")
-        if (postDataFilter != null) {
-            caseCategories = postDataFilter.caseCategories
-            locations = postDataFilter.locations
-            languages = postDataFilter.languages
-
-
-        }
+        caseCategories = postDataFilter.caseCategories
+        locations = postDataFilter.locations
+        languages = postDataFilter.languages
     }
 
     lateinit var dataSource: ArrayList<CaseCategoryItem>
@@ -310,92 +290,74 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         locations.clear()
         languages.clear()
         languages = languageAdaptor.getAllData()
-//        Log.d("DATA","--- >  "+dataSource.get(spinner04.selectedItemPosition).caseId)
         caseCategories.add("" + dataSource.get(spinner04.selectedItemPosition).caseId)
         offerPriceRange.add(550)
         offerPriceRange.add(1650)
         actualPriceRange.add(650)
         actualPriceRange.add(1500)
-        if (filterOption != null) {
-
-            var postFilter = PostDataFilter(
-                actualPriceRange,
-                caseCategories,
-                languages,
-                lawyerCategories,
-                locations,
-                offerPriceRange
-            )
-//           Log.d("MAINACTIVITY"," values -- > "+postFilter.caseCategories.get(0))
-            ModelPreferencesManager.put(postFilter, "FILTER_DETAILS")
-            filterOption.updateLawyaarDetails(postFilter)
-        }
+        val postFilter = PostDataFilter(
+            actualPriceRange,
+            caseCategories,
+            languages,
+            lawyerCategories,
+            locations,
+            offerPriceRange
+        )
+        ModelPreferencesManager.put(postFilter, "FILTER_DETAILS")
+        filterOption.updateLawyaarDetails(postFilter)
     }
 
-
-    fun clearFilter() {
+    private fun clearFilter() {
         caseCategories.clear()
         locations.clear()
         languages.clear()
         lawyerCategories.clear()
         offerPriceRange.clear()
         actualPriceRange.clear()
-        if (filterOption != null) {
-
-            var postFilter = PostDataFilter(
-                actualPriceRange,
-                caseCategories,
-                languages,
-                lawyerCategories,
-                locations,
-                offerPriceRange
-            )
-//           Log.d("MAINACTIVITY"," values -- > "+postFilter.caseCategories.get(0))
-            ModelPreferencesManager.put(postFilter, "FILTER_DETAILS")
-            filterOption.updateLawyaarDetails(postFilter)
-        }
+        val postFilter = PostDataFilter(
+            actualPriceRange,
+            caseCategories,
+            languages,
+            lawyerCategories,
+            locations,
+            offerPriceRange
+        )
+        ModelPreferencesManager.put(postFilter, "FILTER_DETAILS")
+        filterOption.updateLawyaarDetails(postFilter)
     }
 
     var indexCase = 0
-    fun getIndexForCase(caseCategories: ArrayList<String>) {
-        indexCase = 0
-        for (dataVal in dataSource) {
-            // Log.d("DATA VALUE","DATA -- > "+dataVal.caseId +"--"+caseCategories.get(0))
+    private fun getIndexForCase(caseCategories: ArrayList<String>) {
+        for ((indexCase, dataVal) in dataSource.withIndex()) {
             try {
                 val idexVal = dataVal.caseId.indexOf(caseCategories.get(0))
-//            Log.d("DATA VALUE","DATA -- > "+idexVal)
                 if (idexVal != -1) {
                     spinner04.setSelection(indexCase)
                 }
             } catch (e: java.lang.Exception) {
-
+                Log.d("DATA VALUE QQ", "DATA -- > " + dataVal.name)
             }
 
-            indexCase++
         }
     }
 
     val selectedItems_lang = SparseBooleanArray()
     lateinit var langModel: ArrayList<LanguageModelItem>
     var indexCount = 0
-    fun getIndexForLangauge(languages: ArrayList<String>) {
+    private fun getIndexForLangauge(languages: ArrayList<String>) {
         for (lang in languages) {
-            indexCount = 0
-            for (dataVal in langModel) {
-//                Log.d("DATA VALUE QQ","DATA -- > "+dataVal.name)
+            for ((indexCount, dataVal) in langModel.withIndex()) {
                 val idexVal = dataVal.languageId.indexOf(lang)
-//                Log.d("DATA VALU QQ","DATA -- > "+idexVal)
                 if (idexVal != -1) {
                     selectedItems_lang.put(indexCount, true)
                     languageAdaptor.setUpdateSelectiionData(selectedItems_lang, indexCount)
                 }
-                indexCount++
             }
         }
 
     }
 
-    fun shareApp(context: Context) {
+    private fun shareApp(context: Context) {
         val appPackageName = BuildConfig.APPLICATION_ID
         val appName = context.getString(R.string.app_name)
         val shareBodyText =
@@ -426,12 +388,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     @Inject
     lateinit var tokenFactoryModel: TokenFactoryModel
-
     var user_id = ""
     var tokenValue = ""
     var firebase_token = ""
-    fun sendNotification() {
-
+    private fun sendNotification() {
         val sharedPreferences: SharedPreferences =
             application!!.getSharedPreferences("token_auth", Context.MODE_PRIVATE)
         tokenValue = sharedPreferences.getString("token_val", " ").toString()
@@ -443,9 +403,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         tokenViewModel = ViewModelProvider(this, tokenFactoryModel).get(TokenViewModel::class.java)
         tokenViewModel.postToken(tokenValue, user_id, tokenBody)
         tokenViewModel.getToken.observe(this, Observer {
-
-            val sharedPreference = getSharedPreferences("device_token_update", Context.MODE_PRIVATE)
-            sharedPreference.edit().putString("device_token_update", "true").apply()
+            val sharedPref = getSharedPreferences("device_token_update", Context.MODE_PRIVATE)
+            sharedPref.edit().putString("device_token_update", "true").apply()
 
         })
     }

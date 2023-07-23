@@ -8,6 +8,13 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Home</string>
+    <string name="menu_appointment">Appointment</string>
+    <string name="menu_lawyaar">Lawyaars</string>
+    <string name="menu_profile">Profile</string>
+    <string name="header_appointment">My Appointment</string>
+    <string name="button_reschedule">Reschedule</string>
+    <string name="button_cancel">Cancel</string>
+
     <string name="rs_symbol">\u20B9</string>
     <string name="menu_gallery">Appoitment</string>
     <string name="menu_slideshow">Wallet</string>
@@ -28,6 +35,12 @@
     <string name="ratings">Star Ratings</string>
     <string name="samplereview">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pretium bibendum sapien, ut euismod massa. Duis convallis sem sed turpis elementum auctor.</string>
 
+
+    <string name="appointment_upcoming">Upcoming</string>
+    <string name="appointment_completed">Completed</string>
+    <string name="appointment_cancel">Cancel</string>
     <string name="accessibility_calendar_icon">Calendar</string>
+    <string name="accessibility_header_back_icon">Screen Back Arrow</string>
+
 
 </resources>

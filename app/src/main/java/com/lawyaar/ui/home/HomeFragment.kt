@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
-import com.lawyaar.MainActivity
+import com.lawyaar.HomeScreenActivity
 import com.lawyaar.R
 import com.lawyaar.adapters.LawyaarAdapter
 import com.lawyaar.application.LawyaarApplication
@@ -57,7 +57,7 @@ class HomeFragment : Fragment(), CellClickListener, TalkListner ,FilterOption {
         recycle_veiw.adapter = adapter
         initNetwork()
         adapter.setUplistner(this, this)
-        MainActivity.filterOption =this
+        HomeScreenActivity.filterOption =this
         return veiw
     }
 

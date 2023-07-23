@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottom_nav_home"
+        android:icon="@drawable/home"
+        android:fontFamily="@font/proximanovaregular"
+        android:title="@string/menu_home" />
+    <item
+        android:id="@+id/bottom_nav_appointment"
+        android:icon="@drawable/calendar"
+        android:fontFamily="@font/proximanovaregular"
+        android:title="@string/menu_appointment" />
+    <item
+        android:id="@+id/bottom_nav_lawyer"
+        android:icon="@drawable/gavel"
+        android:fontFamily="@font/proximanovaregular"
+        android:title="@string/menu_lawyaar" />
+    <item
+        android:id="@+id/bottom_nav_profile"
+        android:icon="@drawable/user"
+        android:fontFamily="@font/proximanovaregular"
+        android:title="@string/menu_profile" />
+</menu>

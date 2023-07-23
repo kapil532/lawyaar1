@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:shimmer="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgorund_col"
@@ -16,25 +15,41 @@
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:orientation="vertical"
-        shimmer:duration="800"
-        >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        shimmer:duration="800">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <include layout="@layout/lawyaar_single_shimmer_list" />
+
             <include layout="@layout/lawyaar_single_shimmer_list" />
+
             <include layout="@layout/lawyaar_single_shimmer_list" />
+
             <include layout="@layout/lawyaar_single_shimmer_list" />
 
         </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <include
+        android:id="@+id/headers"
+        layout="@layout/fragments_header"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_veiw"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:backgroundTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headers"
 
-        tools:listitem="@layout/lawyaar_single_list"
-        />
-</RelativeLayout>
+        tools:listitem="@layout/lawyaar_single_list" />
+</androidx.constraintlayout.widget.ConstraintLayout>

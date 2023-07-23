@@ -37,19 +37,6 @@ class BookedSessionAdapter : RecyclerView.Adapter<BookedSessionAdapter.MyViewHol
 
     }
 
-    fun getDate(){
-        val dateTime = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            ZonedDateTime.parse("2020-07-28T14:28:52.877Z")
-        } else {
-            TODO("VERSION.SDK_INT < O")
-        }
-
-// In case you still need LocalDateTime
-
-// In case you still need LocalDateTime
-        val localDateTime = dateTime.toLocalDateTime()
-    }
-
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): MyViewHolder {
         val v = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.booked_appointment_items, viewGroup, false)

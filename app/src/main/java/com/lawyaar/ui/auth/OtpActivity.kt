@@ -18,16 +18,13 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
 import com.google.firebase.internal.InternalTokenResult
-import com.lawyaar.MainActivity
+import com.lawyaar.HomeScreenActivity
 import com.lawyaar.R
 import com.lawyaar.application.LawyaarApplication
 import com.lawyaar.models.authentication.AuthSuccess
 import com.lawyaar.models.authentication.auth_model.AuthModel
 import com.lawyaar.models.authentication.auth_model.AuthModelFactory
-import com.lawyaar.retrofit.LawyaarApi
 import com.lawyaar.retrofit.MainRepostry
-import com.lawyaar.testlist.QuoteList
-import com.lawyaar.ui.home.HomeViewModel
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -195,7 +192,7 @@ class OTPActivity : AppCompatActivity() {
 
 
     private fun sendToMain() {
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, HomeScreenActivity::class.java))
     }
 
 

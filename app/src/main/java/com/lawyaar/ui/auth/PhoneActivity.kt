@@ -12,9 +12,8 @@ import android.widget.Toast
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
-import com.lawyaar.MainActivity
+import com.lawyaar.HomeScreenActivity
 import com.lawyaar.R
-import com.lawyaar.ui.auth.OTPActivity
 import java.util.concurrent.TimeUnit
 
 class PhoneActivity : AppCompatActivity() {
@@ -82,7 +81,7 @@ class PhoneActivity : AppCompatActivity() {
     }
 
     private fun sendToMain(){
-        startActivity(Intent(this , MainActivity::class.java))
+        startActivity(Intent(this , HomeScreenActivity::class.java))
     }
     private val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
@@ -133,7 +132,7 @@ class PhoneActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         if (auth.currentUser != null){
-            startActivity(Intent(this , MainActivity::class.java))
+            startActivity(Intent(this , HomeScreenActivity::class.java))
         }
     }
 }

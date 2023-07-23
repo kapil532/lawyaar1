@@ -35,7 +35,7 @@
             android:theme="@style/Theme.Lawyaar.NoActionBar" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".HomeScreenActivity"
             android:theme="@style/Theme.Lawyaar.NoActionBar" />
 
         <activity
