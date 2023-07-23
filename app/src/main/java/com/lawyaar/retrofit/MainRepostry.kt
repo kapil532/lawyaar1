@@ -7,6 +7,8 @@ import com.google.gson.JsonObject
 import com.lawyaar.ui.auth.OTPActivity
 import com.lawyaar.models.authentication.AuthSuccess
 import com.lawyaar.models.book_session.BookSessionPojo
+import com.lawyaar.models.booked_session.AppointmentBookedModel
+import com.lawyaar.models.booked_session.AppointmentBookedRequest
 import com.lawyaar.models.booked_session.BookedSessionModel
 import com.lawyaar.models.case_category.CaseCategory
 import com.lawyaar.models.category.CategoryModel
@@ -218,6 +220,23 @@ class MainRepostry @Inject constructor(private val lawyaarApi: LawyaarApi) {
         val result = lawyaarApi.getBookedSessions(token,children,userID )
         if (result?.body() != null) {
             bookedSessionMLD.postValue(result.body())
+        }
+    }
+
+    //Appointment Booked data for user
+    private val appointmentBooked = MutableLiveData<AppointmentBookedModel>()
+    val getAppointmentBooked: LiveData<AppointmentBookedModel>
+        get() = appointmentBooked
+
+    suspend fun getAppointmentBooked(
+        token: String,
+        children: String,
+        userID: String,
+        booked: AppointmentBookedRequest
+    ) {
+        val result = lawyaarApi.getAppointmentBooked(token, children, booked)
+        if (result.body() != null) {
+            appointmentBooked.postValue(result.body())
         }
     }
 

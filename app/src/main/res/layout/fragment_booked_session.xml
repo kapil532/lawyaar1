@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:shimmer="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgorund_col"
@@ -17,24 +15,120 @@
         android:layout_marginTop="16dp"
         android:orientation="vertical"
         shimmer:duration="800"
-        >
+        shimmer:layout_constraintBottom_toBottomOf="parent"
+        shimmer:layout_constraintEnd_toEndOf="parent"
+        shimmer:layout_constraintStart_toStartOf="parent"
+        shimmer:layout_constraintTop_toTopOf="parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <include layout="@layout/lawyaar_single_shimmer_list" />
+
             <include layout="@layout/lawyaar_single_shimmer_list" />
+
             <include layout="@layout/lawyaar_single_shimmer_list" />
+
             <include layout="@layout/lawyaar_single_shimmer_list" />
 
         </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <!--<androidx.cardview.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_header"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white"
+        app:cardCornerRadius="10dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">-->
+
+    <TextView
+        android:id="@+id/upcoming_section"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:background="@color/white"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="Upcoming"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        shimmer:layout_constraintEnd_toStartOf="@id/completed_section"
+        shimmer:layout_constraintStart_toStartOf="parent"
+        shimmer:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/upcoming_view"
+        android:layout_width="1dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:background="@color/blue"
+        shimmer:layout_constraintEnd_toStartOf="@id/upcoming_section"
+        shimmer:layout_constraintStart_toEndOf="@id/completed_section"
+        shimmer:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/completed_section"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/booked_appointment_status"
+        android:gravity="center"
+        android:text="Completed"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        shimmer:layout_constraintEnd_toStartOf="@id/completed_view"
+        shimmer:layout_constraintStart_toEndOf="@id/upcoming_view"
+        shimmer:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/completed_view"
+        android:layout_width="1dp"
+        android:layout_height="40dp"
+        android:background="@color/blue"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        shimmer:layout_constraintEnd_toStartOf="@id/cancel_section"
+        shimmer:layout_constraintStart_toEndOf="@id/completed_section"
+        shimmer:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/cancel_section"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/white"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="Cancel"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        shimmer:layout_constraintEnd_toEndOf="parent"
+        shimmer:layout_constraintStart_toEndOf="@id/completed_view"
+        shimmer:layout_constraintTop_toTopOf="parent" />
+
+
+    <!--</androidx.cardview.widget.CardView>-->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_veiw"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        tools:listitem="@layout/single_row_booked_session_layout"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
-        />
-</RelativeLayout>
+        android:backgroundTint="@color/white"
+        shimmer:layout_constraintEnd_toEndOf="parent"
+        shimmer:layout_constraintStart_toStartOf="parent"
+        shimmer:layout_constraintTop_toBottomOf="@id/upcoming_section"
+        tools:listitem="@layout/single_row_booked_session_layout" />
+</androidx.constraintlayout.widget.ConstraintLayout>

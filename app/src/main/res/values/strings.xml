@@ -28,4 +28,6 @@
     <string name="ratings">Star Ratings</string>
     <string name="samplereview">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pretium bibendum sapien, ut euismod massa. Duis convallis sem sed turpis elementum auctor.</string>
 
+    <string name="accessibility_calendar_icon">Calendar</string>
+
 </resources>

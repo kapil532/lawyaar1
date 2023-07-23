@@ -2,6 +2,8 @@ package com.lawyaar.retrofit
 
 import com.lawyaar.models.authentication.AuthSuccess
 import com.lawyaar.models.book_session.BookSessionPojo
+import com.lawyaar.models.booked_session.AppointmentBookedModel
+import com.lawyaar.models.booked_session.AppointmentBookedRequest
 import com.lawyaar.models.booked_session.BookedSessionModel
 import com.lawyaar.models.case_category.CaseCategory
 import com.lawyaar.models.category.CategoryModel
@@ -138,6 +140,14 @@ interface LawyaarApi {
         @Path("userId") userId: String,
 
         ): Response<BookedSessionModel>
+
+    //@GET("session/booking/query")
+    @POST("session/booking/query") //http://65.1.91.89/api/v1/session/booking/query?page=1&size=3
+    suspend fun getAppointmentBooked(
+        @Header("Authorization") token: String,
+        @Header("children") children: String,
+        @Body bookedRequest: AppointmentBookedRequest
+        ): Response<AppointmentBookedModel>
 
     @POST("firebase/token/{userId}")
     suspend fun postToken(
