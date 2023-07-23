@@ -31,11 +31,13 @@ import com.lawyaar.core.constants.SHARED_PREF_USER_ID
 import com.lawyaar.models.booked_session.BookedSessionModelItem
 import com.lawyaar.models.booked_session.view_models.BookedSessionFactoryModel
 import com.lawyaar.models.booked_session.view_models.BookedSessionViewModel
+import com.lawyaar.ui.book_slots.BookingSlotActivity
 import com.lawyaar.ui.lawyaardetails.LawyaarDetailsActivity
 import com.lawyaar.utils.BookedSessionCallBack
+import com.lawyaar.utils.TalkListner
 import javax.inject.Inject
 
-class BookedAppointmentFragment : Fragment(), BookedSessionCallBack {
+class BookedAppointmentFragment : Fragment(), BookedSessionCallBack, TalkListner {
     private lateinit var shimmerViewContainer: ShimmerFrameLayout
     private lateinit var upcomingAdapter: UpcomingAppointmentAdapter
     private lateinit var bookedAdapter: BookedSessionAdapter
@@ -89,7 +91,7 @@ class BookedAppointmentFragment : Fragment(), BookedSessionCallBack {
         recycleView.adapter = upcomingAdapter
         initNetwork(sessionStatusList)
         upcomingAppointmentObserver()
-        upcomingAdapter.setUplistner(this)
+        upcomingAdapter.setUpUpcomingListener(this)
     }
 
     private fun onUpcomingAppointment(view: View, recycleView: RecyclerView){
@@ -106,7 +108,7 @@ class BookedAppointmentFragment : Fragment(), BookedSessionCallBack {
             recycleView.adapter = upcomingAdapter
             initNetwork(sessionStatusList)
             upcomingAppointmentObserver()
-            upcomingAdapter.setUplistner(this)
+            upcomingAdapter.setUpUpcomingListener(this)
         }
     }
 
@@ -247,6 +249,12 @@ class BookedAppointmentFragment : Fragment(), BookedSessionCallBack {
 
     override fun onCellClickListener(bookedSessionModelItem: BookedSessionModelItem) {
         val intent = Intent(context, LawyaarDetailsActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun onTalkClickListner(userId: String) {
+        val intent = Intent(context, BookingSlotActivity::class.java)
+        intent.putExtra("userId" , userId)
         startActivity(intent)
     }
 }

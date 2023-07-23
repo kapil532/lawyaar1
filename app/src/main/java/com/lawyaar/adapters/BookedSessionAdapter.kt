@@ -34,7 +34,6 @@ class BookedSessionAdapter : RecyclerView.Adapter<BookedSessionAdapter.MyViewHol
 
     fun setUplistner(cellClickListener: BookedSessionCallBack) {
         this.cellClickListener = cellClickListener
-
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): MyViewHolder {

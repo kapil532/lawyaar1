@@ -1,6 +1,7 @@
 package com.lawyaar.adapters
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.lawyaar.R
 import com.lawyaar.models.booked_session.AppointmentBookedModelItem
+import com.lawyaar.ui.book_slots.BookingSlotActivity
 import com.lawyaar.utils.BookedSessionCallBack
+import com.lawyaar.utils.CellClickListener
+import com.lawyaar.utils.TalkListner
 import com.lawyaar.utils.getDateFormatted
 
 class UpcomingAppointmentAdapter : RecyclerView.Adapter<UpcomingAppointmentAdapter.MyViewHolder>() {
@@ -32,11 +36,9 @@ class UpcomingAppointmentAdapter : RecyclerView.Adapter<UpcomingAppointmentAdapt
         notifyDataSetChanged()
     }
 
-    private lateinit var cellClickListener: BookedSessionCallBack
-
-    fun setUplistner(cellClickListener: BookedSessionCallBack) {
-        this.cellClickListener = cellClickListener
-
+    private lateinit var talkListner: TalkListner
+    fun setUpUpcomingListener(talkListner: TalkListner) {
+        this.talkListner = talkListner
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): MyViewHolder {
@@ -54,6 +56,10 @@ class UpcomingAppointmentAdapter : RecyclerView.Adapter<UpcomingAppointmentAdapt
         //val date = getDateFormatted(currentItem.sessionDate)
         viewHolder.upcomingSessionDate.text = getDateFormatted(currentItem.sessionDate)
         viewHolder.upcomingSessionTime.text = currentItem.sessionTime
+
+        viewHolder.upcomingReschedule.setOnClickListener {
+            currentItem.clientId?.let { it1 -> talkListner.onTalkClickListner(it1) }
+        }
     }
 
     override fun getItemCount(): Int {

@@ -48,6 +48,7 @@ import com.lawyaar.models.token_update.token_view_model.TokenFactoryModel
 import com.lawyaar.models.token_update.token_view_model.TokenViewModel
 import com.lawyaar.preference.ModelPreferencesManager
 import com.lawyaar.ui.home.HomeFragment
+import com.lawyaar.ui.profile.UpdateProfileActivity
 import com.lawyaar.ui.slideshow.BookedAppointmentFragment
 import com.lawyaar.utils.FilterOption
 
@@ -89,8 +90,9 @@ class HomeScreenActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
             when(it.itemId){
                 R.id.bottom_nav_home->setCurrentFragment(homeFragment)
                 R.id.bottom_nav_appointment->setCurrentFragment(appointmentFragment)
-                //R.id.settings->setCurrentFragment(thirdFragment)
-
+                R.id.bottom_nav_profile-> {
+                    startActivity(Intent(this@HomeScreenActivity, UpdateProfileActivity::class.java))
+                }
             }
             true
         }
@@ -107,7 +109,7 @@ class HomeScreenActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
          }*/
 
 //        drawerLayout = binding.drawerLayout
-//        navController = findNavController(R.id.nav_host_fragment_content_main)
+         // navController = findNavController(R.id.nav_host_fragment_content_main)
 //        binding.navView.setNavigationItemSelectedListener(this)
     }
 
