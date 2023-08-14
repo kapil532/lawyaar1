@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextLabelStyle">
+        <item name="android:textSize">@dimen/dimen_16SP</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+</resources>

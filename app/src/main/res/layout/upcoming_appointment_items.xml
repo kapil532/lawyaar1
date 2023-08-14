@@ -20,7 +20,10 @@
             android:layout_width="90dp"
             android:layout_height="100dp"
             android:scaleType="centerCrop"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
             android:src="@drawable/law"
+            app:circularflow_angles="10dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,7 +49,7 @@
             android:layout_marginTop="2dp"
             android:fontFamily="@font/proximanovaregular"
             android:lines="1"
-            android:text="Criminal,civil"
+            android:text="Criminal and civil"
             android:textColor="@color/teal_200"
             android:textSize="14sp"
             app:layout_constraintLeft_toRightOf="@id/upcoming_lawyer_profile"
@@ -113,6 +116,8 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="15dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:layout_marginEnd="@dimen/dimen_10dp"
             android:background="@color/grey"
             app:layout_constraintTop_toBottomOf="@id/upcoming_lawyer_profile" />
 
@@ -129,8 +134,8 @@
             android:text="@string/button_cancel"
             android:textAllCaps="false"
             android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textStyle="normal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider_view" />
 
@@ -147,8 +152,8 @@
             android:text="@string/button_reschedule"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider_view" />
 

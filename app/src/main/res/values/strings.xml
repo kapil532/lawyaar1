@@ -38,9 +38,11 @@
 
     <string name="appointment_upcoming">Upcoming</string>
     <string name="appointment_completed">Completed</string>
-    <string name="appointment_cancel">Cancel</string>
+    <string name="appointment_cancel">Cancelled</string>
     <string name="accessibility_calendar_icon">Calendar</string>
     <string name="accessibility_header_back_icon">Screen Back Arrow</string>
+
+    <string name="appointment_called">Cancelled</string>
 
 
 </resources>
