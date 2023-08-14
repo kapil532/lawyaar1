@@ -36,9 +36,9 @@ class UpcomingAppointmentAdapter : RecyclerView.Adapter<UpcomingAppointmentAdapt
         notifyDataSetChanged()
     }
 
-    private lateinit var talkListner: TalkListner
-    fun setUpUpcomingListener(talkListner: TalkListner) {
-        this.talkListner = talkListner
+    private lateinit var cancelListener: AppointmentCancelListener
+    fun setUpUpcomingListener(cancelListener: AppointmentCancelListener) {
+        this.cancelListener = cancelListener
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): MyViewHolder {
@@ -58,11 +58,20 @@ class UpcomingAppointmentAdapter : RecyclerView.Adapter<UpcomingAppointmentAdapt
         viewHolder.upcomingSessionTime.text = currentItem.sessionTime
 
         viewHolder.upcomingReschedule.setOnClickListener {
-            currentItem.clientId?.let { it1 -> talkListner.onTalkClickListner(it1) }
+            currentItem.clientId?.let { it1 -> cancelListener.onAppointmentReschedule(it1) }
+        }
+
+        viewHolder.upcomingCancel.setOnClickListener {
+            cancelListener.onAppointmentCancelled()
         }
     }
 
     override fun getItemCount(): Int {
         return list.size
     }
+}
+
+interface AppointmentCancelListener {
+    fun onAppointmentReschedule(userId :String)
+    fun onAppointmentCancelled()
 }

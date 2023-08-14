@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.lawyaar.R
+import com.lawyaar.adapters.AppointmentCancelListener
 import com.lawyaar.adapters.BookedSessionAdapter
 import com.lawyaar.adapters.CancelledAppointmentAdapter
 import com.lawyaar.adapters.UpcomingAppointmentAdapter
@@ -34,10 +36,9 @@ import com.lawyaar.models.booked_session.view_models.BookedSessionViewModel
 import com.lawyaar.ui.book_slots.BookingSlotActivity
 import com.lawyaar.ui.lawyaardetails.LawyaarDetailsActivity
 import com.lawyaar.utils.BookedSessionCallBack
-import com.lawyaar.utils.TalkListner
 import javax.inject.Inject
 
-class BookedAppointmentFragment : Fragment(), BookedSessionCallBack, TalkListner {
+class BookedAppointmentFragment : Fragment(), BookedSessionCallBack, AppointmentCancelListener {
     private lateinit var shimmerViewContainer: ShimmerFrameLayout
     private lateinit var upcomingAdapter: UpcomingAppointmentAdapter
     private lateinit var bookedAdapter: BookedSessionAdapter
@@ -46,6 +47,7 @@ class BookedAppointmentFragment : Fragment(), BookedSessionCallBack, TalkListner
     private lateinit var txtUpcomingAppointment: TextView
     private lateinit var txtCompletedAppointment: TextView
     private lateinit var txtCancelAppointment: TextView
+
     companion object {
         private const val UPCOMING_APPOINT = "Upcoming"
         private const val COMPLETED_APPOINT = "Completed"
@@ -73,13 +75,13 @@ class BookedAppointmentFragment : Fragment(), BookedSessionCallBack, TalkListner
         return view
     }
 
-    private fun initIds(view: View){
+    private fun initIds(view: View) {
         txtUpcomingAppointment = view.findViewById(R.id.upcoming_section)
         txtCompletedAppointment = view.findViewById(R.id.completed_section)
         txtCancelAppointment = view.findViewById(R.id.cancel_section)
     }
 
-    private fun setUpcomingAppointmentByDefault(view: View, recycleView: RecyclerView){
+    private fun setUpcomingAppointmentByDefault(view: View, recycleView: RecyclerView) {
         val sessionStatusList = mutableListOf<String>().apply {
             add(RESCHEDULED)
             add(OPEN)
@@ -94,7 +96,7 @@ class BookedAppointmentFragment : Fragment(), BookedSessionCallBack, TalkListner
         upcomingAdapter.setUpUpcomingListener(this)
     }
 
-    private fun onUpcomingAppointment(view: View, recycleView: RecyclerView){
+    private fun onUpcomingAppointment(view: View, recycleView: RecyclerView) {
         val sessionStatusList = mutableListOf<String>().apply {
             add(RESCHEDULED)
             add(OPEN)
@@ -112,7 +114,7 @@ class BookedAppointmentFragment : Fragment(), BookedSessionCallBack, TalkListner
         }
     }
 
-    private fun onCompletedAppointment(view: View, recycleView: RecyclerView){
+    private fun onCompletedAppointment(view: View, recycleView: RecyclerView) {
         val sessionStatusList = mutableListOf<String>().apply {
             add(RESCHEDULED)
             add(OPEN)
@@ -130,7 +132,7 @@ class BookedAppointmentFragment : Fragment(), BookedSessionCallBack, TalkListner
         }
     }
 
-    private fun onCancelAppointment(view: View, recycleView: RecyclerView){
+    private fun onCancelAppointment(view: View, recycleView: RecyclerView) {
         val sessionStatusList = mutableListOf<String>().apply {
             add(RESCHEDULED)
             add(OPEN)
@@ -147,38 +149,106 @@ class BookedAppointmentFragment : Fragment(), BookedSessionCallBack, TalkListner
         }
     }
 
-    private fun setViewVisibleGone(view: View, viewType: String){
+    private fun setViewVisibleGone(view: View, viewType: String) {
         val txtUpcomingView = view.findViewById<View>(R.id.upcoming_view)
         val txtCompletedView = view.findViewById<View>(R.id.completed_view)
         when (viewType) {
             UPCOMING_APPOINT -> {
-                txtUpcomingAppointment.background = activity?.let { ContextCompat.getDrawable(it, R.drawable.booked_appointment_status) }
-                txtUpcomingAppointment.setTextColor(ContextCompat.getColor(requireActivity(), R.color.white))
-                txtCompletedAppointment.setTextColor(ContextCompat.getColor(requireActivity(), R.color.black))
-                txtCancelAppointment.setTextColor(ContextCompat.getColor(requireActivity(), R.color.black))
-                txtCompletedAppointment.background = activity?.let { ContextCompat.getDrawable(it, R.drawable.appointment_white_bg) }
-                txtCancelAppointment.background = activity?.let { ContextCompat.getDrawable(it, R.drawable.appointment_white_bg) }
+                txtUpcomingAppointment.background = activity?.let {
+                    ContextCompat.getDrawable(
+                        it,
+                        R.drawable.booked_appointment_status
+                    )
+                }
+                txtUpcomingAppointment.setTextColor(
+                    ContextCompat.getColor(
+                        requireActivity(),
+                        R.color.white
+                    )
+                )
+                txtCompletedAppointment.setTextColor(
+                    ContextCompat.getColor(
+                        requireActivity(),
+                        R.color.black
+                    )
+                )
+                txtCancelAppointment.setTextColor(
+                    ContextCompat.getColor(
+                        requireActivity(),
+                        R.color.black
+                    )
+                )
+                txtCompletedAppointment.background =
+                    activity?.let { ContextCompat.getDrawable(it, R.drawable.appointment_white_bg) }
+                txtCancelAppointment.background =
+                    activity?.let { ContextCompat.getDrawable(it, R.drawable.appointment_white_bg) }
                 txtUpcomingView.visibility = View.GONE
                 txtCompletedView.visibility = View.VISIBLE
             }
+
             COMPLETED_APPOINT -> {
-                txtUpcomingAppointment.background = activity?.let { ContextCompat.getDrawable(it, R.drawable.appointment_white_bg) }
-                txtCompletedAppointment.background = activity?.let { ContextCompat.getDrawable(it, R.drawable.booked_appointment_status)}
-                txtUpcomingAppointment.setTextColor(ContextCompat.getColor(requireActivity(), R.color.black))
-                txtCompletedAppointment.setTextColor(ContextCompat.getColor(requireActivity(), R.color.white))
-                txtCancelAppointment.setTextColor(ContextCompat.getColor(requireActivity(), R.color.black))
-                txtCancelAppointment.background = activity?.let { ContextCompat.getDrawable(it, R.drawable.appointment_white_bg) }
+                txtUpcomingAppointment.background =
+                    activity?.let { ContextCompat.getDrawable(it, R.drawable.appointment_white_bg) }
+                txtCompletedAppointment.background = activity?.let {
+                    ContextCompat.getDrawable(
+                        it,
+                        R.drawable.booked_appointment_status
+                    )
+                }
+                txtUpcomingAppointment.setTextColor(
+                    ContextCompat.getColor(
+                        requireActivity(),
+                        R.color.black
+                    )
+                )
+                txtCompletedAppointment.setTextColor(
+                    ContextCompat.getColor(
+                        requireActivity(),
+                        R.color.white
+                    )
+                )
+                txtCancelAppointment.setTextColor(
+                    ContextCompat.getColor(
+                        requireActivity(),
+                        R.color.black
+                    )
+                )
+                txtCancelAppointment.background =
+                    activity?.let { ContextCompat.getDrawable(it, R.drawable.appointment_white_bg) }
                 txtUpcomingView.visibility = View.GONE
                 txtCompletedView.visibility = View.GONE
 
             }
+
             CANCEL_APPOINT -> {
-                txtUpcomingAppointment.background = activity?.let { ContextCompat.getDrawable(it, R.drawable.appointment_white_bg) }
-                txtCompletedAppointment.background = activity?.let { ContextCompat.getDrawable(it, R.drawable.appointment_white_bg) }
-                txtCancelAppointment.background = activity?.let { ContextCompat.getDrawable(it, R.drawable.booked_appointment_status)}
-                txtUpcomingAppointment.setTextColor(ContextCompat.getColor(requireActivity(), R.color.black))
-                txtCompletedAppointment.setTextColor(ContextCompat.getColor(requireActivity(), R.color.black))
-                txtCancelAppointment.setTextColor(ContextCompat.getColor(requireActivity(), R.color.white))
+                txtUpcomingAppointment.background =
+                    activity?.let { ContextCompat.getDrawable(it, R.drawable.appointment_white_bg) }
+                txtCompletedAppointment.background =
+                    activity?.let { ContextCompat.getDrawable(it, R.drawable.appointment_white_bg) }
+                txtCancelAppointment.background = activity?.let {
+                    ContextCompat.getDrawable(
+                        it,
+                        R.drawable.booked_appointment_status
+                    )
+                }
+                txtUpcomingAppointment.setTextColor(
+                    ContextCompat.getColor(
+                        requireActivity(),
+                        R.color.black
+                    )
+                )
+                txtCompletedAppointment.setTextColor(
+                    ContextCompat.getColor(
+                        requireActivity(),
+                        R.color.black
+                    )
+                )
+                txtCancelAppointment.setTextColor(
+                    ContextCompat.getColor(
+                        requireActivity(),
+                        R.color.white
+                    )
+                )
                 txtUpcomingView.visibility = View.VISIBLE
                 txtCompletedView.visibility = View.GONE
             }
@@ -190,7 +260,10 @@ class BookedAppointmentFragment : Fragment(), BookedSessionCallBack, TalkListner
     fun initNetwork(sessionStatusList: List<String?>?) {
 
         val sharedPreferences: SharedPreferences =
-            activity?.application!!.getSharedPreferences(SHARED_PREF_AUTH_TOKEN, Context.MODE_PRIVATE)
+            activity?.application!!.getSharedPreferences(
+                SHARED_PREF_AUTH_TOKEN,
+                Context.MODE_PRIVATE
+            )
         tokenValue = sharedPreferences.getString(SHARED_PREF_AUTH_TOKEN_VALUE, " ").toString()
         userId = sharedPreferences.getString(SHARED_PREF_USER_ID, " ").toString()
         (activity?.application as LawyaarApplication).applicationComponent.inject(
@@ -252,9 +325,28 @@ class BookedAppointmentFragment : Fragment(), BookedSessionCallBack, TalkListner
         startActivity(intent)
     }
 
-    override fun onTalkClickListner(userId: String) {
+    override fun onAppointmentReschedule(userId: String) {
         val intent = Intent(context, BookingSlotActivity::class.java)
-        intent.putExtra("userId" , userId)
+        intent.putExtra("userId", userId)
         startActivity(intent)
+    }
+
+    override fun onAppointmentCancelled() {
+        showAlertCancelledDialog()
+    }
+
+    private fun showAlertCancelledDialog() {
+        val dialogBuilder = context?.let { AlertDialog.Builder(it) }
+        dialogBuilder?.setMessage("Do you want to cancel the scheduled appointment ?")
+            ?.setCancelable(false)
+            ?.setPositiveButton("Yes") { _, _ ->
+                // Cancel api call
+            }
+            ?.setNegativeButton("No") { dialog, _ ->
+                dialog.cancel()
+            }
+        val alert = dialogBuilder?.create()
+        alert?.setTitle("Lawyer Alert!")
+        alert?.show()
     }
 }
