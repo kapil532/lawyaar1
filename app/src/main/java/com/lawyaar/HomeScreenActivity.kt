@@ -7,9 +7,12 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.util.SparseBooleanArray
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
@@ -26,10 +29,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.facebook.shimmer.BuildConfig
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.lawyaar.adapters.*
 import com.lawyaar.application.LawyaarApplication
-import com.lawyaar.databinding.ActivityMainBinding
 import com.lawyaar.databinding.HomeScreenActivityBinding
 import com.lawyaar.models.case_category.CaseCategory
 import com.lawyaar.models.case_category.CaseCategoryItem
@@ -87,35 +90,55 @@ class HomeScreenActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
         setCurrentFragment(homeFragment)
 
         binding.bottomNavigationView.setOnItemSelectedListener {
-            when(it.itemId){
-                R.id.bottom_nav_home->setCurrentFragment(homeFragment)
-                R.id.bottom_nav_appointment->setCurrentFragment(appointmentFragment)
-                R.id.bottom_nav_profile-> {
-                    startActivity(Intent(this@HomeScreenActivity, UpdateProfileActivity::class.java))
+            when (it.itemId) {
+                R.id.bottom_nav_home -> {
+                    binding.headers.txtHeader.text = getString(R.string.menu_home)
+                    binding.edtSearchInclude.searchMain.visibility = View.VISIBLE
+                    setCurrentFragment(homeFragment)
+                }
+                R.id.bottom_nav_appointment -> {
+                    binding.headers.txtHeader.text = getString(R.string.header_appointment)
+                    binding.edtSearchInclude.searchMain.visibility = View.GONE
+                    setCurrentFragment(appointmentFragment)
+                }
+                R.id.bottom_nav_profile -> {
+                    startActivity(
+                        Intent(
+                            this@HomeScreenActivity,
+                            UpdateProfileActivity::class.java
+                        )
+                    )
                 }
             }
             true
         }
-
-//        setSupportActionBar(binding.appBarMain.toolbar)
-//        supportActionBar?.hide()
-
-        // Below code is for bottom sheet for filter view and commented for feature use
-        /* binding.appBarMain.contentmain.searchbar.backIcon.setOnClickListener {
-             drawerLayout.open()
-         }
-         binding.appBarMain.contentmain.searchbar.filterIcon.setOnClickListener {
-             initBottomSheet()
-         }*/
-
-//        drawerLayout = binding.drawerLayout
-         // navController = findNavController(R.id.nav_host_fragment_content_main)
-//        binding.navView.setNavigationItemSelectedListener(this)
+        binding.edtSearchInclude.filterIcon.setOnClickListener {
+            initBottomSheet()
+        }
+        localSearchData()
     }
 
-    private fun setCurrentFragment(fragment: Fragment)=
+    private fun localSearchData() {
+        binding.edtSearchInclude.edtSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Do Nothing
+            }
+
+            override fun onTextChanged(searchChar: CharSequence?, start: Int, before: Int, count: Int) {
+                // mArrayAdapter.filter.filter(s)
+                filterOption.localSearch(searchChar)
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                // Do Nothing
+            }
+
+        })
+    }
+
+    private fun setCurrentFragment(fragment: Fragment) =
         supportFragmentManager.beginTransaction().apply {
-            replace(R.id.flFragment,fragment)
+            replace(R.id.flFragment, fragment)
             commit()
         }
 
@@ -226,9 +249,9 @@ class HomeScreenActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
 
         (application as LawyaarApplication).applicationComponent.inject(this)
         locationViewModel =
-            ViewModelProvider(this, locationViewModelFactory).get(LocationViewModel::class.java)
+            ViewModelProvider(this, locationViewModelFactory)[LocationViewModel::class.java]
         languageViewModel =
-            ViewModelProvider(this, languaViewModelFactory).get(LanguageViewModel::class.java)
+            ViewModelProvider(this, languaViewModelFactory)[LanguageViewModel::class.java]
         caseCategoryViewModel = ViewModelProvider(
             this,
             caseCategoryViewModelFactory

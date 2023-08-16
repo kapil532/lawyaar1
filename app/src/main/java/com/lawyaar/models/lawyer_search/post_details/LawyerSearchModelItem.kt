@@ -9,7 +9,7 @@ data class LawyerSearchModelItem(
     val firebaseId: String,
     val languages: List<Language>,
     val mobile: String,
-    val name: String,
+    var name: String,
     val userId: String,
     val username: String
 )

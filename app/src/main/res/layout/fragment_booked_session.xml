@@ -7,13 +7,6 @@
     android:background="@color/backgorund_col"
     tools:context=".ui.home.HomeFragment">
 
-    <include
-        android:id="@+id/headers"
-        layout="@layout/fragments_header"
-        shimmer:layout_constraintStart_toStartOf="parent"
-        shimmer:layout_constraintBottom_toTopOf="@id/upcoming_section"
-        shimmer:layout_constraintTop_toTopOf="parent" />
-
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_view_container"
         android:layout_width="wrap_content"
@@ -48,54 +41,51 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
         android:background="@color/white"
         android:gravity="center"
         android:text="@string/appointment_upcoming"
         style="@style/TextLabelStyle"
         shimmer:layout_constraintEnd_toStartOf="@id/completed_section"
         shimmer:layout_constraintStart_toStartOf="parent"
-        shimmer:layout_constraintTop_toBottomOf="@id/headers" />
+        shimmer:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/upcoming_view"
         android:layout_width="1dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="25dp"
-        android:background="@color/grey"
+        android:layout_height="30dp"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:background="@color/teal_700"
         android:gravity="center"
         shimmer:layout_constraintEnd_toStartOf="@id/upcoming_section"
         shimmer:layout_constraintStart_toEndOf="@id/completed_section"
-        shimmer:layout_constraintTop_toBottomOf="@id/headers" />
+        shimmer:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/completed_section"
         style="@style/TextLabelStyle"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="@string/appointment_completed"
         shimmer:layout_constraintEnd_toStartOf="@id/completed_view"
         shimmer:layout_constraintStart_toEndOf="@id/upcoming_view"
-        shimmer:layout_constraintTop_toBottomOf="@id/headers" />
+        shimmer:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/completed_view"
         android:layout_width="1dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="25dp"
-        android:background="@color/hint_text_color"
+        android:layout_height="30dp"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:background="@color/teal_700"
         android:gravity="center"
         shimmer:layout_constraintEnd_toStartOf="@id/cancel_section"
         shimmer:layout_constraintStart_toEndOf="@id/completed_section"
-        shimmer:layout_constraintTop_toBottomOf="@id/headers" />
+        shimmer:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/cancel_section"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:background="@color/white"
         android:gravity="center"
@@ -103,7 +93,7 @@
         style="@style/TextLabelStyle"
         shimmer:layout_constraintEnd_toEndOf="parent"
         shimmer:layout_constraintStart_toEndOf="@id/completed_view"
-        shimmer:layout_constraintTop_toBottomOf="@id/headers" />
+        shimmer:layout_constraintTop_toTopOf="parent" />
 
 
     <!--</androidx.cardview.widget.CardView>-->
@@ -112,8 +102,8 @@
         android:id="@+id/recycle_veiw"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:backgroundTint="@color/white"
         shimmer:layout_constraintBottom_toBottomOf="parent"
         shimmer:layout_constraintEnd_toEndOf="parent"

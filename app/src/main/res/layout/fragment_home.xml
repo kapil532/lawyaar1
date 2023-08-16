@@ -35,12 +35,6 @@
         </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
 
-    <include
-        android:id="@+id/headers"
-        layout="@layout/fragments_header"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_veiw"
         android:layout_width="match_parent"
@@ -49,7 +43,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headers"
-
+        app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/lawyaar_single_list" />
 </androidx.constraintlayout.widget.ConstraintLayout>

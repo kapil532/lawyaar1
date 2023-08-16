@@ -31,7 +31,7 @@ import com.lawyaar.utils.FilterOption
 import com.lawyaar.utils.TalkListner
 import javax.inject.Inject
 
-class HomeFragment : Fragment(), CellClickListener, TalkListner ,FilterOption {
+class HomeFragment : Fragment(), CellClickListener, TalkListner, FilterOption {
 
     private var layoutManager: RecyclerView.LayoutManager? = null
     private lateinit var adapter: LawyaarAdapter
@@ -40,6 +40,7 @@ class HomeFragment : Fragment(), CellClickListener, TalkListner ,FilterOption {
     @Inject
     lateinit var lawyerSearchFactoyModel: LawyerSearchFactoyModel
     lateinit var shimmer_view_container: ShimmerFrameLayout
+    private var lawyerMasterList = ArrayList<LawyerSearchModelItem>()
 
 
     @SuppressLint("FragmentLiveDataObserve")
@@ -50,25 +51,24 @@ class HomeFragment : Fragment(), CellClickListener, TalkListner ,FilterOption {
     ): View {
 
         val veiw = inflater.inflate(R.layout.fragment_home, container, false)
-        var recycle_veiw = veiw.findViewById<RecyclerView>(R.id.recycle_veiw)
-        shimmer_view_container = veiw.findViewById<ShimmerFrameLayout>(R.id.shimmer_view_container)
+        val recycle_veiw = veiw.findViewById<RecyclerView>(R.id.recycle_veiw)
+        shimmer_view_container = veiw.findViewById(R.id.shimmer_view_container)
         recycle_veiw.layoutManager = LinearLayoutManager(activity)
         adapter = LawyaarAdapter()
         recycle_veiw.adapter = adapter
         initNetwork()
         adapter.setUplistner(this, this)
-        HomeScreenActivity.filterOption =this
+        HomeScreenActivity.filterOption = this
         return veiw
     }
 
-    var tokenValue =""
+    var tokenValue = ""
+
     @SuppressLint("FragmentLiveDataObserve", "SuspiciousIndentation")
     fun initNetwork() {
-
-
         val sharedPreferences: SharedPreferences =
             activity?.application!!.getSharedPreferences("token_auth", Context.MODE_PRIVATE)
-         tokenValue = sharedPreferences.getString("token_val", " ").toString()
+        tokenValue = sharedPreferences.getString("token_val", " ").toString()
 
         (activity?.application as LawyaarApplication).applicationComponent.inject(homeFragment = this)
         lawyerSearchViewModel =
@@ -102,29 +102,32 @@ class HomeFragment : Fragment(), CellClickListener, TalkListner ,FilterOption {
         actualPriceRange.add(1500)
 
 
-        var postFilter = PostDataFilter(actualPriceRange,caseCategories,languages,lawyerCategories,locations,offerPriceRange)
+        val postFilter = PostDataFilter(
+            actualPriceRange,
+            caseCategories,
+            languages,
+            lawyerCategories,
+            locations,
+            offerPriceRange
+        )
 
-        if (tokenValue != null)
-        {
-            Log.d("NOFOUND","NO LAWWAY -- > "+tokenValue)
-            lawyerSearchViewModel.lawyerSearchByFilter(
-                tokenValue,
-                "language,category,locations",
-                postFilter
-            )
-        }
-        lawyerSearchViewModel.searchLawyerLiveData.observe(this, Observer<LawyerSearchModel>
-        {
+        Log.d("NOFOUND", "NO LAWWAY -- > $tokenValue")
+        lawyerSearchViewModel.lawyerSearchByFilter(
+            tokenValue,
+            "language,category,locations",
+            postFilter
+        )
+        lawyerSearchViewModel.searchLawyerLiveData.observe(this) {
             if (it != null) {
                 shimmer_view_container.hideShimmer()
                 shimmer_view_container.visibility = View.GONE
-                adapter.setUpdateData(it)
-                Log.d("NOFOUND","NO LAWWAY"+it)
+                lawyerMasterList = it
+                adapter.setUpdateData(lawyerMasterList)
+                Log.d("NOFOUND", "NO LAWWAY" + it)
+            } else {
+                Log.d("NOFOUND", "NO LAWWAY")
             }
-            else{
-                Log.d("NOFOUND","NO LAWWAY")
-            }
-        })
+        }
 
 
         // homeViewModel.quotes.observe(this, Observer<QuoteList> {
@@ -138,51 +141,40 @@ class HomeFragment : Fragment(), CellClickListener, TalkListner ,FilterOption {
     }
 
 
-    override fun onCellClickListener(lawyerDetails : LawyerSearchModelItem) {
+    override fun onCellClickListener(lawyerDetails: LawyerSearchModelItem) {
         //startActivity(Intent(context, LawyaarDetailsActivity::class.java))
         val intent = Intent(context, LawyaarDetailsActivity::class.java)
-       // intent.putExtra("userId" , lawyerDetails)
+        // intent.putExtra("userId" , lawyerDetails)
         startActivity(intent)
     }
 
-    override fun onTalkClickListner(userId :String) {
+    override fun onTalkClickListner(userId: String) {
         // initPayment(""+10)
 
         val intent = Intent(context, BookingSlotActivity::class.java)
-        intent.putExtra("userId" , userId)
+        intent.putExtra("userId", userId)
         startActivity(intent)
-      //  startActivity(Intent(activity, BookingSlotActivity::class.java))
+        //  startActivity(Intent(activity, BookingSlotActivity::class.java))
 
     }
 
-    override fun updateLawyaarDetails(postDataFilter: PostDataFilter)
-    {
-
-        if (tokenValue != null)
-        {
-            Log.d("NOFOUND","NO LAWWAY -- > "+tokenValue)
-            lawyerSearchViewModel.lawyerSearchByFilter(
-                tokenValue,
-                "language,category,locations",
-                postDataFilter
-            )
-        }
-        lawyerSearchViewModel.searchLawyerLiveData.observe(this, Observer<LawyerSearchModel>
-        {
+    override fun updateLawyaarDetails(postDataFilter: PostDataFilter) {
+        lawyerSearchViewModel.lawyerSearchByFilter(
+            tokenValue,
+            "language,category,locations",
+            postDataFilter
+        )
+        lawyerSearchViewModel.searchLawyerLiveData.observe(this) {
             if (it != null) {
                 shimmer_view_container.hideShimmer()
                 shimmer_view_container.visibility = View.GONE
-
-                Log.d("LAWYER DETAILS ","DETAILS-> "+it)
-                adapter.setUpdateData(it)
-
+                lawyerMasterList = it
+                adapter.setUpdateData(lawyerMasterList)
             }
-            else{
-                Log.d("NOFOUND","NO LAWWAY")
-            }
-        })
-
+        }
     }
 
-
+    override fun localSearch(searchText: CharSequence?) {
+       adapter.localSearchData(searchText, lawyerMasterList)
+    }
 }

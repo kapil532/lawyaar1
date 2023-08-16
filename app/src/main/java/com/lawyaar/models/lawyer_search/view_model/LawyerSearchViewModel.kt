@@ -11,9 +11,6 @@ import kotlinx.coroutines.launch
 
 class LawyerSearchViewModel constructor(private val repostry: MainRepostry) :
     ViewModel() {
-
-
-
         fun lawyerSearchByFilter(token: String, children: String, postFilter: PostDataFilter) {
             viewModelScope.launch(Dispatchers.IO) {
                 repostry.getLawyersSearch(token, children, postFilter)

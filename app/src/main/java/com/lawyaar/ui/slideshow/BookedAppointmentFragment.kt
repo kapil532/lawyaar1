@@ -67,8 +67,6 @@ class BookedAppointmentFragment : Fragment(), BookedSessionCallBack, Appointment
         recycleView.layoutManager = LinearLayoutManager(activity)
         initIds(view)
         setUpcomingAppointmentByDefault(view, recycleView)
-        val txtHeader = view.findViewById<TextView>(R.id.txt_header)
-        txtHeader.text = getString(R.string.header_appointment)
         onUpcomingAppointment(view, recycleView)
         onCompletedAppointment(view, recycleView)
         onCancelAppointment(view, recycleView)
