@@ -23,6 +23,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -51,7 +52,9 @@ import com.lawyaar.models.token_update.token_view_model.TokenFactoryModel
 import com.lawyaar.models.token_update.token_view_model.TokenViewModel
 import com.lawyaar.preference.ModelPreferencesManager
 import com.lawyaar.ui.home.HomeFragment
+import com.lawyaar.ui.home.LawyersFragment
 import com.lawyaar.ui.profile.UpdateProfileActivity
+import com.lawyaar.ui.settings.SettingFragment
 import com.lawyaar.ui.slideshow.BookedAppointmentFragment
 import com.lawyaar.utils.FilterOption
 
@@ -86,28 +89,46 @@ class HomeScreenActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
 
         val homeFragment = HomeFragment()
         val appointmentFragment = BookedAppointmentFragment()
+        val lawyersFragment = LawyersFragment()
+        val settingFragment = SettingFragment()
 
         setCurrentFragment(homeFragment)
 
         binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.bottom_nav_home -> {
+                    binding.headers.headerMain.setBackgroundColor(ContextCompat.getColor(this, R.color.backgorund_col))
                     binding.headers.txtHeader.text = getString(R.string.menu_home)
+                    binding.headers.txtHeader.setTextColor(ContextCompat.getColor(this, R.color.black))
                     binding.edtSearchInclude.searchMain.visibility = View.VISIBLE
                     setCurrentFragment(homeFragment)
                 }
                 R.id.bottom_nav_appointment -> {
+                    binding.headers.headerMain.setBackgroundColor(ContextCompat.getColor(this, R.color.backgorund_col))
                     binding.headers.txtHeader.text = getString(R.string.header_appointment)
+                    binding.headers.txtHeader.setTextColor(ContextCompat.getColor(this, R.color.black))
                     binding.edtSearchInclude.searchMain.visibility = View.GONE
                     setCurrentFragment(appointmentFragment)
                 }
+                R.id.bottom_nav_lawyer -> {
+                    binding.headers.headerMain.setBackgroundColor(ContextCompat.getColor(this, R.color.backgorund_col))
+                    binding.headers.txtHeader.text = getString(R.string.menu_lawyaar)
+                    binding.headers.txtHeader.setTextColor(ContextCompat.getColor(this, R.color.black))
+                    binding.edtSearchInclude.searchMain.visibility = View.VISIBLE
+                    setCurrentFragment(lawyersFragment)
+                }
                 R.id.bottom_nav_profile -> {
-                    startActivity(
-                        Intent(
-                            this@HomeScreenActivity,
-                            UpdateProfileActivity::class.java
-                        )
-                    )
+                    binding.headers.headerMain.setBackgroundColor(ContextCompat.getColor(this, R.color.blue))
+                    binding.headers.txtHeader.text = getString(R.string.action_settings)
+                    binding.headers.txtHeader.setTextColor(ContextCompat.getColor(this, R.color.white))
+                    binding.edtSearchInclude.searchMain.visibility = View.GONE
+                    setCurrentFragment(settingFragment)
+//                    startActivity(
+//                        Intent(
+//                            this@HomeScreenActivity,
+//                            UpdateProfileActivity::class.java
+//                        )
+//                    )
                 }
             }
             true

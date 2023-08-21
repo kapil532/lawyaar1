@@ -5,64 +5,59 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.lawyaar.R
 import com.lawyaar.utils.TalkListner
 
-class SettingAdapter : RecyclerView.Adapter<SettingAdapter.ViewHolder>()
-{
+class SettingAdapter : RecyclerView.Adapter<SettingAdapter.ViewHolder>() {
 
-    val arrtime = arrayOf(
-    R.drawable.user, R.drawable.messenger, R.drawable.privacy, R.drawable.faq, R.drawable.lang, R.drawable.rate_us, R.drawable.user
+    private val settingIcons = arrayOf(
+        R.drawable.user,
+        R.drawable.messenger,
+        R.drawable.privacy,
+        R.drawable.faq,
+        R.drawable.lang,
+        R.drawable.rate_us,
+        R.drawable.user
+    )
 
-        )
-    class ViewHolder(view : View) :RecyclerView.ViewHolder(view)
-    {
-        val single_loc_lan_title : TextView
-        val left_icon : ImageView
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val itemsName: TextView
+        val itemIcon: ImageView
+
         init {
-            single_loc_lan_title   = view.findViewById(R.id.date_slots_text)
-            left_icon   = view.findViewById(R.id.left_icon)
+            itemsName = view.findViewById(R.id.txt_items_name)
+            itemIcon = view.findViewById(R.id.item_icon)
         }
-
-
     }
 
     var dataSet = arrayOf("")
-
     fun setUpdateData(dataSet: Array<String>) {
         this.dataSet = dataSet
         notifyDataSetChanged()
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.single_row_setting, parent, false)
-        return SettingAdapter.ViewHolder(view)
+            .inflate(R.layout.setting_list_items, parent, false)
+        return ViewHolder(view)
     }
-    private lateinit var talkListner: TalkListner
 
-    fun setUplistner( talkListner: TalkListner)
-    {
-        this.talkListner= talkListner
+    private lateinit var talkListener: TalkListner
 
+    fun setUplistner(talkListener: TalkListner) {
+        this.talkListener = talkListener
     }
+
     override fun getItemCount(): Int {
-     return dataSet.size
+        return dataSet.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.single_loc_lan_title.text = dataSet[position]
-        holder.left_icon.setImageResource(arrtime[position])
-        holder.itemView.setOnClickListener({
-            if(talkListner != null)
-            {
-                talkListner.onTalkClickListner(dataSet[position])
-            }
-        })
+        holder.itemsName.text = dataSet[position]
+        holder.itemIcon.setImageResource(settingIcons[position])
+        holder.itemView.setOnClickListener {
+            talkListener.onTalkClickListner(dataSet[position])
+        }
     }
-
-
 }

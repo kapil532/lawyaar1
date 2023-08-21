@@ -43,6 +43,6 @@
     <string name="accessibility_header_back_icon">Screen Back Arrow</string>
 
     <string name="appointment_called">Cancelled</string>
-
+    <string name="setting_item_accessibility">Item Icon</string>
 
 </resources>

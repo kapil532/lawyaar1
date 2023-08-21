@@ -4,6 +4,7 @@ import com.lawyaar.HomeScreenActivity
 import com.lawyaar.ui.auth.OTPActivity
 import com.lawyaar.ui.book_slots.BookingSlotActivity
 import com.lawyaar.ui.home.HomeFragment
+import com.lawyaar.ui.home.LawyersFragment
 import com.lawyaar.ui.lawyaardetails.LawyaarDetailsActivity
 import com.lawyaar.ui.payment_screen.PaymentActivity
 import com.lawyaar.ui.profile.UpdateProfileActivity
@@ -33,4 +34,5 @@ interface ApplicationComponent
   fun inject(bookedAppointmentFragment: BookedAppointmentFragment)
   fun inject(paymentActivity: PaymentActivity)
 
+  fun inject(lawyersFragment: LawyersFragment)
 }

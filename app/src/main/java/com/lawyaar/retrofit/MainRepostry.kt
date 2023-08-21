@@ -117,7 +117,7 @@ class MainRepostry @Inject constructor(private val lawyaarApi: LawyaarApi) {
 
     suspend fun getLawyersSearch(token: String, children: String, postFilter: PostDataFilter) {
         val result = lawyaarApi.getLawyersBySearch(token, children, postFilter)
-        if (result?.body() != null) {
+        if (result.body() != null) {
             layersBySearchLiveData.postValue(result.body())
         }
     }

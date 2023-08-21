@@ -5,22 +5,22 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.lawyaar.HomeScreenActivity
 import com.lawyaar.R
-import com.lawyaar.adapters.LawyaarAdapter
+import com.lawyaar.adapters.HomeAdapter
 import com.lawyaar.application.LawyaarApplication
+import com.lawyaar.core.constants.FILTER_TYPES
+import com.lawyaar.core.constants.SHARED_PREF_AUTH_TOKEN
+import com.lawyaar.core.constants.SHARED_PREF_AUTH_TOKEN_VALUE
 import com.lawyaar.models.lawyer_search.post_data.PostDataFilter
-import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModel
 import com.lawyaar.models.lawyer_search.post_details.LawyerSearchModelItem
 import com.lawyaar.models.lawyer_search.view_model.LawyerSearchFactoyModel
 import com.lawyaar.models.lawyer_search.view_model.LawyerSearchViewModel
@@ -34,7 +34,7 @@ import javax.inject.Inject
 class HomeFragment : Fragment(), CellClickListener, TalkListner, FilterOption {
 
     private var layoutManager: RecyclerView.LayoutManager? = null
-    private lateinit var adapter: LawyaarAdapter
+    private lateinit var adapter: HomeAdapter
     lateinit var lawyerSearchViewModel: LawyerSearchViewModel
 
     @Inject
@@ -54,7 +54,7 @@ class HomeFragment : Fragment(), CellClickListener, TalkListner, FilterOption {
         val recycle_veiw = veiw.findViewById<RecyclerView>(R.id.recycle_veiw)
         shimmer_view_container = veiw.findViewById(R.id.shimmer_view_container)
         recycle_veiw.layoutManager = LinearLayoutManager(activity)
-        adapter = LawyaarAdapter()
+        adapter = HomeAdapter()
         recycle_veiw.adapter = adapter
         initNetwork()
         adapter.setUplistner(this, this)
@@ -67,8 +67,8 @@ class HomeFragment : Fragment(), CellClickListener, TalkListner, FilterOption {
     @SuppressLint("FragmentLiveDataObserve", "SuspiciousIndentation")
     fun initNetwork() {
         val sharedPreferences: SharedPreferences =
-            activity?.application!!.getSharedPreferences("token_auth", Context.MODE_PRIVATE)
-        tokenValue = sharedPreferences.getString("token_val", " ").toString()
+            activity?.application!!.getSharedPreferences(SHARED_PREF_AUTH_TOKEN, Context.MODE_PRIVATE)
+        tokenValue = sharedPreferences.getString(SHARED_PREF_AUTH_TOKEN_VALUE, " ").toString()
 
         (activity?.application as LawyaarApplication).applicationComponent.inject(homeFragment = this)
         lawyerSearchViewModel =
@@ -111,10 +111,9 @@ class HomeFragment : Fragment(), CellClickListener, TalkListner, FilterOption {
             offerPriceRange
         )
 
-        Log.d("NOFOUND", "NO LAWWAY -- > $tokenValue")
         lawyerSearchViewModel.lawyerSearchByFilter(
             tokenValue,
-            "language,category,locations",
+            FILTER_TYPES,
             postFilter
         )
         lawyerSearchViewModel.searchLawyerLiveData.observe(this) {
@@ -123,21 +122,8 @@ class HomeFragment : Fragment(), CellClickListener, TalkListner, FilterOption {
                 shimmer_view_container.visibility = View.GONE
                 lawyerMasterList = it
                 adapter.setUpdateData(lawyerMasterList)
-                Log.d("NOFOUND", "NO LAWWAY" + it)
-            } else {
-                Log.d("NOFOUND", "NO LAWWAY")
             }
         }
-
-
-        // homeViewModel.quotes.observe(this, Observer<QuoteList> {
-        //   if (it != null) {
-        //    shimmer_view_container.hideShimmer()
-        //    shimmer_view_container.visibility = View.GONE
-        //    adapter.setUpdateData(it.results)
-        //  }
-        //   })
-
     }
 
 

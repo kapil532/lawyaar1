@@ -26,5 +26,6 @@
     <color name="mint_cream">#F5FFFA</color>
     <color name="cancelled_bg">#d3d3d3</color>
     <color name="completed_bg">#1da94f</color>
+    <color name="silver">#C0C0C0</color>
 
 </resources>

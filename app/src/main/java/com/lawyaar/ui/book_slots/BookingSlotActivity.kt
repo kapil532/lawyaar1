@@ -21,7 +21,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lawyaar.R
 import com.lawyaar.adapters.LanguageAdaptor
-import com.lawyaar.adapters.LawyaarAdapter
 import com.lawyaar.application.LawyaarApplication
 import com.lawyaar.models.book_session.BookSessionPojo
 import com.lawyaar.models.book_session.view_model.BookingSessionFactoryModel
@@ -30,7 +29,6 @@ import com.lawyaar.models.session.SessionAvailability
 import com.lawyaar.models.session.session_view_model.SessionFactoryModel
 import com.lawyaar.models.session.session_view_model.SessionViewModel
 import com.lawyaar.ui.base_screen.BaseActivity
-import com.lawyaar.ui.book_slots.adaptors.BookingDateAdaptar
 import com.lawyaar.ui.book_slots.adaptors.BookingTimeAdaper
 import com.lawyaar.ui.success_screen.SuccessActivity
 import java.time.LocalDate

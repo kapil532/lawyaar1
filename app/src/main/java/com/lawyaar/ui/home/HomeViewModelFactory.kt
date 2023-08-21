@@ -10,7 +10,4 @@ class HomeViewModelFactory @Inject constructor(private  val repostry: MainRepost
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return HomeViewModel(repostry) as T
     }
-
-
-
 }

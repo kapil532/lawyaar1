@@ -14,3 +14,5 @@ const val COMPLETED = "COMPLETED"
 const val SHARED_PREF_AUTH_TOKEN = "token_auth"
 const val SHARED_PREF_AUTH_TOKEN_VALUE = "token_val"
 const val SHARED_PREF_USER_ID = "user_id"
+
+const val FILTER_TYPES = "language,category,locations"

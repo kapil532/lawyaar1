@@ -15,7 +15,7 @@ import com.lawyaar.preference.ModelPreferencesManager
 import com.lawyaar.utils.CellClickListener
 import com.lawyaar.utils.TalkListner
 
-class LawyaarAdapter() : RecyclerView.Adapter<LawyaarAdapter.MyVeiwHolder>() {
+class HomeAdapter : RecyclerView.Adapter<HomeAdapter.MyVeiwHolder>() {
     class MyVeiwHolder(itemVeiw: View) : RecyclerView.ViewHolder(itemVeiw) {
         val lawyaarname: TextView = itemVeiw.findViewById(R.id.lawyaar_name)
         val lawyaar_exper: TextView = itemVeiw.findViewById(R.id.lawyaar_exper)
